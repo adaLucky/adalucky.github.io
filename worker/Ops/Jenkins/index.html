@@ -1,0 +1,1561 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Jenkins | Ada</title><meta name="keywords" content="jenkins"><meta name="author" content="Ada"><meta name="copyright" content="Ada"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Jenkins"><meta name="application-name" content="Jenkins"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Jenkins"><meta property="og:url" content="https://adalucky.github.io/worker/Ops/Jenkins/index.html"><meta property="og:site_name" content="Ada"><meta property="og:description" content="简介Jenkins是一个开源软件项目，是基于Java开发的一种持续集成工具，用于监控持续重复的工作，旨在提供一个开放易用的软件平台，使软件项目可以进行持续集成，本文将记录在 Linux环境下安装及配置 Jenkins   参考资料Jenkins 下载地址 简介及搭建简介Jenkins是一个用Java"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/auto/jenkins.jpg"><meta property="article:author" content="Ada"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/auto/jenkins.jpg"><link rel="shortcut icon" href="https://image.3001.net/images/20210606/16229390604952.png"><link rel="canonical" href="https://adalucky.github.io/worker/Ops/Jenkins/"><link rel="preconnect" href="//npm.elemecdn.com"/><link rel="preconnect" href="//npm.onmicrosoft.cn"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: false,
+  mainTone: {"mode":"both","api":"https://img2color-go.vercel.app/api?img=","cover_change":true},
+  authorStatus: undefined,
+  algolia: {"appId":"Y7A93ZJERO","apiKey":"c032c0266df92b8e1e7f23f484b1992a","indexName":"hexo","hits":{"per_page":6},"languages":{"input_placeholder":"键入后按下回车搜索！","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#3b70fc","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Jenkins',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-09-15 12:42:30',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assets/css/webpushr.css?1"><meta name="generator" content="Hexo 6.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://image.3001.net/images/20210606/16229390604952.png"/><div class="loading-image-dot"></div><div id="loading-percentage">0%</div></div></div><script>if (GLOBAL_CONFIG.preloader.source == "2" || GLOBAL_CONFIG.preloader.source == "3") {
+  const loadingPercentage = document.getElementById("loading-percentage");
+  let loadingPercentageTimer = setInterval(function() {
+    var progressBar = document.querySelector(".pace-progress");
+    if (!progressBar) return
+    var currentValue = progressBar.getAttribute("data-progress-text");
+    if (currentValue !== loadingPercentage.textContent) {
+      loadingPercentage.textContent = currentValue;
+      if (currentValue === "100%") {
+        clearInterval(loadingPercentageTimer);
+      }
+    }
+  }, 100);
+}
+
+const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div id="web_box"><div id="web_container"><div id="menu-mask"></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://adalucky.github.io/" title="博客" target="_blank"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="https://gitee.com/automatex/automate/" title="测试平台" target="_blank"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="测试平台"/><span class="back-menu-item-text">测试平台</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">Ada</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><span> 总览</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><span> 分类</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><span> 标签</span></a></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png" target="_blank"><img class="post-qr-code-img" alt="wechat" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png" target="_blank"><img class="post-qr-code-img" alt="alipay" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> <span>最新评论</span></span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/Appium/" style="font-size: 1.05rem;">Appium<sup>1</sup></a><a href="/tags/Axios/" style="font-size: 1.05rem;">Axios<sup>1</sup></a><a href="/tags/Centos/" style="font-size: 1.05rem;">Centos<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 1.05rem;">Docker<sup>2</sup></a><a href="/tags/ES6/" style="font-size: 1.05rem;">ES6<sup>1</sup></a><a href="/tags/Fiddler/" style="font-size: 1.05rem;">Fiddler<sup>1</sup></a><a href="/tags/Gradle/" style="font-size: 1.05rem;">Gradle<sup>1</sup></a><a href="/tags/Hexo/" style="font-size: 1.05rem;">Hexo<sup>2</sup></a><a href="/tags/JDK17/" style="font-size: 1.05rem;">JDK17<sup>1</sup></a><a href="/tags/Java/" style="font-size: 1.05rem;">Java<sup>3</sup></a><a href="/tags/Kafka/" style="font-size: 1.05rem;">Kafka<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>1</sup></a><a href="/tags/MQ/" style="font-size: 1.05rem;">MQ<sup>1</sup></a><a href="/tags/MongoDB/" style="font-size: 1.05rem;">MongoDB<sup>1</sup></a><a href="/tags/NPM/" style="font-size: 1.05rem;">NPM<sup>1</sup></a><a href="/tags/NeoVim/" style="font-size: 1.05rem;">NeoVim<sup>1</sup></a><a href="/tags/Nginx/" style="font-size: 1.05rem;">Nginx<sup>2</sup></a><a href="/tags/OSS/" style="font-size: 1.05rem;">OSS<sup>1</sup></a><a href="/tags/Obsidian/" style="font-size: 1.05rem;">Obsidian<sup>1</sup></a><a href="/tags/SpringBoot/" style="font-size: 1.05rem;">SpringBoot<sup>3</sup></a><a href="/tags/TS/" style="font-size: 1.05rem;">TS<sup>3</sup></a><a href="/tags/Tmux/" style="font-size: 1.05rem;">Tmux<sup>1</sup></a><a href="/tags/Vite/" style="font-size: 1.05rem;">Vite<sup>1</sup></a><a href="/tags/Vue3/" style="font-size: 1.05rem;">Vue3<sup>1</sup></a><a href="/tags/Webpack/" style="font-size: 1.05rem;">Webpack<sup>1</sup></a><a href="/tags/Yarn/" style="font-size: 1.05rem;">Yarn<sup>1</sup></a><a href="/tags/asdf/" style="font-size: 1.05rem;">asdf<sup>1</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/docker/" style="font-size: 1.05rem;">docker<sup>1</sup></a><a href="/tags/docker-compose/" style="font-size: 1.05rem;">docker-compose<sup>1</sup></a><a href="/tags/eslint/" style="font-size: 1.05rem;">eslint<sup>1</sup></a><a href="/tags/html/" style="font-size: 1.05rem;">html<sup>1</sup></a><a href="/tags/jenkins/" style="font-size: 1.05rem;">jenkins<sup>1</sup></a><a href="/tags/pinia/" style="font-size: 1.05rem;">pinia<sup>1</sup></a><a href="/tags/setting/" style="font-size: 1.05rem;">setting<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/" style="font-size: 1.05rem;">前端基础<sup>6</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.05rem;">数据库<sup>1</sup></a><a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 1.05rem;">消息队列<sup>1</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 1.05rem;">环境管理<sup>1</sup></a><a href="/tags/%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B/" style="font-size: 1.05rem;">非关系型<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/06/"><span class="card-archive-list-date">六月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/08/"><span class="card-archive-list-date">八月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/06/"><span class="card-archive-list-date">六月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">五月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/04/"><span class="card-archive-list-date">四月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" onclick="anzhiyu.switchDarkMode()" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item on" id="consoleCommentBarrage" onclick="anzhiyu.switchCommentBarrage()" title="热评开关"><a class="commentBarrage"><i class="anzhiyufont anzhiyu-icon-message"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/Ops/">Ops</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/jenkins/" tabindex="-1"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>jenkins</span></a></span></div></div><h1 class="post-title">Jenkins</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-18T04:21:00.000Z" title="发表于 2022-02-18 12:21:00">2022-02-18</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-09-15T04:42:30.131Z" title="更新于 2023-09-15 12:42:30">2023-09-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">2.9k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="Jenkins"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为成都"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>成都</span><span class="post-meta-separator"></span><span class="post-meta-commentcount"><i class="anzhiyufont anzhiyu-icon-comments post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/worker/Ops/Jenkins/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/worker/Ops/Jenkins/" itemprop="commentCount"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></a></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/auto/jenkins.jpg"></div></header><main class="layout" id="content-inner"><div id="post"><div class="post-ai-description"><div class="ai-title"><i class="anzhiyufont anzhiyu-icon-bilibili"></i><div class="ai-title-text">AI-摘要</div><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right"></i><div id="ai-tag">Tianli GPT</div></div><div class="ai-explanation">AI初始化中...</div><div class="ai-btn-box"><div class="ai-btn-item">介绍自己</div><div class="ai-btn-item">生成本文简介</div><div class="ai-btn-item">推荐相关文章</div><div class="ai-btn-item">前往主页</div><div class="ai-btn-item" id="go-tianli-blog">前往tianli博客</div></div><script data-pjax>(function(){
+  // 当前随机到的ai摘要到index
+  let lastAiRandomIndex = -1;
+  let animationRunning = true; // 标志变量，控制动画函数的运行
+  // 当前gpt模式
+  let mode = "tianli"
+  // 刷新点击次数
+  let refreshNum = 0
+  // 记录上一次传递给aiAbstract的参数
+  let prevParam;
+  const aiTitleRefreshIcon = document.querySelector(".ai-title .anzhiyufont.anzhiyu-icon-arrow-rotate-right")
+  const explanation = document.querySelector(".ai-explanation");
+  const post_ai = document.querySelector(".post-ai-description");
+  let ai_str = "";
+  let ai_str_length = "";
+  let delay_init = 600;
+  let i = 0;
+  let j = 0;
+  let sto = [];
+  let elapsed = 0;
+  const animate = timestamp => {
+    if (!animationRunning) {
+      return; // 动画函数停止运行
+    }
+    if (!animate.start) animate.start = timestamp;
+    elapsed = timestamp - animate.start;
+    if (elapsed >= 20) {
+      animate.start = timestamp;
+      if (i < ai_str_length - 1) {
+        let char = ai_str.charAt(i + 1);
+        let delay = /[,.，。!?！？]/.test(char) ? 150 : 20;
+        if (explanation.firstElementChild) {
+          explanation.removeChild(explanation.firstElementChild);
+        }
+        explanation.innerHTML += char;
+        let div = document.createElement("div");
+        div.className = "ai-cursor";
+        explanation.appendChild(div);
+        i++;
+        if (delay === 150) {
+          document.querySelector(".ai-explanation .ai-cursor").style.opacity = "0";
+        }
+        if (i === ai_str_length - 1) {
+          observer.disconnect(); // 暂停监听
+          explanation.removeChild(explanation.firstElementChild);
+        }
+        sto[0] = setTimeout(() => {
+          requestAnimationFrame(animate);
+        }, delay);
+      }
+    } else {
+      requestAnimationFrame(animate);
+    }
+  };
+  const observer = new IntersectionObserver(
+    entries => {
+      let isVisible = entries[0].isIntersecting;
+      animationRunning = isVisible; // 标志变量更新
+      if (animationRunning) {
+        delay_init = i === 0 ? 200 : 20;
+        sto[1] = setTimeout(() => {
+          if (j) {
+            i = 0;
+            j = 0;
+          }
+          if (i === 0) {
+            explanation.innerHTML = ai_str.charAt(0);
+          }
+          requestAnimationFrame(animate);
+        }, delay_init);
+      }
+    },
+    { threshold: 0 }
+  );
+  function clearSTO() {
+    if (sto.length) {
+      sto.forEach(item => {
+        if (item) {
+          clearTimeout(item);
+        }
+      });
+    }
+  }
+  function startAI(str, df = true) {
+    i = 0; //重置计数器
+    j = 1;
+    clearSTO();
+    animationRunning = false;
+    elapsed = 0;
+    observer.disconnect(); // 暂停上一次监听
+    explanation.innerHTML = df ? "生成中. . ." : "请等待. . .";
+    ai_str = str;
+    ai_str_length = ai_str.length;
+    observer.observe(post_ai); //启动新监听
+  }
+
+  async function aiAbstract(num = 1000) {
+    i = 0; //重置计数器
+    j = 1;
+    clearSTO();
+    animationRunning = false;
+    elapsed = 0;
+    observer.disconnect(); // 暂停上一次监听
+    if (mode === "tianli") {
+      num = Math.max(10, Math.min(2000, num));
+      const options = {
+        key: "4e3ea06311f19e3442c0",
+        Referer: "https://adalucky.github.io/"
+      };
+      const truncateDescription = ("Jenkins" + "简介, 参考资料, 简介及搭建, 简介, 目的, 环境配置, 环境说明, 安装JDK1.8+, 下载, 上传至服务器, 方式一, 方式二, 解压, 配置环境变量, 启动 Jenkins, 方式一, 方式二, 访问 Jenkins, 解锁登录, 升级站点, 全局环境配置, 安装插件, 新建项目及配置, 新增项目, 源码管理, Build配置, 构建触发器, 邮件配置, 获取smtp服务密码步骤, 邮件信息配置, 构建后操作, 报告模板, 扩展, 公司网络匿名访问, 开启匿名访问权限, 服务器安全组配置, Linux开机自启Jenkins简介是一个开源软件项目是基于开发的一种持续集成工具用于监控持续重复的工作旨在提供一个开放易用的软件平台使软件项目可以进行持续集成本文将记录在环境下安装及配置参考资料下载地址简介及搭建简介是一个用编写的开源的持续集成工具官方网站能实时监控持续集成过程中所存在的问题提供详细的日志文件和提醒功能还能用图表的形式形象地展示项目构建的趋势和稳定性目的自动化部署可以解决集成测试部署等重复性的工作工具集成的效率明显高于人工操作并且持续集成可以更早的获取代码变更的信息从而更早的进入测试阶段更早的发现问题这样解决问题的成本就会显著下降持续集成缩短了从开发集成测试部署各个环节的时间从而也就缩短了中间出现的等待时间持续集成也意味着开发集成测试部署得以持续环境配置环境说明腾讯云位版本版本版本版本版本版本注以上除外其它程序均安装至服务器上并配置环境变量安装下载下载地址官网需要注册登录不方便的可以自行百度下载版本不要差太多当时是运维发的一个注需要不然可能会出错上传至服务器本步骤的目的是为了把下载的包上传到服务器这里提供两种方法也可以通过自己的方法只要能传上去就行方式一通过直接拖取文件不做演示因为我没装哈哈哈方式二通过命令行方式上传文件切换目录文件上传如果提示报错或者找不到是因为没有安装输入以下命令安装安装解压本步骤的目的是将上传的的包进行解压展示当前文件夹内的文件解压文件名配置环境变量冒号保存退出冒号直接退出如果没有修改文件可以直接退出冒号强制退出不保存如果改错了可以用这个用编辑器打开文件编辑打开的文件没有就新增换成自己刚才解压后的目录让刚才修改的配置立即生效让配置立即生效查看版本启动方法一服务器安装并放置启动方法二用启动这样就不需要安装和启动了省服务器资源推荐方式一本地解压把包放到内运行目录下的处理文件这个时候系统会自己跑起来会先检测到包然后配置环境如果安装启动成功就可以了方式二前提是配置好和下载好包了启动命令访问解锁登录当我们通过或者的方式启动好后便可以开始访问及配置了如果是本地部署的访问服务器部署的访问对应第一次启动有个密码校验会在的启动日志中有自己找下以下的图是最开始学的时候截取的所以是在上的但是后面网页上的操作都是一样的所以不重新截图了端口和启动的保持一致如果点击保持并完成以后页面出现空白页需要修改的配置文件升级站点更换为全局环境配置指定我们的的绝对路径也是一样如果本地有安装就指定没有安装勾选自动安装如果没有安装可以点自动安装截图中的是针对本地已经安装了的安装插件是在是找不到截图了本步骤的目的就是需要装一些插件通过这些插件去实现一些没有的功能如果这些插件装过了就不用管安装插件因为我们要调用邮箱等等服务必须要依赖插件安装插件有可能插件安装不起来因为你的包和当前插件版本匹配可以更新为最新包新建项目及配置新增项目创建一个项目用来构建我们的工程源码管理配置我们的项目源代码的地址及账号密码信息配置构建触发器所谓的触发器就是满足什么条件去自动触发比如每天早上点开始自动去执行或者当我们自己的仓库或者开发的仓库发生了提交代码时间表达式一共个值分钟值时钟值日期月份一周中的某一天和都代表的是礼拜天每个字段的值还可以单独配置所有的值如果在分钟数就是每分钟日期值上就是每天指定一个范围区间的值如果在分钟值上就是分钟之间如果在分钟数就可以理解为分钟的时候每隔分钟如果在分钟值就是每隔分钟时钟值就是每隔小时邮件配置配置邮箱的目的是为了让我们项目构建后给我们发邮件通知我们构建成功与否发邮件需要装插件获取服务密码步骤邮箱为例进入邮箱主页点击设置找到账户页签在开启服务下面找到服务对应的开启按钮点击然后申请密保按照弹窗里的提示给腾讯发送短信你就会收到一个授权码这个就是密码记得先保存好授权码邮件信息配置配置系统管理员的邮箱发件人的邮箱收件人的邮件如果邮箱发生用问题可在构建的控制台输出中里面看日志构建后操作我们期望构建后给我们发邮件上面配置的只是发件人的现在要配置接收人的邮箱账号当时我出现过按照老师的教程配置了控制台也提示邮件发送成功但是就是收不到最后一番折腾报告模板以下为格式点击即可注意测试报告这个地方最后这个斜杠带上不然会调制登陆页面本邮件是程序自动下发的请勿回复项目名称构建编号构建状态触发原因测试报告构建日志地址构建地址构建报告变更集扩展公司网络匿名访问在我们发出的邮件中往往有很多的资源提供公司的其它人员访问例如我们配置在邮件里面的报表日志等以下内容但是访问需要对方登陆理论上来说是合理的登录校验但是有些领导他可能不需要这个账号或者只是自己在用没给别人建立账号于是我们就必须去权限控制里面开启匿名用户的权限但是这样又会存在一定的风险性于是通过访问权限控制服务器安全组策略进行控制匿名访问只是针对一部分功能的查看权限执行权限必须要登录的开启匿名访问权限首页服务器安全组配置设定只允许公司的访问上面我们已经实现了匿名用户的访问读取权限但是我们又不想完全的暴露在互联网上解决办法就是给服务器设置安全组针对这个端口只允许固定的访问这样就能保证只有你们公司的人才能看到了当然你自己回到家也看不了那么就把家里的也配置上吧我这里就以我腾讯云的服务器为例开机自启这里做的是通过方式直接启动的如果是的话原理一样的改成开机自动启动然后就相当于启动了进入后添加启动命令确保该文件有执行权限开机启动包所在位置重启服务器查看服务是否启动成功出现如下表示成功情况二如果开机启动不成功复制我们这条命令在外面任意位置看是否能启动成功如果启动成功表示命令没有问题然后检查我们格式是否有问题添加软连接的安装路径就是把里面所有的命令都添加到里面查看重启应该就能开机自动启动了").trim().substring(0, num)
+
+      const queryParams = `key=${options.key}&content=${truncateDescription}`;
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Referer: options.Referer
+        },
+      };
+      try {
+        let animationInterval = null
+        if (animationInterval) clearInterval(animationInterval);
+        animationInterval = setInterval(() => {
+          const animationText = "生成中" + ".".repeat(j);
+          explanation.innerHTML = animationText;
+          j = (j % 3) + 1; // 在 1、2、3 之间循环
+        }, 500);
+        const response = await fetch(`https://summary.tianli0.top/?${queryParams}`, requestOptions);
+        let result;
+        if (response.status === 403) {
+          result = {
+            summary: "403 refer与key不匹配，本地无法显示。"
+          }
+        } else if (response.status === 500) {
+          result = {
+            summary: "500 系统内部错误"
+          }
+        } else {
+          result = await response.json();
+        }
+        const summary = result.summary.trim();
+        setTimeout(() => {
+          aiTitleRefreshIcon.style.opacity = "1";
+        }, 300)
+        startAI(summary);
+        clearInterval(animationInterval)
+      } catch (error) {
+        console.error(error);
+        explanation.innerHTML = "发生异常" + error;
+      }
+    } else {
+      const strArr = "true".split(",").map(item => item.trim()); // 将字符串转换为数组，去除每个字符串前后的空格
+      if (strArr.length !== 1) {
+        let randomIndex = Math.floor(Math.random() * strArr.length); // 随机生成一个索引
+        while (randomIndex === lastAiRandomIndex) { // 如果随机到了上次的索引
+          randomIndex = Math.floor(Math.random() * strArr.length); // 再次随机
+        }
+        lastAiRandomIndex = randomIndex; // 更新上次随机到的索引
+        startAI(strArr[randomIndex]);
+      } else {
+        startAI(strArr[0])
+      }
+      setTimeout(() => {
+        aiTitleRefreshIcon.style.opacity = "1";
+      }, 600)
+    }
+  }
+
+  function aiRecommend() {
+    i = 0; //重置计数器
+    j = 1;
+    clearSTO();
+    animationRunning = false;
+    elapsed = 0;
+    explanation.innerHTML = "生成中. . .";
+    ai_str = "";
+    ai_str_length = "";
+    observer.disconnect(); // 暂停上一次监听
+    sto[2] = setTimeout(() => {
+      explanation.innerHTML = recommendList();
+    }, 600);
+  }
+  function aiGoHome() {
+    startAI("正在前往博客主页...", false);
+    sto[2] = setTimeout(() => {
+      pjax.loadUrl("/");
+    }, 1000);
+  }
+  const ai_btn_item = document.querySelectorAll(".ai-btn-item");
+  function Introduce() {
+    if (mode == "tianli") {
+      startAI("我是文章辅助AI: TianliGPT，点击下方的按钮，让我生成本文简介、推荐相关文章等。")
+    } else {
+      startAI("我是文章辅助AI: AnZhiYu GPT，点击下方的按钮，让我生成本文简介、推荐相关文章等。")
+    }
+  }
+  function aiTitleRefreshIconClick() {
+    aiTitleRefreshIcon.click()
+  }
+  const aiFunctions = [Introduce, aiTitleRefreshIconClick, aiRecommend, aiGoHome];
+  ai_btn_item.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      aiFunctions[index]();
+    });
+  });
+
+  function recommendList() {
+    let thumbnail = document.querySelectorAll('.relatedPosts-list a');
+    if (!thumbnail.length) {
+      const cardRecentPost = document.querySelector('.card-widget.card-recent-post'); 
+      if (!cardRecentPost) return '';
+
+      thumbnail = cardRecentPost.querySelectorAll('.aside-list-item a');
+
+      let list = '';
+      for (let i = 0; i < thumbnail.length; i++) {
+        const item = thumbnail[i];
+        list += `<div class="ai-recommend-item"><span class="index">${i + 1}：</span><a href="javascript:;" onclick="pjax.loadUrl('${item.href}')" title="${item.title}" data-pjax-state="">${item.title}</a></div>`;
+      }
+      
+      return `很抱歉，无法找到类似的文章，你也可以看看本站最新发布的文章：<br /><div class="ai-recommend">${list}</div>`;
+    }
+
+    let list = '';
+    for (let i = 0; i < thumbnail.length; i++) {
+      const item = thumbnail[i];
+      list += `<div class="ai-recommend-item"><span>推荐${i + 1}：</span><a href="javascript:;" onclick="pjax.loadUrl('${item.href}')" title="${item.title}" data-pjax-state="">${item.title}</a></div>`;
+    }
+
+    return `推荐文章：<br /><div class="ai-recommend">${list}</div>`;
+  }
+
+
+  function changeShowMode() {
+    if (mode === "tianli") {
+      mode = "local";
+      document.getElementById("ai-tag").innerHTML = "AnZhiYu GPT";
+      aiAbstract(1000);
+    } else {
+      mode = "tianli";
+      document.getElementById("ai-tag").innerHTML = "Tianli GPT";
+
+      const truncateDescription = ("" + "简介, 参考资料, 简介及搭建, 简介, 目的, 环境配置, 环境说明, 安装JDK1.8+, 下载, 上传至服务器, 方式一, 方式二, 解压, 配置环境变量, 启动 Jenkins, 方式一, 方式二, 访问 Jenkins, 解锁登录, 升级站点, 全局环境配置, 安装插件, 新建项目及配置, 新增项目, 源码管理, Build配置, 构建触发器, 邮件配置, 获取smtp服务密码步骤, 邮件信息配置, 构建后操作, 报告模板, 扩展, 公司网络匿名访问, 开启匿名访问权限, 服务器安全组配置, Linux开机自启Jenkins简介是一个开源软件项目是基于开发的一种持续集成工具用于监控持续重复的工作旨在提供一个开放易用的软件平台使软件项目可以进行持续集成本文将记录在环境下安装及配置参考资料下载地址简介及搭建简介是一个用编写的开源的持续集成工具官方网站能实时监控持续集成过程中所存在的问题提供详细的日志文件和提醒功能还能用图表的形式形象地展示项目构建的趋势和稳定性目的自动化部署可以解决集成测试部署等重复性的工作工具集成的效率明显高于人工操作并且持续集成可以更早的获取代码变更的信息从而更早的进入测试阶段更早的发现问题这样解决问题的成本就会显著下降持续集成缩短了从开发集成测试部署各个环节的时间从而也就缩短了中间出现的等待时间持续集成也意味着开发集成测试部署得以持续环境配置环境说明腾讯云位版本版本版本版本版本版本注以上除外其它程序均安装至服务器上并配置环境变量安装下载下载地址官网需要注册登录不方便的可以自行百度下载版本不要差太多当时是运维发的一个注需要不然可能会出错上传至服务器本步骤的目的是为了把下载的包上传到服务器这里提供两种方法也可以通过自己的方法只要能传上去就行方式一通过直接拖取文件不做演示因为我没装哈哈哈方式二通过命令行方式上传文件切换目录文件上传如果提示报错或者找不到是因为没有安装输入以下命令安装安装解压本步骤的目的是将上传的的包进行解压展示当前文件夹内的文件解压文件名配置环境变量冒号保存退出冒号直接退出如果没有修改文件可以直接退出冒号强制退出不保存如果改错了可以用这个用编辑器打开文件编辑打开的文件没有就新增换成自己刚才解压后的目录让刚才修改的配置立即生效让配置立即生效查看版本启动方法一服务器安装并放置启动方法二用启动这样就不需要安装和启动了省服务器资源推荐方式一本地解压把包放到内运行目录下的处理文件这个时候系统会自己跑起来会先检测到包然后配置环境如果安装启动成功就可以了方式二前提是配置好和下载好包了启动命令访问解锁登录当我们通过或者的方式启动好后便可以开始访问及配置了如果是本地部署的访问服务器部署的访问对应第一次启动有个密码校验会在的启动日志中有自己找下以下的图是最开始学的时候截取的所以是在上的但是后面网页上的操作都是一样的所以不重新截图了端口和启动的保持一致如果点击保持并完成以后页面出现空白页需要修改的配置文件升级站点更换为全局环境配置指定我们的的绝对路径也是一样如果本地有安装就指定没有安装勾选自动安装如果没有安装可以点自动安装截图中的是针对本地已经安装了的安装插件是在是找不到截图了本步骤的目的就是需要装一些插件通过这些插件去实现一些没有的功能如果这些插件装过了就不用管安装插件因为我们要调用邮箱等等服务必须要依赖插件安装插件有可能插件安装不起来因为你的包和当前插件版本匹配可以更新为最新包新建项目及配置新增项目创建一个项目用来构建我们的工程源码管理配置我们的项目源代码的地址及账号密码信息配置构建触发器所谓的触发器就是满足什么条件去自动触发比如每天早上点开始自动去执行或者当我们自己的仓库或者开发的仓库发生了提交代码时间表达式一共个值分钟值时钟值日期月份一周中的某一天和都代表的是礼拜天每个字段的值还可以单独配置所有的值如果在分钟数就是每分钟日期值上就是每天指定一个范围区间的值如果在分钟值上就是分钟之间如果在分钟数就可以理解为分钟的时候每隔分钟如果在分钟值就是每隔分钟时钟值就是每隔小时邮件配置配置邮箱的目的是为了让我们项目构建后给我们发邮件通知我们构建成功与否发邮件需要装插件获取服务密码步骤邮箱为例进入邮箱主页点击设置找到账户页签在开启服务下面找到服务对应的开启按钮点击然后申请密保按照弹窗里的提示给腾讯发送短信你就会收到一个授权码这个就是密码记得先保存好授权码邮件信息配置配置系统管理员的邮箱发件人的邮箱收件人的邮件如果邮箱发生用问题可在构建的控制台输出中里面看日志构建后操作我们期望构建后给我们发邮件上面配置的只是发件人的现在要配置接收人的邮箱账号当时我出现过按照老师的教程配置了控制台也提示邮件发送成功但是就是收不到最后一番折腾报告模板以下为格式点击即可注意测试报告这个地方最后这个斜杠带上不然会调制登陆页面本邮件是程序自动下发的请勿回复项目名称构建编号构建状态触发原因测试报告构建日志地址构建地址构建报告变更集扩展公司网络匿名访问在我们发出的邮件中往往有很多的资源提供公司的其它人员访问例如我们配置在邮件里面的报表日志等以下内容但是访问需要对方登陆理论上来说是合理的登录校验但是有些领导他可能不需要这个账号或者只是自己在用没给别人建立账号于是我们就必须去权限控制里面开启匿名用户的权限但是这样又会存在一定的风险性于是通过访问权限控制服务器安全组策略进行控制匿名访问只是针对一部分功能的查看权限执行权限必须要登录的开启匿名访问权限首页服务器安全组配置设定只允许公司的访问上面我们已经实现了匿名用户的访问读取权限但是我们又不想完全的暴露在互联网上解决办法就是给服务器设置安全组针对这个端口只允许固定的访问这样就能保证只有你们公司的人才能看到了当然你自己回到家也看不了那么就把家里的也配置上吧我这里就以我腾讯云的服务器为例开机自启这里做的是通过方式直接启动的如果是的话原理一样的改成开机自动启动然后就相当于启动了进入后添加启动命令确保该文件有执行权限开机启动包所在位置重启服务器查看服务是否启动成功出现如下表示成功情况二如果开机启动不成功复制我们这条命令在外面任意位置看是否能启动成功如果启动成功表示命令没有问题然后检查我们格式是否有问题添加软连接的安装路径就是把里面所有的命令都添加到里面查看重启应该就能开机自动启动了").trim().substring(0, 1000);
+      let value = Math.floor(Math.random() * 3) + 1000;
+      while (value === prevParam || truncateDescription.length - value === prevParam) {
+        value = Math.floor(Math.random() * 3) + 1000;
+      }
+      aiTitleRefreshIcon.style.opacity = "0.2";
+      aiTitleRefreshIcon.style.transitionDuration = "0.3s";
+      aiTitleRefreshIcon.style.transform = "rotate(" + 360 * refreshNum + "deg)";
+      if (truncateDescription.length <= 1000) {
+        let param = truncateDescription.length - Math.floor(Math.random() * 3);
+        while (param === prevParam) {
+          param = truncateDescription.length - Math.floor(Math.random() * 3);
+        }
+        aiAbstract(param);
+        prevParam = param;
+      } else {
+        aiAbstract(value);
+        prevParam = value;
+      }
+      refreshNum++;
+    }
+  }
+
+  //- 监听tag点击事件
+  document.getElementById("ai-tag").addEventListener("click", () => {
+    if (mode === "tianli") {
+      document.querySelectorAll(".ai-btn-item").forEach(item => item.style.display = "none");
+      document.getElementById("go-tianli-blog").style.display = "block";
+      startAI("你好，我是Tianli开发的摘要生成助理TianliGPT，是一个基于GPT-4的生成式AI。我在这里只负责摘要的预生成和显示，你无法与我直接沟通，如果你也需要一个这样的AI摘要接口，可以在下方购买。（暂未开放购买，敬请期待）")
+    } else {
+      document.getElementById("go-tianli-blog").style.display = "none";
+      startAI("你好，我是本站摘要生成助理AnZhiYu GPT，是一个基于GPT-4的生成式AI。我在这里只负责摘要的预生成和显示，你无法与我直接沟通。")
+    }
+
+  });
+
+  aiTitleRefreshIcon.addEventListener("click", () => {
+    const truncateDescription = ("" + "简介, 参考资料, 简介及搭建, 简介, 目的, 环境配置, 环境说明, 安装JDK1.8+, 下载, 上传至服务器, 方式一, 方式二, 解压, 配置环境变量, 启动 Jenkins, 方式一, 方式二, 访问 Jenkins, 解锁登录, 升级站点, 全局环境配置, 安装插件, 新建项目及配置, 新增项目, 源码管理, Build配置, 构建触发器, 邮件配置, 获取smtp服务密码步骤, 邮件信息配置, 构建后操作, 报告模板, 扩展, 公司网络匿名访问, 开启匿名访问权限, 服务器安全组配置, Linux开机自启Jenkins简介是一个开源软件项目是基于开发的一种持续集成工具用于监控持续重复的工作旨在提供一个开放易用的软件平台使软件项目可以进行持续集成本文将记录在环境下安装及配置参考资料下载地址简介及搭建简介是一个用编写的开源的持续集成工具官方网站能实时监控持续集成过程中所存在的问题提供详细的日志文件和提醒功能还能用图表的形式形象地展示项目构建的趋势和稳定性目的自动化部署可以解决集成测试部署等重复性的工作工具集成的效率明显高于人工操作并且持续集成可以更早的获取代码变更的信息从而更早的进入测试阶段更早的发现问题这样解决问题的成本就会显著下降持续集成缩短了从开发集成测试部署各个环节的时间从而也就缩短了中间出现的等待时间持续集成也意味着开发集成测试部署得以持续环境配置环境说明腾讯云位版本版本版本版本版本版本注以上除外其它程序均安装至服务器上并配置环境变量安装下载下载地址官网需要注册登录不方便的可以自行百度下载版本不要差太多当时是运维发的一个注需要不然可能会出错上传至服务器本步骤的目的是为了把下载的包上传到服务器这里提供两种方法也可以通过自己的方法只要能传上去就行方式一通过直接拖取文件不做演示因为我没装哈哈哈方式二通过命令行方式上传文件切换目录文件上传如果提示报错或者找不到是因为没有安装输入以下命令安装安装解压本步骤的目的是将上传的的包进行解压展示当前文件夹内的文件解压文件名配置环境变量冒号保存退出冒号直接退出如果没有修改文件可以直接退出冒号强制退出不保存如果改错了可以用这个用编辑器打开文件编辑打开的文件没有就新增换成自己刚才解压后的目录让刚才修改的配置立即生效让配置立即生效查看版本启动方法一服务器安装并放置启动方法二用启动这样就不需要安装和启动了省服务器资源推荐方式一本地解压把包放到内运行目录下的处理文件这个时候系统会自己跑起来会先检测到包然后配置环境如果安装启动成功就可以了方式二前提是配置好和下载好包了启动命令访问解锁登录当我们通过或者的方式启动好后便可以开始访问及配置了如果是本地部署的访问服务器部署的访问对应第一次启动有个密码校验会在的启动日志中有自己找下以下的图是最开始学的时候截取的所以是在上的但是后面网页上的操作都是一样的所以不重新截图了端口和启动的保持一致如果点击保持并完成以后页面出现空白页需要修改的配置文件升级站点更换为全局环境配置指定我们的的绝对路径也是一样如果本地有安装就指定没有安装勾选自动安装如果没有安装可以点自动安装截图中的是针对本地已经安装了的安装插件是在是找不到截图了本步骤的目的就是需要装一些插件通过这些插件去实现一些没有的功能如果这些插件装过了就不用管安装插件因为我们要调用邮箱等等服务必须要依赖插件安装插件有可能插件安装不起来因为你的包和当前插件版本匹配可以更新为最新包新建项目及配置新增项目创建一个项目用来构建我们的工程源码管理配置我们的项目源代码的地址及账号密码信息配置构建触发器所谓的触发器就是满足什么条件去自动触发比如每天早上点开始自动去执行或者当我们自己的仓库或者开发的仓库发生了提交代码时间表达式一共个值分钟值时钟值日期月份一周中的某一天和都代表的是礼拜天每个字段的值还可以单独配置所有的值如果在分钟数就是每分钟日期值上就是每天指定一个范围区间的值如果在分钟值上就是分钟之间如果在分钟数就可以理解为分钟的时候每隔分钟如果在分钟值就是每隔分钟时钟值就是每隔小时邮件配置配置邮箱的目的是为了让我们项目构建后给我们发邮件通知我们构建成功与否发邮件需要装插件获取服务密码步骤邮箱为例进入邮箱主页点击设置找到账户页签在开启服务下面找到服务对应的开启按钮点击然后申请密保按照弹窗里的提示给腾讯发送短信你就会收到一个授权码这个就是密码记得先保存好授权码邮件信息配置配置系统管理员的邮箱发件人的邮箱收件人的邮件如果邮箱发生用问题可在构建的控制台输出中里面看日志构建后操作我们期望构建后给我们发邮件上面配置的只是发件人的现在要配置接收人的邮箱账号当时我出现过按照老师的教程配置了控制台也提示邮件发送成功但是就是收不到最后一番折腾报告模板以下为格式点击即可注意测试报告这个地方最后这个斜杠带上不然会调制登陆页面本邮件是程序自动下发的请勿回复项目名称构建编号构建状态触发原因测试报告构建日志地址构建地址构建报告变更集扩展公司网络匿名访问在我们发出的邮件中往往有很多的资源提供公司的其它人员访问例如我们配置在邮件里面的报表日志等以下内容但是访问需要对方登陆理论上来说是合理的登录校验但是有些领导他可能不需要这个账号或者只是自己在用没给别人建立账号于是我们就必须去权限控制里面开启匿名用户的权限但是这样又会存在一定的风险性于是通过访问权限控制服务器安全组策略进行控制匿名访问只是针对一部分功能的查看权限执行权限必须要登录的开启匿名访问权限首页服务器安全组配置设定只允许公司的访问上面我们已经实现了匿名用户的访问读取权限但是我们又不想完全的暴露在互联网上解决办法就是给服务器设置安全组针对这个端口只允许固定的访问这样就能保证只有你们公司的人才能看到了当然你自己回到家也看不了那么就把家里的也配置上吧我这里就以我腾讯云的服务器为例开机自启这里做的是通过方式直接启动的如果是的话原理一样的改成开机自动启动然后就相当于启动了进入后添加启动命令确保该文件有执行权限开机启动包所在位置重启服务器查看服务是否启动成功出现如下表示成功情况二如果开机启动不成功复制我们这条命令在外面任意位置看是否能启动成功如果启动成功表示命令没有问题然后检查我们格式是否有问题添加软连接的安装路径就是把里面所有的命令都添加到里面查看重启应该就能开机自动启动了").trim().substring(0, 1000);
+    let value = Math.floor(Math.random() * 3) + 1000;
+    while (value === prevParam || truncateDescription.length - value === prevParam) {
+      value = Math.floor(Math.random() * 3) + 1000;
+    }
+    aiTitleRefreshIcon.style.opacity = "0.2";
+    aiTitleRefreshIcon.style.transitionDuration = "0.3s";
+    aiTitleRefreshIcon.style.transform = "rotate(" + 360 * refreshNum + "deg)";
+    if (truncateDescription.length <= 1000) {
+      let param = truncateDescription.length - Math.floor(Math.random() * 3);
+      while (param === prevParam) {
+        param = truncateDescription.length - Math.floor(Math.random() * 3);
+      }
+      aiAbstract(param);
+      prevParam = param;
+    } else {
+      aiAbstract(value);
+      prevParam = value;
+    }
+    showAiBtn();
+    refreshNum++;
+  });
+
+  document.getElementById("go-tianli-blog").addEventListener("click", () => {
+    window.open("https://afdian.net/item/886a79d4db6711eda42a52540025c377", "_blank");
+  });
+  
+  if (false) {
+    document.getElementById("ai-Toggle").addEventListener("click", () => {
+      changeShowMode()
+    });
+  }
+
+  function showAiBtn() {
+    document.querySelectorAll(".ai-btn-item").forEach(item => {
+      if (item.id !== "go-tianli-blog") {
+        item.style.display = "block";
+      }
+      if (item.id === "go-tianli-blog") {
+        item.style.display = "none";
+      }
+    });
+  }
+
+
+  aiAbstract();
+  showAiBtn()
+})()</script></div><article class="post-content" id="article-container"><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Jenkins是一个<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6/8105369">开源软件</a>项目，是基于<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Java/85979">Java</a>开发的一种<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/6250744">持续集成</a>工具，用于监控持续重复的工作，旨在提供一个开放易用的软件平台，使软件项目可以进行持续集成，本文将记录在 Linux环境下安装及配置 Jenkins</p>
+<span id="more"></span>
+
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://www.jenkins.io/download/" target="_blank" class="LinkCard" style='text-decoration: none;'>Jenkins 下载地址</a></p>
+<h1 id="简介及搭建"><a href="#简介及搭建" class="headerlink" title="简介及搭建"></a>简介及搭建</h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><p>Jenkins是一个用Java编写的开源的持续集成工具。官方网站：<a target="_blank" rel="noopener" href="https://jenkins.io/">https://jenkins.io/</a><br>Jenkins能实时监控持续集成过程中所存在的问题，提供详细的日志文件和提醒功能，还能用图表的形式，形象地展示项目构建的趋势和稳定性。</p>
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>Jenkins自动化部署可以解决集成、测试、部署等重复性的工作，工具集成的效率明显高于人工操作；并且持续集成可以更早的获取代码变更的信息，从而更早的进入测试阶段，更早的发现问题，这样解决问题的成本就会显著下降：持续集成缩短了从开发、集成、测试、部署各个环节的时间，从而也就缩短了中间出现的等待时间；持续集成也意味着开发、集成、测试、部署得以持续</p>
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ul>
+<li><p>腾讯云：linux centos7.6 64位</p>
+</li>
+<li><p>Jenkins版本：2.235.5</p>
+</li>
+<li><p>Email Extension Plugin版本：2.75</p>
+</li>
+<li><p>jdk版本：1.8.0_221</p>
+</li>
+<li><p>git版本：2.28.0</p>
+</li>
+<li><p>maven版本：3.6.3</p>
+</li>
+<li><p>allure版本：2.12.1</p>
+<p>注：以上除allure外其它程序均安装至linux服务器上，并配置环境变量</p>
+</li>
+</ul>
+<h2 id="安装JDK1-8"><a href="#安装JDK1-8" class="headerlink" title="安装JDK1.8+"></a>安装JDK1.8+</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">JDK 下载地址</a>  官网需要注册登录，不方便的可以自行百度下载，版本不要差太多（当时是运维发的一个 jdk-8u221-linux-x64.tar.gz）</li>
+<li>注：jdk需要1.8+ 不然Jenkins可能会出错</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902151948.png" alt="jdk下载"></p>
+<h3 id="上传至服务器"><a href="#上传至服务器" class="headerlink" title="上传至服务器"></a>上传至服务器</h3><p>本步骤的目的是为了把下载的 jdk 包上传到服务器，这里提供两种方法，也可以通过自己的方法，只要能传上去就行</p>
+<h4 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h4><ul>
+<li>通过xftp直接拖取文件（不做演示，因为我没装xftp，哈哈哈）</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902151949.png" alt="xftp上传jdk"></p>
+<h4 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h4><ul>
+<li>通过 linux 命令行方式 上传文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#cd:	切换目录</span></span><br><span class="line"><span class="comment">#rz:	文件上传（如果提示报错或者找不到是因为没有安装lrzsz输入以下命令安装）</span></span><br><span class="line"><span class="comment">#安装lrzsz</span></span><br><span class="line">yum -y install lrzsz</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902151950.png" alt="rz 命令上传文件"></p>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><ul>
+<li>本步骤的目的是将上传的 tar.gz 的包进行解压</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ls:展示当前文件夹内的文件</span></span><br><span class="line"><span class="comment">#tar -xzvf:解压文件名</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902151951.png" alt="解压jdk 包"></p>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><ul>
+<li>:wq（冒号wq）:保存退出</li>
+<li>:q(冒号q):直接退出（如果没有修改文件可以直接退出）</li>
+<li>:q!(冒号q!):强制退出不保存（如果改错了可以用这个）</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#用vim编辑器打开/etc/profile文件</span></span><br><span class="line">vim /etc/profile </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#编辑打开的文件,没有就新增 JAVA_HOME 换成自己刚才解压后的目录</span></span><br><span class="line">JAVA_HOME=/usr/local/jdk1.8.0_221  </span><br><span class="line">JAVA_BIN=<span class="variable">$JAVA_HOME</span>/bin</span><br><span class="line">JRE_HOME=<span class="variable">$JAVA_HOME</span>/jre</span><br><span class="line">JRE_BIN=<span class="variable">$JRE_HOME</span>/bin</span><br><span class="line">PATH=<span class="variable">$JAVA_BIN</span>:<span class="variable">$JRE_BIN</span>:<span class="variable">$PATH</span></span><br><span class="line">CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar:<span class="variable">$JRE_HOME</span>/lib</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME JRE_HOME PATH CLASSPATH</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20220218124941373.png" alt="配置环境变量"></p>
+<ul>
+<li>让刚才修改的配置立即生效</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让配置立即生效</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"><span class="comment">#查看java版本</span></span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902151954.png" alt="配置立即生效"></p>
+<h2 id="启动-Jenkins"><a href="#启动-Jenkins" class="headerlink" title="启动 Jenkins"></a>启动 Jenkins</h2><ul>
+<li>方法一：服务器安装tomcat,并放置Jenkins.war，启动tomcat</li>
+<li>方法二：用java启动（这样就不需要安装和启动tomcat了，省服务器资源 <code>推荐</code>)</li>
+</ul>
+<h3 id="方式一-1"><a href="#方式一-1" class="headerlink" title="方式一"></a>方式一</h3><ul>
+<li>本地解压tomcat，把war包放到webapps内，运行bin目录下的.bat处理文件，这个时候DOS系统会自己跑起来，会先检测到war包，然后配置环境，如果安装启动成功就可以了</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152623.png" alt="tomacat 启动 jenkins"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152624.png" alt="Jenkins 解锁密码路径"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152625.png" alt="启动成功提示"></p>
+<h3 id="方式二-1"><a href="#方式二-1" class="headerlink" title="方式二"></a>方式二</h3><ul>
+<li>前提是配置好 java 和下载好 jenkins.war 包了</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># oohup启动命令</span></span><br><span class="line"><span class="built_in">nohup</span> java -jar -Xms512m -Xmx1g -Xmn512m jenkins.war --httpPort=9000 &amp;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200909175325.png" alt="nohup 后台启动 jenkins"></p>
+<h1 id="访问-Jenkins"><a href="#访问-Jenkins" class="headerlink" title="访问 Jenkins"></a>访问 Jenkins</h1><h2 id="解锁登录"><a href="#解锁登录" class="headerlink" title="解锁登录"></a>解锁登录</h2><ul>
+<li>当我们通过 Tomcat 或者 nohup java -jar 的方式 启动好 jenkins 后便可以开始访问及配置了（如果是本地部署的访问 127.0.0.1 服务器部署的访问对应 ip）</li>
+<li>第一次启动有个密码校验，会在 jenkins 的启动日志中有自己找下</li>
+<li><code>以下的图是最开始学 Jenkins的时候截取的，所以是在 windows 上的，但是后面网页上的操作都是一样的所以不重新截图了</code></li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152626.png" alt="访问 jenkins"></p>
+<ul>
+<li>IP、端口和启动的保持一致</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152627.png" alt="配置实例"></p>
+<ul>
+<li>如果点击保持并完成以后页面出现空白页需要修改jenkins的config配置文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /root/.jenkins/config.xml</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152628.png" alt="解锁后空白页解决方案"></p>
+<h2 id="升级站点"><a href="#升级站点" class="headerlink" title="升级站点"></a>升级站点</h2><ul>
+<li><code>更换url</code>为：<a target="_blank" rel="noopener" href="http://mirror.esuni.jp/jenkins/updates/update-center.json">http://mirror.esuni.jp/jenkins/updates/update-center.json</a></li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152629.png" alt="更换站点 url"></p>
+<h2 id="全局环境配置"><a href="#全局环境配置" class="headerlink" title="全局环境配置"></a>全局环境配置</h2><ul>
+<li>指定我们的 jdk 的绝对路径（linux也是一样）</li>
+<li>maven 如果本地有安装就指定，没有安装勾选自动安装（<code>如果没有安装可以点自动安装，截图中的是针对本地已经安装了的</code>）</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152630.png" alt="全局环境配置1"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152631.png" alt="全局环境配置2"></p>
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><ul>
+<li>是在是找不到截图了，本步骤的目的就是需要装一些插件，通过这些插件去实现一些 jenkins 没有的功能（如果这些插件装过了就不用管）</li>
+<li>安装插件，因为我们要调用svn,邮箱等等服务，必须要依赖插件</li>
+<li>安装插件：<code>Maven Integration</code> <code>Groovy Label Assignment</code> <code>HTML Publisher</code> <code> Email Extension</code> <code>Subversion</code>  有可能插件安装不起来，因为你的war包和当前插件版本匹配，可以更新为最新war包</li>
+</ul>
+<h1 id="新建项目及配置"><a href="#新建项目及配置" class="headerlink" title="新建项目及配置"></a>新建项目及配置</h1><h2 id="新增项目"><a href="#新增项目" class="headerlink" title="新增项目"></a>新增项目</h2><ul>
+<li>创建一个 maven 项目用来构建我们的工程</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152632.png" alt="构建maven项目"></p>
+<h2 id="源码管理"><a href="#源码管理" class="headerlink" title="源码管理"></a>源码管理</h2><ul>
+<li>配置我们的项目源代码的地址及账号密码信息</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152634.png" alt="配置 git信息"></p>
+<h2 id="Build配置"><a href="#Build配置" class="headerlink" title="Build配置"></a>Build配置</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152639.png" alt="Build配置"></p>
+<h2 id="构建触发器"><a href="#构建触发器" class="headerlink" title="构建触发器"></a>构建触发器</h2><ul>
+<li><p>所谓的触发器，就是满足什么条件去自动触发，比如每天早上 7 点开始自动去执行，或者当我们自己的 git 仓库或者开发的 git 仓库发生了 push 提交代码</p>
+</li>
+<li><p>时间表达式：*&#x2F;5 * * * *   一共5个值</p>
+<ul>
+<li>Minute：分钟值  （0-59）</li>
+<li>Hour    ：时钟值  （0-23）</li>
+<li>Dom     ：日期    （1-31）</li>
+<li>Month   ：月份    （1-12）</li>
+<li>Dow    ： 一周中的某一天（0-7），0和7都代表的是礼拜天</li>
+</ul>
+</li>
+<li><p>每个字段的值还可以单独配置</p>
+</li>
+<li><p>*：所有的值      如果在分钟数就是每分钟，日期值上就是每天</p>
+</li>
+<li><p>M-N :指定一个范围区间的值    如果在分钟值上，就是0-10分钟之间</p>
+</li>
+<li><p>M-N&#x2F;X :    1-30&#x2F;5(如果在分钟数就可以理解为1-30分钟的时候每隔5分钟)</p>
+</li>
+<li><p>*&#x2F;x：  *&#x2F;5 如果在分钟值就是每隔5分钟，时钟值就是每隔5小时</p>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152640.png" alt="构建触发器"></p>
+<h2 id="邮件配置"><a href="#邮件配置" class="headerlink" title="邮件配置"></a>邮件配置</h2><ul>
+<li>配置邮箱的目的是为了让我们项目构建后给我们发邮件通知我们构建成功与否</li>
+<li>发邮件需要装 Email Extension Plugin 插件</li>
+</ul>
+<h3 id="获取smtp服务密码步骤"><a href="#获取smtp服务密码步骤" class="headerlink" title="获取smtp服务密码步骤"></a>获取smtp服务密码步骤</h3><ul>
+<li>QQ邮箱为例</li>
+<li>进入QQ邮箱主页，点击设置</li>
+<li>找到“账户”页签，在开启服务下面，找到IMAP&#x2F;SMTP服务对应的“开启”按钮点击，然后–》申请密保</li>
+<li>按照弹窗里的提示给腾讯发送短信，你就会收到一个授权码，这个就是密码（记得先保存好授权码）</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152643.jpeg" alt="smtp授权码"></p>
+<h3 id="邮件信息配置"><a href="#邮件信息配置" class="headerlink" title="邮件信息配置"></a>邮件信息配置</h3><ul>
+<li>配置系统管理员的邮箱  发件人的邮箱  收件人的邮件</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152549.png" alt="配置系统管理员邮箱"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152550.png" alt="发件人邮箱配置"></p>
+<ul>
+<li>如果邮箱发生用问题可在构建的控制台输出中 debug里面看日志</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152551.png" alt="开启 debug 模式"></p>
+<h2 id="构建后操作"><a href="#构建后操作" class="headerlink" title="构建后操作"></a>构建后操作</h2><ul>
+<li>我们期望构建后给我们发邮件，上面配置的只是发件人的，现在要配置接收人的邮箱账号</li>
+<li>当时我出现过按照老师的教程配置了控制台也提示邮件发送成功，但是就是收不到最后一番折腾：<a target="_blank" rel="noopener" href="https://issues.jenkins-ci.org/browse/JENKINS-34731">https://issues.jenkins-ci.org/browse/JENKINS-34731</a></li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152552.png" alt="构建后操作配置收件人和模板 1"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902152553.png" alt="构建后操作配置收件人和模板 2"></p>
+<h2 id="报告模板"><a href="#报告模板" class="headerlink" title="报告模板"></a>报告模板</h2><ul>
+<li>以下为格式：点击即可注意测试报告这个地方<a target="_blank" rel="noopener" href="http://49.234.62.82:9090/job/tb_api_auto/allure/">http://49.234.62.82:9090/job/tb_api_auto/allure/</a>  最后这个斜杠带上，不然会调制登陆页面</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span> (本邮件是程序自动下发的，请勿回复！)<span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span> 项目名称：$PROJECT_NAME<span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span> 构建编号：$BUILD_NUMBER<span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span> 构建状态：$BUILD_STATUS<span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span> 触发原因：$&#123;CAUSE&#125;<span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span> 测试报告：<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://49.234.62.82:9090/job/tb_api_auto/allure&quot;</span>&gt;</span>http://49.234.62.82:9090/job/tb_api_auto/allure/<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span> 构建日志地址：<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;$&#123;BUILD_URL&#125;console&quot;</span>&gt;</span>$&#123;BUILD_URL&#125;console/<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span> 构建地址：<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;$BUILD_URL&quot;</span>&gt;</span>$BUILD_URL<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span> 构建报告：<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;$&#123;BUILD_URL&#125;testReport&quot;</span>&gt;</span>$&#123;BUILD_URL&#125;testReport/<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span> 变更集:$&#123;JELLY_SCRIPT,template=&quot;html&quot;&#125;<span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><h2 id="公司网络匿名访问"><a href="#公司网络匿名访问" class="headerlink" title="公司网络匿名访问"></a>公司网络匿名访问</h2><ul>
+<li>在我们发出的邮件中往往有很多的资源，提供公司的其它人员访问例如我们配置在邮件里面的allure报表,pom，日志等以下内容，但是访问需要对方登陆</li>
+<li>理论上来说是合理的，登录校验，但是有些领导他可能不需要这个账号，或者只是自己在用没给别人建立账号</li>
+<li>于是我们就必须去权限控制里面开启<code>匿名用户的read权限</code>，但是这样又会存在一定的风险性，于是通过<code>访问权限控制+服务器安全组策略进行控制</code></li>
+<li>匿名访问只是针对一部分功能的查看权限，执行权限必须要登录的</li>
+</ul>
+<h3 id="开启匿名访问权限"><a href="#开启匿名访问权限" class="headerlink" title="开启匿名访问权限"></a>开启匿名访问权限</h3><ul>
+<li>Jenkins首页—&gt;Manage Jenkins—-&gt;Security—&gt;Configure Global Security</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902151955.png" alt="配置全局安全性"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200902151956.png" alt="开启匿名访问"></p>
+<h3 id="服务器安全组配置"><a href="#服务器安全组配置" class="headerlink" title="服务器安全组配置"></a>服务器安全组配置</h3><ul>
+<li>设定只允许公司的IP访问</li>
+<li>上面我们已经实现了匿名用户的访问读取权限，但是我们又不想完全的暴露在互联网上，解决办法就是给服务器设置安全组，针对这个端口只允许固定的ip访问，这样就能保证只有你们公司的人才能看到了当然，你自己回到家也看不了，那么就把家里的ip也配置上吧（我这里就以我腾讯云的服务器为例）</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20220218143203298.png" alt="入站策略"></p>
+<h2 id="Linux开机自启Jenkins"><a href="#Linux开机自启Jenkins" class="headerlink" title="Linux开机自启Jenkins"></a>Linux开机自启Jenkins</h2><ul>
+<li>这里做的是通过 java -jar 方式直接启动的，如果是 tomcat 的话原理一样的，改成开机自动启动 tomcat，然后就相当于启动了 jenkins</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入etc/rc.local后添加启动命令 （确保该文件有执行权限X）</span></span><br><span class="line">vim /etc/rc.local </span><br><span class="line"></span><br><span class="line"><span class="comment">#jenkins开机启动    /ada/jenkins---jenkins.war包所在位置</span></span><br><span class="line"><span class="built_in">cd</span> /ada/jenkins &amp;&amp; <span class="built_in">nohup</span> java -jar -Xms600m -Xmx1g -Xmn512m jenkins.war --httpPort=9090 &amp;</span><br><span class="line"><span class="comment">#重启服务器</span></span><br><span class="line">reboot</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看服务是否启动成功</span></span><br><span class="line">ps -ef|grep jenkins</span><br><span class="line"></span><br><span class="line"><span class="comment">#出现如下表示成功</span></span><br><span class="line">[root@VM_0_16_centos jenkins]<span class="comment"># ps -ef|grep jenkins</span></span><br><span class="line">root      1025  1024  3 16:58 ?        00:00:28 java -jar -Xms600m -Xmx1g -Xmn512m jenkins.war --httpPort=9090</span><br><span class="line">root      3602  1852  0 17:13 pts/1    00:00:00 grep --color=auto jenkins</span><br><span class="line"></span><br><span class="line"><span class="comment">#情况二：如果开机启动不成功，复制我们cd /ada/jenkins.....这条命令在外面任意位置看是否能启动成功，如果启动成功表示命令没有问题</span></span><br><span class="line">1.然后检查我们格式是否有问题</span><br><span class="line">2.添加java软连接：<span class="built_in">ln</span> -s /ada/java/jdk1.8.0_221/bin/* /usr/bin/       ----/ada/java/jdk1.8.0_221(java的安装路径/bin/*就是把里面所有的命令都添加到/user/bin里面)</span><br><span class="line">3.<span class="built_in">echo</span> <span class="variable">$PATH</span>查看</span><br><span class="line">[root@VM_0_16_centos ~]<span class="comment"># echo $PATH</span></span><br><span class="line">/ada/java/jdk1.8.0_221/bin:/ada/java/jdk1.8.0_221/jre/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/ada/java/jdk1.8.0_221/bin:/ada/maven/apache-maven-3.6.3/bin:/usr/local/git/bin:/ada/allure/package/bin:/root/bin</span><br><span class="line">[root@VM_0_16_centos ~]<span class="comment"># ln -s /ada/java/jdk1.8.0_221/bin/* /usr/bin/Connection closing...Socket close.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#reboot重启应该就能开机自动启动了</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/20200909174655.png" alt="开机自启动 jenkins"></p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.3001.net/images/20210606/16229390604952.png" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.3001.net/images/20210606/16229390604952.png" title="头像" alt="头像"></a><div class="post-copyright__author_name">Ada</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://adalucky.github.io/worker/Ops/Jenkins/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://adalucky.github.io/worker/Ops/Jenkins/')">Jenkins</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://adalucky.github.io/worker/Ops/Jenkins/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=Jenkins&amp;url=https://adalucky.github.io/worker/Ops/Jenkins/&amp;pic=https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/auto/jenkins.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="rm.copyPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://adalucky.github.io" target="_blank">Ada</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/jenkins/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>jenkins<span class="tagsPageCount">1</span></a></div></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/worker/Developer/NPM/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/auto/npm.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">NPM</div></div></a></div><div class="next-post pull-right"><a href="/worker/Tester/Automation/Appium/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/auto/appium.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Appium</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-top" title="点击展开"><div class="card-info-avatar"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.3001.net/images/20210606/16229390604952.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div></div></div><div class="author-info__description">我的个人博客</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/jqqdgzh.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.0.1.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B%E5%8F%8A%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">简介及搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E7%9A%84"><span class="toc-number">2.2.</span> <span class="toc-text">目的</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E"><span class="toc-number">3.1.</span> <span class="toc-text">环境说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85JDK1-8"><span class="toc-number">3.2.</span> <span class="toc-text">安装JDK1.8+</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-number">3.2.1.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">3.2.2.</span> <span class="toc-text">上传至服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">方式一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">方式二</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B"><span class="toc-number">3.2.3.</span> <span class="toc-text">解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">3.2.4.</span> <span class="toc-text">配置环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-Jenkins"><span class="toc-number">3.3.</span> <span class="toc-text">启动 Jenkins</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">方式一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C-1"><span class="toc-number">3.3.2.</span> <span class="toc-text">方式二</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE-Jenkins"><span class="toc-number">4.</span> <span class="toc-text">访问 Jenkins</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%94%81%E7%99%BB%E5%BD%95"><span class="toc-number">4.1.</span> <span class="toc-text">解锁登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7%E7%AB%99%E7%82%B9"><span class="toc-number">4.2.</span> <span class="toc-text">升级站点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">4.3.</span> <span class="toc-text">全局环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-number">4.4.</span> <span class="toc-text">安装插件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%8F%8A%E9%85%8D%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">新建项目及配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%A2%9E%E9%A1%B9%E7%9B%AE"><span class="toc-number">5.1.</span> <span class="toc-text">新增项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%AE%A1%E7%90%86"><span class="toc-number">5.2.</span> <span class="toc-text">源码管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Build%E9%85%8D%E7%BD%AE"><span class="toc-number">5.3.</span> <span class="toc-text">Build配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="toc-number">5.4.</span> <span class="toc-text">构建触发器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%82%AE%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-number">5.5.</span> <span class="toc-text">邮件配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96smtp%E6%9C%8D%E5%8A%A1%E5%AF%86%E7%A0%81%E6%AD%A5%E9%AA%A4"><span class="toc-number">5.5.1.</span> <span class="toc-text">获取smtp服务密码步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%82%AE%E4%BB%B6%E4%BF%A1%E6%81%AF%E9%85%8D%E7%BD%AE"><span class="toc-number">5.5.2.</span> <span class="toc-text">邮件信息配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%90%8E%E6%93%8D%E4%BD%9C"><span class="toc-number">5.6.</span> <span class="toc-text">构建后操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%A5%E5%91%8A%E6%A8%A1%E6%9D%BF"><span class="toc-number">5.7.</span> <span class="toc-text">报告模板</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%A9%E5%B1%95"><span class="toc-number">6.</span> <span class="toc-text">扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AC%E5%8F%B8%E7%BD%91%E7%BB%9C%E5%8C%BF%E5%90%8D%E8%AE%BF%E9%97%AE"><span class="toc-number">6.1.</span> <span class="toc-text">公司网络匿名访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E5%8C%BF%E5%90%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90"><span class="toc-number">6.1.1.</span> <span class="toc-text">开启匿名访问权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E5%85%A8%E7%BB%84%E9%85%8D%E7%BD%AE"><span class="toc-number">6.1.2.</span> <span class="toc-text">服务器安全组配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AFJenkins"><span class="toc-number">6.2.</span> <span class="toc-text">Linux开机自启Jenkins</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/worker/Toolbox/Hexo/" title="Hexo"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/other/hexo.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo"/></a><div class="content"><a class="title" href="/worker/Toolbox/Hexo/" title="Hexo">Hexo</a><time datetime="2023-08-14T16:00:00.000Z" title="发表于 2023-08-15 00:00:00">2023-08-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/worker/Backender/MongoDB/" title="MongoDB"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/mongodb.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MongoDB"/></a><div class="content"><a class="title" href="/worker/Backender/MongoDB/" title="MongoDB">MongoDB</a><time datetime="2023-07-04T16:00:00.000Z" title="发表于 2023-07-05 00:00:00">2023-07-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/worker/Ops/Docker%20Compose/" title="Docker Compose"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/docker-compose.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker Compose"/></a><div class="content"><a class="title" href="/worker/Ops/Docker%20Compose/" title="Docker Compose">Docker Compose</a><time datetime="2023-06-26T16:00:00.000Z" title="发表于 2023-06-27 00:00:00">2023-06-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/worker/Ops/Linux%E5%91%BD%E4%BB%A4/" title="Linux 命令"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/linux.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux 命令"/></a><div class="content"><a class="title" href="/worker/Ops/Linux%E5%91%BD%E4%BB%A4/" title="Linux 命令">Linux 命令</a><time datetime="2023-06-26T16:00:00.000Z" title="发表于 2023-06-27 00:00:00">2023-06-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/worker/Ops/asdf%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" title="asdf"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/asdf.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="asdf"/></a><div class="content"><a class="title" href="/worker/Ops/asdf%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" title="asdf">asdf</a><time datetime="2023-06-13T16:00:00.000Z" title="发表于 2023-06-14 00:00:00">2023-06-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2023 By <a class="footer-bar-link" href="/" title="Ada" target="_blank">Ada</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div></div></div><div id="sidebar"><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.3001.net/images/20210606/16229390604952.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><span> 总览</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><span> 分类</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><span> 标签</span></a></div></div></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="anzhiyufont anzhiyu-icon-comment-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><a id="switch_commentBarrage" href="javascript:anzhiyu.switchCommentBarrage();" title="开关弹幕"><i class="anzhiyufont anzhiyu-icon-danmu"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.3.1/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.cbd.int/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("07/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.5.4",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#3b70fc",
+      "",
+      "color:#3b70fc",
+      "color:#3b70fc",
+      "",
+      "color:#3b70fc",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Ada 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="https://cdn.cbd.int/algoliasearch@4.18.0/dist/algoliasearch-lite.umd.js"></script><script src="https://cdn.cbd.int/instantsearch.js@4.56.5/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'HvNn2fnND9DnBkt32cvR8g5x-gzGzoHsz',
+      appKey: '1FgE4n7EeWrdtvsJCcB20dfD',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.cbd.int/valine@1.5.1/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) anzhiyu.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script src="https://cdn.cbd.int/blueimp-md5@2.19.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=mp'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const serverURL = 'https://HvNn2fnN.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": 'HvNn2fnND9DnBkt32cvR8g5x-gzGzoHsz',
+        "X-LC-Key": '1FgE4n7EeWrdtvsJCcB20dfD',
+        "Content-Type": "application/json"
+      },
+    }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      }) 
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('valine-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "visitor@anheyu.com";</script><script>//动态标题
+let leaveTitle = 'w(ﾟДﾟ)w 不要走！再看看嘛！';
+let backTitle = '♪(^∇^*)欢迎肥来！';
+let OriginTitile = document.title
+let titleTime
+document.addEventListener('visibilitychange', function () {
+  if (document.hidden) {
+    //离开当前页面时标签显示内容
+    document.title = leaveTitle
+    clearTimeout(titleTime)
+  } else {
+    //返回当前页面时标签显示内容
+    document.title = backTitle + OriginTitile
+    //两秒后变回正常标题
+    titleTime = setTimeout(function () {
+      document.title = OriginTitile
+    }, 2000)
+  }
+})</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><script>// 初始化函数
+let rm = {};
+
+//禁止图片与超链接拖拽
+let aElements = document.getElementsByTagName("a");
+for (let i = 0; i < aElements.length; i++) {
+  aElements[i].setAttribute("draggable", "false");
+  let imgElements = aElements[i].getElementsByTagName("img");
+  for (let j = 0; j < imgElements.length; j++) {
+    imgElements[j].setAttribute("draggable", "false");
+  }
+}
+
+// 显示菜单
+rm.showRightMenu = function (isTrue, x = 0, y = 0) {
+  console.info(x, y)
+  let rightMenu = document.getElementById("rightMenu");
+  rightMenu.style.top = x + "px";
+  rightMenu.style.left = y + "px";
+  if (isTrue) {
+    rightMenu.style.display = "block";
+    stopMaskScroll();
+  } else {
+    rightMenu.style.display = "none";
+  }
+};
+
+// 隐藏菜单
+rm.hideRightMenu = function () {
+  rm.showRightMenu(false);
+  let rightMenuMask = document.querySelector("#rightmenu-mask");
+  rightMenuMask.style.display = "none";
+};
+
+// 尺寸
+let rmWidth = document.getElementById("rightMenu").offsetWidth;
+let rmHeight = document.getElementById("rightMenu").offsetHeight;
+
+// 重新定义尺寸
+rm.reloadrmSize = function () {
+  rightMenu.style.visibility = "hidden";
+  rightMenu.style.display = "block";
+  // 获取宽度和高度
+  rmWidth = document.getElementById("rightMenu").offsetWidth;
+  rmHeight = document.getElementById("rightMenu").offsetHeight;
+  rightMenu.style.visibility = "visible";
+};
+
+// 获取点击的href
+let domhref = "";
+let domImgSrc = "";
+let globalEvent = null;
+
+var oncontextmenuFunction = function (event) {
+  if (document.body.clientWidth > 768) {
+    let pageX = event.clientX + 10; //加10是为了防止显示时鼠标遮在菜单上
+    let pageY = event.clientY;
+
+    //其他额外菜单
+    const $rightMenuOther = document.querySelector(".rightMenuOther");
+    const $rightMenuPlugin = document.querySelector(".rightMenuPlugin");
+    const $rightMenuCopyText = document.querySelector("#menu-copytext");
+    const $rightMenuPasteText = document.querySelector("#menu-pastetext");
+    const $rightMenuCommentText = document.querySelector("#menu-commenttext");
+    const $rightMenuNewWindow = document.querySelector("#menu-newwindow");
+    const $rightMenuNewWindowImg = document.querySelector("#menu-newwindowimg");
+    const $rightMenuCopyLink = document.querySelector("#menu-copylink");
+    const $rightMenuCopyImg = document.querySelector("#menu-copyimg");
+    const $rightMenuDownloadImg = document.querySelector("#menu-downloadimg");
+    const $rightMenuSearch = document.querySelector("#menu-search");
+    const $rightMenuSearchBaidu = document.querySelector("#menu-searchBaidu");
+    const $rightMenuMusicToggle = document.querySelector("#menu-music-toggle");
+    const $rightMenuMusicBack = document.querySelector("#menu-music-back");
+    const $rightMenuMusicForward = document.querySelector("#menu-music-forward");
+    const $rightMenuMusicPlaylist = document.querySelector("#menu-music-playlist");
+    const $rightMenuMusicCopyMusicName = document.querySelector("#menu-music-copyMusicName");
+
+    let href = event.target.href;
+    let imgsrc = event.target.currentSrc;
+
+    // 判断模式 扩展模式为有事件
+    let pluginMode = false;
+    $rightMenuOther.style.display = "block";
+    globalEvent = event;
+
+    // 检查是否需要复制 是否有选中文本
+    if (selectTextNow && window.getSelection()) {
+      pluginMode = true;
+      $rightMenuCopyText.style.display = "block";
+      $rightMenuCommentText.style.display = "block";
+      $rightMenuSearch.style.display = "block";
+      $rightMenuSearchBaidu.style.display = "block";
+    } else {
+      $rightMenuCopyText.style.display = "none";
+      $rightMenuCommentText.style.display = "none";
+      $rightMenuSearchBaidu.style.display = "none";
+      $rightMenuSearch.style.display = "none";
+    }
+
+    //检查是否右键点击了链接a标签
+    if (href) {
+      pluginMode = true;
+      $rightMenuNewWindow.style.display = "block";
+      $rightMenuCopyLink.style.display = "block";
+      domhref = href;
+    } else {
+      $rightMenuNewWindow.style.display = "none";
+      $rightMenuCopyLink.style.display = "none";
+    }
+
+    //检查是否需要复制图片
+    if (imgsrc) {
+      pluginMode = true;
+      $rightMenuCopyImg.style.display = "block";
+      $rightMenuDownloadImg.style.display = "block";
+      $rightMenuNewWindowImg.style.display = "block";
+      document.getElementById("rightMenu").style.width="12rem"
+      domImgSrc = imgsrc;
+    } else {
+      $rightMenuCopyImg.style.display = "none";
+      $rightMenuDownloadImg.style.display = "none";
+      $rightMenuNewWindowImg.style.display = "none";
+    }
+
+    // 判断是否为输入框
+    if (event.target.tagName.toLowerCase() === "input" || event.target.tagName.toLowerCase() === "textarea") {
+      pluginMode = true;
+      $rightMenuPasteText.style.display = "block";
+    } else {
+      $rightMenuPasteText.style.display = "none";
+    }
+    const navMusicEl = document.querySelector("#nav-music");
+    //判断是否是音乐
+    if (navMusicEl && navMusicEl.contains(event.target)) {
+      pluginMode = true;
+      $rightMenuMusicToggle.style.display = "block";
+      $rightMenuMusicBack.style.display = "block";
+      $rightMenuMusicForward.style.display = "block";
+      $rightMenuMusicPlaylist.style.display = "block";
+      $rightMenuMusicCopyMusicName.style.display = "block";
+    } else {
+      $rightMenuMusicToggle.style.display = "none";
+      $rightMenuMusicBack.style.display = "none";
+      $rightMenuMusicForward.style.display = "none";
+      $rightMenuMusicPlaylist.style.display = "none";
+      $rightMenuMusicCopyMusicName.style.display = "none";
+    }
+
+    // 如果不是扩展模式则隐藏扩展模块
+    if (pluginMode) {
+      $rightMenuOther.style.display = "none";
+      $rightMenuPlugin.style.display = "block";
+    } else {
+      $rightMenuPlugin.style.display = "none";
+    }
+
+    rm.reloadrmSize();
+
+    // 鼠标默认显示在鼠标右下方，当鼠标靠右或靠下时，将菜单显示在鼠标左方\上方
+    if (pageX + rmWidth > window.innerWidth) {
+      pageX -= rmWidth + 10;
+    }
+    if (pageY + rmHeight > window.innerHeight) {
+      pageY -= pageY + rmHeight - window.innerHeight;
+    }
+
+    rm.showRightMenu(true, pageY, pageX);
+    document.getElementById("rightmenu-mask").style.display = "flex";
+    return false;
+  }
+};
+
+// 监听右键初始化
+window.oncontextmenu = oncontextmenuFunction
+
+// 下载图片状态
+rm.downloadimging = false;
+
+// 复制图片到剪贴板
+rm.writeClipImg = function (imgsrc) {
+  console.log("按下复制");
+  rm.hideRightMenu();
+  anzhiyu.snackbarShow("正在下载中，请稍后", false, 10000);
+  if (rm.downloadimging == false) {
+    rm.downloadimging = true;
+    setTimeout(function () {
+      copyImage(imgsrc);
+      anzhiyu.snackbarShow("复制成功！图片已添加盲水印，请遵守版权协议");
+      rm.downloadimging = false;
+    }, "10000");
+  }
+};
+
+function imageToBlob(imageURL) {
+  const img = new Image();
+  const c = document.createElement("canvas");
+  const ctx = c.getContext("2d");
+  img.crossOrigin = "";
+  img.src = imageURL;
+  return new Promise(resolve => {
+    img.onload = function () {
+      c.width = this.naturalWidth;
+      c.height = this.naturalHeight;
+      ctx.drawImage(this, 0, 0);
+      c.toBlob(
+        blob => {
+          // here the image is a blob
+          resolve(blob);
+        },
+        "image/png",
+        0.75
+      );
+    };
+  });
+}
+
+async function copyImage(imageURL) {
+  const blob = await imageToBlob(imageURL);
+  const item = new ClipboardItem({ "image/png": blob });
+  navigator.clipboard.write([item]);
+}
+
+rm.copyUrl = function (id) {
+  const input = document.createElement("input"); // Create a new <input> element
+  input.id = "copyVal"; // Set the id of the new element to "copyVal"
+  document.body.appendChild(input); // Append the new element to the end of the <body> element
+  
+  const text = id;
+  input.value = text;
+  input.select();
+  input.setSelectionRange(0, input.value.length);
+  document.execCommand("copy");
+  
+  input.remove(); // Remove the <input> element from the DOM
+};
+
+function stopMaskScroll() {
+  if (document.getElementById("rightmenu-mask")) {
+    let xscroll = document.getElementById("rightmenu-mask");
+    xscroll.addEventListener(
+      "mousewheel",
+      function (e) {
+        //阻止浏览器默认方法
+        rm.hideRightMenu();
+        // e.preventDefault();
+      },
+      { passive: true }
+    );
+  }
+  if (document.getElementById("rightMenu")) {
+    let xscroll = document.getElementById("rightMenu");
+    xscroll.addEventListener(
+      "mousewheel",
+      function (e) {
+        //阻止浏览器默认方法
+        rm.hideRightMenu();
+        // e.preventDefault();
+      },
+      { passive: true }
+    );
+  }
+}
+
+rm.rightmenuCopyText = function (txt) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(txt);
+  }
+  rm.hideRightMenu();
+};
+
+rm.copyPageUrl = function (url) {
+  if (!url) {
+    url = window.location.href;
+  }
+  rm.copyUrl(url);
+  anzhiyu.snackbarShow("复制链接地址成功", false, 2000);
+  rm.hideRightMenu();
+};
+
+rm.sharePage = function () {
+  var content = window.location.href;
+  rm.copyUrl(url);
+  anzhiyu.snackbarShow("复制链接地址成功", false, 2000);
+  rm.hideRightMenu();
+};
+
+// 复制当前选中文本
+var selectTextNow = "";
+document.onmouseup = document.ondblclick = selceText;
+
+function selceText() {
+  var txt;
+  if (document.selection) {
+    txt = document.selection.createRange().text;
+  } else {
+    txt = window.getSelection().toString();
+  }
+  selectTextNow = txt !== "" ? txt : "";
+}
+
+// 读取剪切板
+rm.readClipboard = function () {
+  if (navigator.clipboard) {
+    navigator.clipboard.readText().then(clipText => rm.insertAtCaret(globalEvent.target, clipText));
+  }
+};
+
+// 粘贴文本到焦点
+rm.insertAtCaret = function (elemt, value) {
+  const startPos = elemt.selectionStart,
+    endPos = elemt.selectionEnd;
+  if (document.selection) {
+    elemt.focus();
+    var sel = document.selection.createRange();
+    sel.text = value;
+    elemt.focus();
+  } else {
+    if (startPos || startPos == "0") {
+      var scrollTop = elemt.scrollTop;
+      elemt.value = elemt.value.substring(0, startPos) + value + elemt.value.substring(endPos, elemt.value.length);
+      elemt.focus();
+      elemt.selectionStart = startPos + value.length;
+      elemt.selectionEnd = startPos + value.length;
+      elemt.scrollTop = scrollTop;
+    } else {
+      elemt.value += value;
+      elemt.focus();
+    }
+  }
+};
+
+//粘贴文本
+rm.pasteText = function () {
+  const result = rm.readClipboard() || "";
+  rm.hideRightMenu();
+};
+
+//引用到评论
+rm.rightMenuCommentText = function (txt) {
+  rm.hideRightMenu();
+  const postCommentDom = document.getElementById("post-comment");
+  var domTop = postCommentDom.offsetTop;
+  window.scrollTo(0, domTop - 80);
+  if (txt == "undefined" || txt == "null") txt = "好棒！";
+  function setText() {
+    setTimeout(() => {
+      var input = document.getElementsByClassName("el-textarea__inner")[0];
+      if (!input) setText();
+      let evt = document.createEvent("HTMLEvents");
+      evt.initEvent("input", true, true);
+      let inputValue = replaceAll(txt, "\n", "\n> ");
+      input.value = "> " + inputValue + "\n\n";
+      input.dispatchEvent(evt);
+      input.focus();
+      input.setSelectionRange(-1, -1);
+      if (document.getElementById("comment-tips")) {
+        document.getElementById("comment-tips").classList.add("show");
+      }
+    }, 100);
+  }
+  setText();
+};
+
+//替换所有内容
+function replaceAll(string, search, replace) {
+  return string.split(search).join(replace);
+}
+
+// 百度搜索
+rm.searchBaidu = function () {
+  anzhiyu.snackbarShow("即将跳转到百度搜索", false, 2000);
+  setTimeout(function () {
+    window.open("https://www.baidu.com/s?wd=" + selectTextNow);
+  }, "2000");
+  rm.hideRightMenu();
+};
+
+//分享链接
+rm.copyLink = function () {
+  rm.rightmenuCopyText(domhref);
+  anzhiyu.snackbarShow("已复制链接地址");
+};
+
+function addRightMenuClickEvent() {
+  // 添加点击事件
+  document.getElementById("menu-backward").addEventListener("click", function () {
+  window.history.back();
+    rm.hideRightMenu();
+  });
+
+  document.getElementById("menu-forward").addEventListener("click", function () {
+    window.history.forward();
+    rm.hideRightMenu();
+  });
+
+  document.getElementById("menu-refresh").addEventListener("click", function () {
+    window.location.reload();
+  });
+
+  document.getElementById("menu-top").addEventListener("click", function () {
+    anzhiyu.scrollToDest(0, 500);
+    rm.hideRightMenu();
+  });
+
+  const menuLinks = document.querySelectorAll(".menu-link");
+  menuLinks.forEach(function (link) {
+    link.addEventListener("click", rm.hideRightMenu);
+  });
+
+  document.getElementById("menu-darkmode").addEventListener("click", anzhiyu.switchDarkMode);
+
+  document.getElementById("menu-home") && document.getElementById("menu-home").addEventListener("click", function () {
+    window.location.href = window.location.origin;
+  });
+
+  document.getElementById("menu-randomPost").addEventListener("click", function () {
+    toRandomPost();
+  });
+
+  document.getElementById("menu-commentBarrage").addEventListener("click", anzhiyu.switchCommentBarrage);
+
+  document.getElementById("rightmenu-mask").addEventListener("click", rm.hideRightMenu);
+
+  document.getElementById("rightmenu-mask").addEventListener("contextmenu", function (event) {
+    rm.hideRightMenu();
+    event.preventDefault(); // Prevent the default context menu from appearing
+  });
+
+  document.getElementById("menu-copy").addEventListener("click", rm.copyPageUrl);
+
+  document.getElementById("menu-pastetext").addEventListener("click", rm.pasteText);
+
+  document.getElementById("menu-copytext").addEventListener("click", function () {
+    rm.rightmenuCopyText(selectTextNow);
+    anzhiyu.snackbarShow("复制成功，复制和转载请标注本文地址");
+  });
+
+  document.getElementById("menu-commenttext").addEventListener("click", function () {
+    rm.rightMenuCommentText(selectTextNow);
+  });
+
+  document.getElementById("menu-newwindow").addEventListener("click", function () {
+    window.open(domhref, "_blank");
+    rm.hideRightMenu();
+  });
+
+  document.getElementById("menu-copylink").addEventListener("click", rm.copyLink);
+
+  document.getElementById("menu-downloadimg").addEventListener("click", function () {
+    anzhiyu.downloadImage(domImgSrc, "anzhiyu");
+  });
+
+  document.getElementById("menu-newwindowimg").addEventListener("click", function () {
+    window.open(domImgSrc, "_blank");
+    rm.hideRightMenu();
+  });
+
+  document.getElementById("menu-copyimg").addEventListener("click", function () {
+    rm.writeClipImg(domImgSrc);
+  });
+
+  document.getElementById("menu-searchBaidu").addEventListener("click", rm.searchBaidu);
+
+  //音乐
+  document.getElementById("menu-music-toggle").addEventListener("click", anzhiyu.musicToggle);
+
+  document.getElementById("menu-music-back").addEventListener("click", anzhiyu.musicSkipBack);
+
+  document.getElementById("menu-music-forward").addEventListener("click", anzhiyu.musicSkipForward);
+
+  document.getElementById("menu-music-copyMusicName").addEventListener("click", function () {
+    rm.rightmenuCopyText(anzhiyu.musicGetName());
+    anzhiyu.snackbarShow("复制歌曲名称成功", false, 3000);
+  });
+
+}
+
+addRightMenuClickEvent();</script><script data-pjax>var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+var pageHeaderEl = document.getElementById("page-header");
+var navMusicEl = document.getElementById("nav-music");
+var consoleEl = document.getElementById("console");
+// 已随机的歌曲
+var selectRandomSong = [];
+// 音乐默认声音大小
+var musicVolume = 0.8;
+// 是否切换了周杰伦音乐列表
+var changeMusicListFlag = false;
+// 当前默认播放列表
+var defaultPlayMusicList = [];
+
+document.getElementById("page-name").innerText = document.title.split(" | Ada")[0];
+anzhiyu.initIndexEssay();
+anzhiyu.changeTimeInEssay();
+anzhiyu.removeBodyPaceClass();
+anzhiyu.qrcodeCreate();
+anzhiyu.changeTimeInAlbumDetail();
+anzhiyu.reflashEssayWaterFall();
+anzhiyu.sayhi();
+anzhiyu.stopImgRightDrag();
+anzhiyu.addNavBackgroundInit();
+anzhiyu.setValueToBodyType();
+anzhiyu.catalogActive();
+anzhiyu.tagsPageActive();
+anzhiyu.categoriesBarActive();
+anzhiyu.topCategoriesBarScroll();
+anzhiyu.switchRightClickMenuHotReview();
+anzhiyu.getCustomPlayList();
+anzhiyu.addEventListenerConsoleMusicList(false);
+setTimeout(() => {if (typeof addFriendLinksInFooter === "function") {addFriendLinksInFooter();}}, 200)</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/51b8faf5.js","daovoice")
+</script><script>var isChatBtn = true
+daovoice('init', {
+  app_id: '51b8faf5',},{
+  launcher: { 
+     disableLauncherIcon: isChatBtn // 悬浮 ICON 是否显示
+  },
+});
+daovoice('update');
+
+if (isChatBtn) {
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      daovoice('show')
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      daovoice('update', {},{
+        launcher: { 
+        disableLauncherIcon: true // 悬浮 ICON 是否显示
+        },
+      });
+    }
+    function chatBtnShow () {
+      daovoice('update', {},{
+        launcher: { 
+        disableLauncherIcon: false // 悬浮 ICON 是否显示
+        },
+      });
+    }
+  }
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div><script>(function (w, d, s, id) {
+            if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) }; var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1; js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window, document, 'script', 'webpushr-jssdk'));webpushr('setup', { 'key': 'BJjeD4reRc-1D_UEhL5kJQ8sMsvWDWxrZjvv5Wg1G1OHaFJhaKNKofyRr208shfSmbYfP2v8u9hZ7LlTZ0LnXK0' });</script></body></html>

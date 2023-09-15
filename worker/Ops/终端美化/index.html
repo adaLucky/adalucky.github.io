@@ -1,0 +1,1658 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Tmux | Ada</title><meta name="keywords" content="美化终端界面 Tmux + iTerm2 + NeoVim + zsh"><meta name="author" content="Ada"><meta name="copyright" content="Ada"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Tmux"><meta name="application-name" content="Tmux"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Tmux"><meta property="og:url" content="https://adalucky.github.io/worker/Ops/%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/index.html"><meta property="og:site_name" content="Ada"><meta property="og:description" content="简介前几天在B站看到一个视频，感觉UP主的终端特别好看，尤其是分屏对工作效率的提升，本篇文章介绍一下在 Mac 下搭建终端环境 Tmux + iTerm2 + NeoVim + zsh 美化你的终端界面，提升效率   参考资料Tmux使用手册 zsh+oh my zsh安装zsh和 oh my zs"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/other/tmux.jpg"><meta property="article:author" content="Ada"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/other/tmux.jpg"><link rel="shortcut icon" href="https://image.3001.net/images/20210606/16229390604952.png"><link rel="canonical" href="https://adalucky.github.io/worker/Ops/%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/"><link rel="preconnect" href="//npm.elemecdn.com"/><link rel="preconnect" href="//npm.onmicrosoft.cn"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: false,
+  mainTone: {"mode":"both","api":"https://img2color-go.vercel.app/api?img=","cover_change":true},
+  authorStatus: undefined,
+  algolia: {"appId":"Y7A93ZJERO","apiKey":"c032c0266df92b8e1e7f23f484b1992a","indexName":"hexo","hits":{"per_page":6},"languages":{"input_placeholder":"键入后按下回车搜索！","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#3b70fc","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Tmux',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-09-15 12:42:30',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assets/css/webpushr.css?1"><meta name="generator" content="Hexo 6.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://image.3001.net/images/20210606/16229390604952.png"/><div class="loading-image-dot"></div><div id="loading-percentage">0%</div></div></div><script>if (GLOBAL_CONFIG.preloader.source == "2" || GLOBAL_CONFIG.preloader.source == "3") {
+  const loadingPercentage = document.getElementById("loading-percentage");
+  let loadingPercentageTimer = setInterval(function() {
+    var progressBar = document.querySelector(".pace-progress");
+    if (!progressBar) return
+    var currentValue = progressBar.getAttribute("data-progress-text");
+    if (currentValue !== loadingPercentage.textContent) {
+      loadingPercentage.textContent = currentValue;
+      if (currentValue === "100%") {
+        clearInterval(loadingPercentageTimer);
+      }
+    }
+  }, 100);
+}
+
+const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div id="web_box"><div id="web_container"><div id="menu-mask"></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://adalucky.github.io/" title="博客" target="_blank"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="https://gitee.com/automatex/automate/" title="测试平台" target="_blank"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="测试平台"/><span class="back-menu-item-text">测试平台</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">Ada</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><span> 总览</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><span> 分类</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><span> 标签</span></a></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png" target="_blank"><img class="post-qr-code-img" alt="wechat" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png" target="_blank"><img class="post-qr-code-img" alt="alipay" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> <span>最新评论</span></span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/Appium/" style="font-size: 1.05rem;">Appium<sup>1</sup></a><a href="/tags/Axios/" style="font-size: 1.05rem;">Axios<sup>1</sup></a><a href="/tags/Centos/" style="font-size: 1.05rem;">Centos<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 1.05rem;">Docker<sup>2</sup></a><a href="/tags/ES6/" style="font-size: 1.05rem;">ES6<sup>1</sup></a><a href="/tags/Fiddler/" style="font-size: 1.05rem;">Fiddler<sup>1</sup></a><a href="/tags/Gradle/" style="font-size: 1.05rem;">Gradle<sup>1</sup></a><a href="/tags/Hexo/" style="font-size: 1.05rem;">Hexo<sup>2</sup></a><a href="/tags/JDK17/" style="font-size: 1.05rem;">JDK17<sup>1</sup></a><a href="/tags/Java/" style="font-size: 1.05rem;">Java<sup>3</sup></a><a href="/tags/Kafka/" style="font-size: 1.05rem;">Kafka<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>1</sup></a><a href="/tags/MQ/" style="font-size: 1.05rem;">MQ<sup>1</sup></a><a href="/tags/MongoDB/" style="font-size: 1.05rem;">MongoDB<sup>1</sup></a><a href="/tags/NPM/" style="font-size: 1.05rem;">NPM<sup>1</sup></a><a href="/tags/NeoVim/" style="font-size: 1.05rem;">NeoVim<sup>1</sup></a><a href="/tags/Nginx/" style="font-size: 1.05rem;">Nginx<sup>2</sup></a><a href="/tags/OSS/" style="font-size: 1.05rem;">OSS<sup>1</sup></a><a href="/tags/Obsidian/" style="font-size: 1.05rem;">Obsidian<sup>1</sup></a><a href="/tags/SpringBoot/" style="font-size: 1.05rem;">SpringBoot<sup>3</sup></a><a href="/tags/TS/" style="font-size: 1.05rem;">TS<sup>3</sup></a><a href="/tags/Tmux/" style="font-size: 1.05rem;">Tmux<sup>1</sup></a><a href="/tags/Vite/" style="font-size: 1.05rem;">Vite<sup>1</sup></a><a href="/tags/Vue3/" style="font-size: 1.05rem;">Vue3<sup>1</sup></a><a href="/tags/Webpack/" style="font-size: 1.05rem;">Webpack<sup>1</sup></a><a href="/tags/Yarn/" style="font-size: 1.05rem;">Yarn<sup>1</sup></a><a href="/tags/asdf/" style="font-size: 1.05rem;">asdf<sup>1</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/docker/" style="font-size: 1.05rem;">docker<sup>1</sup></a><a href="/tags/docker-compose/" style="font-size: 1.05rem;">docker-compose<sup>1</sup></a><a href="/tags/eslint/" style="font-size: 1.05rem;">eslint<sup>1</sup></a><a href="/tags/html/" style="font-size: 1.05rem;">html<sup>1</sup></a><a href="/tags/jenkins/" style="font-size: 1.05rem;">jenkins<sup>1</sup></a><a href="/tags/pinia/" style="font-size: 1.05rem;">pinia<sup>1</sup></a><a href="/tags/setting/" style="font-size: 1.05rem;">setting<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/" style="font-size: 1.05rem;">前端基础<sup>6</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.05rem;">数据库<sup>1</sup></a><a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 1.05rem;">消息队列<sup>1</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 1.05rem;">环境管理<sup>1</sup></a><a href="/tags/%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B/" style="font-size: 1.05rem;">非关系型<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/06/"><span class="card-archive-list-date">六月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/08/"><span class="card-archive-list-date">八月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/06/"><span class="card-archive-list-date">六月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">五月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/04/"><span class="card-archive-list-date">四月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" onclick="anzhiyu.switchDarkMode()" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item on" id="consoleCommentBarrage" onclick="anzhiyu.switchCommentBarrage()" title="热评开关"><a class="commentBarrage"><i class="anzhiyufont anzhiyu-icon-message"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/Ops/">Ops</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Tmux/" tabindex="-1"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Tmux</span></a><a class="article-meta__tags" href="/tags/NeoVim/" tabindex="-1"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>NeoVim</span></a></span></div></div><h1 class="post-title">Tmux</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-08-31T15:44:00.000Z" title="发表于 2021-08-31 23:44:00">2021-08-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-09-15T04:42:30.131Z" title="更新于 2023-09-15 12:42:30">2023-09-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">3.2k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="Tmux"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为成都"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>成都</span><span class="post-meta-separator"></span><span class="post-meta-commentcount"><i class="anzhiyufont anzhiyu-icon-comments post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/worker/Ops/%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/worker/Ops/%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/" itemprop="commentCount"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></a></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/other/tmux.jpg"></div></header><main class="layout" id="content-inner"><div id="post"><div class="post-ai-description"><div class="ai-title"><i class="anzhiyufont anzhiyu-icon-bilibili"></i><div class="ai-title-text">AI-摘要</div><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right"></i><div id="ai-tag">Tianli GPT</div></div><div class="ai-explanation">AI初始化中...</div><div class="ai-btn-box"><div class="ai-btn-item">介绍自己</div><div class="ai-btn-item">生成本文简介</div><div class="ai-btn-item">推荐相关文章</div><div class="ai-btn-item">前往主页</div><div class="ai-btn-item" id="go-tianli-blog">前往tianli博客</div></div><script data-pjax>(function(){
+  // 当前随机到的ai摘要到index
+  let lastAiRandomIndex = -1;
+  let animationRunning = true; // 标志变量，控制动画函数的运行
+  // 当前gpt模式
+  let mode = "tianli"
+  // 刷新点击次数
+  let refreshNum = 0
+  // 记录上一次传递给aiAbstract的参数
+  let prevParam;
+  const aiTitleRefreshIcon = document.querySelector(".ai-title .anzhiyufont.anzhiyu-icon-arrow-rotate-right")
+  const explanation = document.querySelector(".ai-explanation");
+  const post_ai = document.querySelector(".post-ai-description");
+  let ai_str = "";
+  let ai_str_length = "";
+  let delay_init = 600;
+  let i = 0;
+  let j = 0;
+  let sto = [];
+  let elapsed = 0;
+  const animate = timestamp => {
+    if (!animationRunning) {
+      return; // 动画函数停止运行
+    }
+    if (!animate.start) animate.start = timestamp;
+    elapsed = timestamp - animate.start;
+    if (elapsed >= 20) {
+      animate.start = timestamp;
+      if (i < ai_str_length - 1) {
+        let char = ai_str.charAt(i + 1);
+        let delay = /[,.，。!?！？]/.test(char) ? 150 : 20;
+        if (explanation.firstElementChild) {
+          explanation.removeChild(explanation.firstElementChild);
+        }
+        explanation.innerHTML += char;
+        let div = document.createElement("div");
+        div.className = "ai-cursor";
+        explanation.appendChild(div);
+        i++;
+        if (delay === 150) {
+          document.querySelector(".ai-explanation .ai-cursor").style.opacity = "0";
+        }
+        if (i === ai_str_length - 1) {
+          observer.disconnect(); // 暂停监听
+          explanation.removeChild(explanation.firstElementChild);
+        }
+        sto[0] = setTimeout(() => {
+          requestAnimationFrame(animate);
+        }, delay);
+      }
+    } else {
+      requestAnimationFrame(animate);
+    }
+  };
+  const observer = new IntersectionObserver(
+    entries => {
+      let isVisible = entries[0].isIntersecting;
+      animationRunning = isVisible; // 标志变量更新
+      if (animationRunning) {
+        delay_init = i === 0 ? 200 : 20;
+        sto[1] = setTimeout(() => {
+          if (j) {
+            i = 0;
+            j = 0;
+          }
+          if (i === 0) {
+            explanation.innerHTML = ai_str.charAt(0);
+          }
+          requestAnimationFrame(animate);
+        }, delay_init);
+      }
+    },
+    { threshold: 0 }
+  );
+  function clearSTO() {
+    if (sto.length) {
+      sto.forEach(item => {
+        if (item) {
+          clearTimeout(item);
+        }
+      });
+    }
+  }
+  function startAI(str, df = true) {
+    i = 0; //重置计数器
+    j = 1;
+    clearSTO();
+    animationRunning = false;
+    elapsed = 0;
+    observer.disconnect(); // 暂停上一次监听
+    explanation.innerHTML = df ? "生成中. . ." : "请等待. . .";
+    ai_str = str;
+    ai_str_length = ai_str.length;
+    observer.observe(post_ai); //启动新监听
+  }
+
+  async function aiAbstract(num = 1000) {
+    i = 0; //重置计数器
+    j = 1;
+    clearSTO();
+    animationRunning = false;
+    elapsed = 0;
+    observer.disconnect(); // 暂停上一次监听
+    if (mode === "tianli") {
+      num = Math.max(10, Math.min(2000, num));
+      const options = {
+        key: "4e3ea06311f19e3442c0",
+        Referer: "https://adalucky.github.io/"
+      };
+      const truncateDescription = ("Tmux" + "简介, 参考资料, zsh+oh my zsh, iTerm2, 设置主题, 设置字体, 安装 zplug 插件管理器, 安装命令行工具, Tmux, 简介, 安装, 基本概念, 基础命令, 新建会话, 断开会话, 恢复会话, 关闭会话, 查看所有的会话, Tmux快捷指令, 系统指令, 窗口（window）指令, 面板（pane）指令, 自定义配置简介前几天在站看到一个视频感觉主的终端特别好看尤其是分屏对工作效率的提升本篇文章介绍一下在下搭建终端环境美化你的终端界面提升效率参考资料使用手册安装和升级后安装报错问题解决报错问题亲测方案一有效安装查看版本设置为默认安装设置主题主题下载地址下载主题的包后解压到任意目录后打开找到下来框点击导入然后重新选择设置字体里配置非字体否则对于主题的特殊字体会显示不出来选择之后重启生效安装插件管理器安装命令行工具简介是一款优秀的终端复用软件它比更加强大至于如何强大网上有大量的文章讨论了这点本文不再重复之所以受人们喜爱主要得益于以下三丝滑分屏虽然也提供了横向和竖向分屏功能但这种分屏功能非常拙劣完全等同于屏幕新开一个窗口新开的不会自动进入到当前目录也没有记住当前登录状态这意味着如果我进入到远程服务器时新开的中我依然要重新走一遍登录的老路就不会这样窗口中新开的默认进入到之前的路径如果是连接登录状态也依旧保持着如此一来我就可以随意的增删这种灵活性好处不言而喻保护现场即使命令行的工作只进行到一半关闭终端后还可以重新进入到操作现场继续工作对于远程连接而言即使网络不稳定也没有关系掉线后重新连接可以直奔现场之前运行中的任务依旧在跑就好像从来没有离开过一样特别是在远程服务器上运行耗时的任务可以帮你一直保持住会话如此一来你就可以随时随地放心地进行移动办公只要你附近的计算机装有没有你也可以花几分钟装一个你就能继续刚才的工作会话共享适用于结对编程或远程教学将会话的地址分享给他人这样他们就可以通过接入该会话如果你要给同事演示远程服务器的操作他不必直勾勾地盯着你的屏幕借助他完全可以进入到你的会话然后静静地看着他桌面上你风骚的键盘走位只要他愿意甚至还可以录个屏安装安装成功后再终端输入即可进入服务下的安装先安装有则跳过安装在中安装基本概念开始之前我们先了解下基本概念采用模型构建输入命令就相当于开启了一个服务器此时默认将新建一个会话然后会话中默认新建一个窗口窗口中默认新建一个面板会话窗口面板之间的联系如下一个会话可以包含多个窗口窗口默认充满会话界面因此这些窗口中可以运行相关性不大的任务一个又可以包含多个面板窗口下的面板都处于同一界面下这些面板适合运行相关性高的任务以便同时观察到它们的运行情况基础命令新建会话新建一个非常简单语法为也可以简写为为了方便管理建议指定会话名称如下新建一个无名称的会话新建一个名称为的会话断开会话会话中操作了一段时间我希望断开会话同时下次还能接着用怎么做此时可以使用命令断开当前会话会话在后台运行也许你觉得这个太麻烦了是的的会话中我们已经可以使用快捷键了使用快捷键组合三次按键就可以断开当前会话恢复会话断开会话后想要接着上次留下的现场继续工作就要使用到的命令了语法为可简写为或通常我们使用如下两种方式之一即可默认进入最新创建的一个会话进入到名称为的会话关闭会话会话的使命完成后一定是要关闭的我们可以使用的命令命令有和共四种其中的语法为如下关闭会话关闭服务器所有的会话都将关闭查看所有的会话管理会话的第一步就是要查看所有的会话我们可以使用如下命令查看所有会话查看所有会话提倡使用简写形式的所有指令都包含同一个前缀默认为输入完前缀过后控制台激活命令按键才能生效如果刚好处于会话中怎么办别担心我们可以使用对应的快捷键此时将打开一个会话列表按上下键或者鼠标滚轮可选中目标会话按左右键可收起或展开会话的窗口选中目标会话或窗口后按回车键即可完成切换快捷指令关于快捷指令首先要认识到的是的所有指令都包含同一个前缀默认为输入完前缀过后控制台激活命令按键才能生效前面会话相关的操作中我们共用到了两个快捷键但这仅仅是冰山一角欲窥庞大的快捷键体系请看下表系统指令前缀指令描述显示快捷键帮助文档断开当前会话选择要断开的会话挂起当前会话强制重载当前会话显示会话列表用于选择并切换进入命令行模式此时可直接输入等命令进入复制模式按退出粘贴复制模式中复制的文本列出提示信息缓存窗口指令前缀指令描述新建窗口关闭当前窗口关闭前需输入确认切换到指定窗口切换到上一窗口切换到下一窗口打开窗口列表用于且切换窗口重命名当前窗口修改当前窗口编号适用于窗口重新排序快速定位到窗口输入关键字匹配窗口名称面板指令前缀指令描述当前面板上下一分为二下侧新建面板当前面板左右一分为二右侧新建面板关闭当前面板关闭前需输入确认最大化当前面板再重复一次按键后恢复正常版本新增将当前面板移动到新的窗口打开原窗口中存在两个及以上面板有效切换到最后一次使用的面板显示面板编号在编号消失前输入对应的数字可切换到相应的面板向前置换当前面板向后置换当前面板顺时针旋转当前窗口中的所有面板方向键移动光标切换面板选择下一面板空格键在自带的面板布局中循环切换方向键以个单元格为单位调整当前面板边缘方向键以个单元格为单位调整当前面板边缘下被系统快捷键覆盖显示时钟的丝滑分屏功能正是得益于以上系统窗口面板的快捷指令只要你愿意你就可以解除任意的快捷指令然后绑上你喜欢的指令当然这就涉及到它的可配置性了请继续往下读自定义配置额外配置即键意味着解除绑定绑定为新的指令前缀从版起支持设置第二个指令前缀设置一个不常用的键作为指令前缀按键更快些绑定配置文件生效快捷键为新增面板绑定两个更常用的指令垂直方向新增面板默认进入当前目录水平方向新增面板默认进入当前目录开启鼠标支持对于支持鼠标选取文本等支持鼠标拖动调整面板的大小通过拖动面板间的分割线支持鼠标选中并切换面板支持鼠标选中并切换窗口通过点击状态栏窗口名称及以上的版本仅需加入如下配置等同于以上个指令的效果切换面板的时候需要按方向键可以设置成方向键配置文件里面的表示即键快速面板切换绑定键为面板切换的上下左右键绑定为绑定为绑定为绑定为选择最后一个面板选择最后一个窗口与前一个面板交换位置与后一个面板交换位置面板大小调整绑定键为面板上下左右调整边缘的快捷指令绑定为往调整面板边缘个单元格绑定为往调整面板边缘个单元格绑定为往调整面板边缘个单元格绑定为往调整面板边缘个单元格安装插件保持会话分钟备份一次启用自动恢复开启恢复面板内容功能初始化插件管理器保证这行在的非常靠后的位置").trim().substring(0, num)
+
+      const queryParams = `key=${options.key}&content=${truncateDescription}`;
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Referer: options.Referer
+        },
+      };
+      try {
+        let animationInterval = null
+        if (animationInterval) clearInterval(animationInterval);
+        animationInterval = setInterval(() => {
+          const animationText = "生成中" + ".".repeat(j);
+          explanation.innerHTML = animationText;
+          j = (j % 3) + 1; // 在 1、2、3 之间循环
+        }, 500);
+        const response = await fetch(`https://summary.tianli0.top/?${queryParams}`, requestOptions);
+        let result;
+        if (response.status === 403) {
+          result = {
+            summary: "403 refer与key不匹配，本地无法显示。"
+          }
+        } else if (response.status === 500) {
+          result = {
+            summary: "500 系统内部错误"
+          }
+        } else {
+          result = await response.json();
+        }
+        const summary = result.summary.trim();
+        setTimeout(() => {
+          aiTitleRefreshIcon.style.opacity = "1";
+        }, 300)
+        startAI(summary);
+        clearInterval(animationInterval)
+      } catch (error) {
+        console.error(error);
+        explanation.innerHTML = "发生异常" + error;
+      }
+    } else {
+      const strArr = "true".split(",").map(item => item.trim()); // 将字符串转换为数组，去除每个字符串前后的空格
+      if (strArr.length !== 1) {
+        let randomIndex = Math.floor(Math.random() * strArr.length); // 随机生成一个索引
+        while (randomIndex === lastAiRandomIndex) { // 如果随机到了上次的索引
+          randomIndex = Math.floor(Math.random() * strArr.length); // 再次随机
+        }
+        lastAiRandomIndex = randomIndex; // 更新上次随机到的索引
+        startAI(strArr[randomIndex]);
+      } else {
+        startAI(strArr[0])
+      }
+      setTimeout(() => {
+        aiTitleRefreshIcon.style.opacity = "1";
+      }, 600)
+    }
+  }
+
+  function aiRecommend() {
+    i = 0; //重置计数器
+    j = 1;
+    clearSTO();
+    animationRunning = false;
+    elapsed = 0;
+    explanation.innerHTML = "生成中. . .";
+    ai_str = "";
+    ai_str_length = "";
+    observer.disconnect(); // 暂停上一次监听
+    sto[2] = setTimeout(() => {
+      explanation.innerHTML = recommendList();
+    }, 600);
+  }
+  function aiGoHome() {
+    startAI("正在前往博客主页...", false);
+    sto[2] = setTimeout(() => {
+      pjax.loadUrl("/");
+    }, 1000);
+  }
+  const ai_btn_item = document.querySelectorAll(".ai-btn-item");
+  function Introduce() {
+    if (mode == "tianli") {
+      startAI("我是文章辅助AI: TianliGPT，点击下方的按钮，让我生成本文简介、推荐相关文章等。")
+    } else {
+      startAI("我是文章辅助AI: AnZhiYu GPT，点击下方的按钮，让我生成本文简介、推荐相关文章等。")
+    }
+  }
+  function aiTitleRefreshIconClick() {
+    aiTitleRefreshIcon.click()
+  }
+  const aiFunctions = [Introduce, aiTitleRefreshIconClick, aiRecommend, aiGoHome];
+  ai_btn_item.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      aiFunctions[index]();
+    });
+  });
+
+  function recommendList() {
+    let thumbnail = document.querySelectorAll('.relatedPosts-list a');
+    if (!thumbnail.length) {
+      const cardRecentPost = document.querySelector('.card-widget.card-recent-post'); 
+      if (!cardRecentPost) return '';
+
+      thumbnail = cardRecentPost.querySelectorAll('.aside-list-item a');
+
+      let list = '';
+      for (let i = 0; i < thumbnail.length; i++) {
+        const item = thumbnail[i];
+        list += `<div class="ai-recommend-item"><span class="index">${i + 1}：</span><a href="javascript:;" onclick="pjax.loadUrl('${item.href}')" title="${item.title}" data-pjax-state="">${item.title}</a></div>`;
+      }
+      
+      return `很抱歉，无法找到类似的文章，你也可以看看本站最新发布的文章：<br /><div class="ai-recommend">${list}</div>`;
+    }
+
+    let list = '';
+    for (let i = 0; i < thumbnail.length; i++) {
+      const item = thumbnail[i];
+      list += `<div class="ai-recommend-item"><span>推荐${i + 1}：</span><a href="javascript:;" onclick="pjax.loadUrl('${item.href}')" title="${item.title}" data-pjax-state="">${item.title}</a></div>`;
+    }
+
+    return `推荐文章：<br /><div class="ai-recommend">${list}</div>`;
+  }
+
+
+  function changeShowMode() {
+    if (mode === "tianli") {
+      mode = "local";
+      document.getElementById("ai-tag").innerHTML = "AnZhiYu GPT";
+      aiAbstract(1000);
+    } else {
+      mode = "tianli";
+      document.getElementById("ai-tag").innerHTML = "Tianli GPT";
+
+      const truncateDescription = ("" + "简介, 参考资料, zsh+oh my zsh, iTerm2, 设置主题, 设置字体, 安装 zplug 插件管理器, 安装命令行工具, Tmux, 简介, 安装, 基本概念, 基础命令, 新建会话, 断开会话, 恢复会话, 关闭会话, 查看所有的会话, Tmux快捷指令, 系统指令, 窗口（window）指令, 面板（pane）指令, 自定义配置简介前几天在站看到一个视频感觉主的终端特别好看尤其是分屏对工作效率的提升本篇文章介绍一下在下搭建终端环境美化你的终端界面提升效率参考资料使用手册安装和升级后安装报错问题解决报错问题亲测方案一有效安装查看版本设置为默认安装设置主题主题下载地址下载主题的包后解压到任意目录后打开找到下来框点击导入然后重新选择设置字体里配置非字体否则对于主题的特殊字体会显示不出来选择之后重启生效安装插件管理器安装命令行工具简介是一款优秀的终端复用软件它比更加强大至于如何强大网上有大量的文章讨论了这点本文不再重复之所以受人们喜爱主要得益于以下三丝滑分屏虽然也提供了横向和竖向分屏功能但这种分屏功能非常拙劣完全等同于屏幕新开一个窗口新开的不会自动进入到当前目录也没有记住当前登录状态这意味着如果我进入到远程服务器时新开的中我依然要重新走一遍登录的老路就不会这样窗口中新开的默认进入到之前的路径如果是连接登录状态也依旧保持着如此一来我就可以随意的增删这种灵活性好处不言而喻保护现场即使命令行的工作只进行到一半关闭终端后还可以重新进入到操作现场继续工作对于远程连接而言即使网络不稳定也没有关系掉线后重新连接可以直奔现场之前运行中的任务依旧在跑就好像从来没有离开过一样特别是在远程服务器上运行耗时的任务可以帮你一直保持住会话如此一来你就可以随时随地放心地进行移动办公只要你附近的计算机装有没有你也可以花几分钟装一个你就能继续刚才的工作会话共享适用于结对编程或远程教学将会话的地址分享给他人这样他们就可以通过接入该会话如果你要给同事演示远程服务器的操作他不必直勾勾地盯着你的屏幕借助他完全可以进入到你的会话然后静静地看着他桌面上你风骚的键盘走位只要他愿意甚至还可以录个屏安装安装成功后再终端输入即可进入服务下的安装先安装有则跳过安装在中安装基本概念开始之前我们先了解下基本概念采用模型构建输入命令就相当于开启了一个服务器此时默认将新建一个会话然后会话中默认新建一个窗口窗口中默认新建一个面板会话窗口面板之间的联系如下一个会话可以包含多个窗口窗口默认充满会话界面因此这些窗口中可以运行相关性不大的任务一个又可以包含多个面板窗口下的面板都处于同一界面下这些面板适合运行相关性高的任务以便同时观察到它们的运行情况基础命令新建会话新建一个非常简单语法为也可以简写为为了方便管理建议指定会话名称如下新建一个无名称的会话新建一个名称为的会话断开会话会话中操作了一段时间我希望断开会话同时下次还能接着用怎么做此时可以使用命令断开当前会话会话在后台运行也许你觉得这个太麻烦了是的的会话中我们已经可以使用快捷键了使用快捷键组合三次按键就可以断开当前会话恢复会话断开会话后想要接着上次留下的现场继续工作就要使用到的命令了语法为可简写为或通常我们使用如下两种方式之一即可默认进入最新创建的一个会话进入到名称为的会话关闭会话会话的使命完成后一定是要关闭的我们可以使用的命令命令有和共四种其中的语法为如下关闭会话关闭服务器所有的会话都将关闭查看所有的会话管理会话的第一步就是要查看所有的会话我们可以使用如下命令查看所有会话查看所有会话提倡使用简写形式的所有指令都包含同一个前缀默认为输入完前缀过后控制台激活命令按键才能生效如果刚好处于会话中怎么办别担心我们可以使用对应的快捷键此时将打开一个会话列表按上下键或者鼠标滚轮可选中目标会话按左右键可收起或展开会话的窗口选中目标会话或窗口后按回车键即可完成切换快捷指令关于快捷指令首先要认识到的是的所有指令都包含同一个前缀默认为输入完前缀过后控制台激活命令按键才能生效前面会话相关的操作中我们共用到了两个快捷键但这仅仅是冰山一角欲窥庞大的快捷键体系请看下表系统指令前缀指令描述显示快捷键帮助文档断开当前会话选择要断开的会话挂起当前会话强制重载当前会话显示会话列表用于选择并切换进入命令行模式此时可直接输入等命令进入复制模式按退出粘贴复制模式中复制的文本列出提示信息缓存窗口指令前缀指令描述新建窗口关闭当前窗口关闭前需输入确认切换到指定窗口切换到上一窗口切换到下一窗口打开窗口列表用于且切换窗口重命名当前窗口修改当前窗口编号适用于窗口重新排序快速定位到窗口输入关键字匹配窗口名称面板指令前缀指令描述当前面板上下一分为二下侧新建面板当前面板左右一分为二右侧新建面板关闭当前面板关闭前需输入确认最大化当前面板再重复一次按键后恢复正常版本新增将当前面板移动到新的窗口打开原窗口中存在两个及以上面板有效切换到最后一次使用的面板显示面板编号在编号消失前输入对应的数字可切换到相应的面板向前置换当前面板向后置换当前面板顺时针旋转当前窗口中的所有面板方向键移动光标切换面板选择下一面板空格键在自带的面板布局中循环切换方向键以个单元格为单位调整当前面板边缘方向键以个单元格为单位调整当前面板边缘下被系统快捷键覆盖显示时钟的丝滑分屏功能正是得益于以上系统窗口面板的快捷指令只要你愿意你就可以解除任意的快捷指令然后绑上你喜欢的指令当然这就涉及到它的可配置性了请继续往下读自定义配置额外配置即键意味着解除绑定绑定为新的指令前缀从版起支持设置第二个指令前缀设置一个不常用的键作为指令前缀按键更快些绑定配置文件生效快捷键为新增面板绑定两个更常用的指令垂直方向新增面板默认进入当前目录水平方向新增面板默认进入当前目录开启鼠标支持对于支持鼠标选取文本等支持鼠标拖动调整面板的大小通过拖动面板间的分割线支持鼠标选中并切换面板支持鼠标选中并切换窗口通过点击状态栏窗口名称及以上的版本仅需加入如下配置等同于以上个指令的效果切换面板的时候需要按方向键可以设置成方向键配置文件里面的表示即键快速面板切换绑定键为面板切换的上下左右键绑定为绑定为绑定为绑定为选择最后一个面板选择最后一个窗口与前一个面板交换位置与后一个面板交换位置面板大小调整绑定键为面板上下左右调整边缘的快捷指令绑定为往调整面板边缘个单元格绑定为往调整面板边缘个单元格绑定为往调整面板边缘个单元格绑定为往调整面板边缘个单元格安装插件保持会话分钟备份一次启用自动恢复开启恢复面板内容功能初始化插件管理器保证这行在的非常靠后的位置").trim().substring(0, 1000);
+      let value = Math.floor(Math.random() * 3) + 1000;
+      while (value === prevParam || truncateDescription.length - value === prevParam) {
+        value = Math.floor(Math.random() * 3) + 1000;
+      }
+      aiTitleRefreshIcon.style.opacity = "0.2";
+      aiTitleRefreshIcon.style.transitionDuration = "0.3s";
+      aiTitleRefreshIcon.style.transform = "rotate(" + 360 * refreshNum + "deg)";
+      if (truncateDescription.length <= 1000) {
+        let param = truncateDescription.length - Math.floor(Math.random() * 3);
+        while (param === prevParam) {
+          param = truncateDescription.length - Math.floor(Math.random() * 3);
+        }
+        aiAbstract(param);
+        prevParam = param;
+      } else {
+        aiAbstract(value);
+        prevParam = value;
+      }
+      refreshNum++;
+    }
+  }
+
+  //- 监听tag点击事件
+  document.getElementById("ai-tag").addEventListener("click", () => {
+    if (mode === "tianli") {
+      document.querySelectorAll(".ai-btn-item").forEach(item => item.style.display = "none");
+      document.getElementById("go-tianli-blog").style.display = "block";
+      startAI("你好，我是Tianli开发的摘要生成助理TianliGPT，是一个基于GPT-4的生成式AI。我在这里只负责摘要的预生成和显示，你无法与我直接沟通，如果你也需要一个这样的AI摘要接口，可以在下方购买。（暂未开放购买，敬请期待）")
+    } else {
+      document.getElementById("go-tianli-blog").style.display = "none";
+      startAI("你好，我是本站摘要生成助理AnZhiYu GPT，是一个基于GPT-4的生成式AI。我在这里只负责摘要的预生成和显示，你无法与我直接沟通。")
+    }
+
+  });
+
+  aiTitleRefreshIcon.addEventListener("click", () => {
+    const truncateDescription = ("" + "简介, 参考资料, zsh+oh my zsh, iTerm2, 设置主题, 设置字体, 安装 zplug 插件管理器, 安装命令行工具, Tmux, 简介, 安装, 基本概念, 基础命令, 新建会话, 断开会话, 恢复会话, 关闭会话, 查看所有的会话, Tmux快捷指令, 系统指令, 窗口（window）指令, 面板（pane）指令, 自定义配置简介前几天在站看到一个视频感觉主的终端特别好看尤其是分屏对工作效率的提升本篇文章介绍一下在下搭建终端环境美化你的终端界面提升效率参考资料使用手册安装和升级后安装报错问题解决报错问题亲测方案一有效安装查看版本设置为默认安装设置主题主题下载地址下载主题的包后解压到任意目录后打开找到下来框点击导入然后重新选择设置字体里配置非字体否则对于主题的特殊字体会显示不出来选择之后重启生效安装插件管理器安装命令行工具简介是一款优秀的终端复用软件它比更加强大至于如何强大网上有大量的文章讨论了这点本文不再重复之所以受人们喜爱主要得益于以下三丝滑分屏虽然也提供了横向和竖向分屏功能但这种分屏功能非常拙劣完全等同于屏幕新开一个窗口新开的不会自动进入到当前目录也没有记住当前登录状态这意味着如果我进入到远程服务器时新开的中我依然要重新走一遍登录的老路就不会这样窗口中新开的默认进入到之前的路径如果是连接登录状态也依旧保持着如此一来我就可以随意的增删这种灵活性好处不言而喻保护现场即使命令行的工作只进行到一半关闭终端后还可以重新进入到操作现场继续工作对于远程连接而言即使网络不稳定也没有关系掉线后重新连接可以直奔现场之前运行中的任务依旧在跑就好像从来没有离开过一样特别是在远程服务器上运行耗时的任务可以帮你一直保持住会话如此一来你就可以随时随地放心地进行移动办公只要你附近的计算机装有没有你也可以花几分钟装一个你就能继续刚才的工作会话共享适用于结对编程或远程教学将会话的地址分享给他人这样他们就可以通过接入该会话如果你要给同事演示远程服务器的操作他不必直勾勾地盯着你的屏幕借助他完全可以进入到你的会话然后静静地看着他桌面上你风骚的键盘走位只要他愿意甚至还可以录个屏安装安装成功后再终端输入即可进入服务下的安装先安装有则跳过安装在中安装基本概念开始之前我们先了解下基本概念采用模型构建输入命令就相当于开启了一个服务器此时默认将新建一个会话然后会话中默认新建一个窗口窗口中默认新建一个面板会话窗口面板之间的联系如下一个会话可以包含多个窗口窗口默认充满会话界面因此这些窗口中可以运行相关性不大的任务一个又可以包含多个面板窗口下的面板都处于同一界面下这些面板适合运行相关性高的任务以便同时观察到它们的运行情况基础命令新建会话新建一个非常简单语法为也可以简写为为了方便管理建议指定会话名称如下新建一个无名称的会话新建一个名称为的会话断开会话会话中操作了一段时间我希望断开会话同时下次还能接着用怎么做此时可以使用命令断开当前会话会话在后台运行也许你觉得这个太麻烦了是的的会话中我们已经可以使用快捷键了使用快捷键组合三次按键就可以断开当前会话恢复会话断开会话后想要接着上次留下的现场继续工作就要使用到的命令了语法为可简写为或通常我们使用如下两种方式之一即可默认进入最新创建的一个会话进入到名称为的会话关闭会话会话的使命完成后一定是要关闭的我们可以使用的命令命令有和共四种其中的语法为如下关闭会话关闭服务器所有的会话都将关闭查看所有的会话管理会话的第一步就是要查看所有的会话我们可以使用如下命令查看所有会话查看所有会话提倡使用简写形式的所有指令都包含同一个前缀默认为输入完前缀过后控制台激活命令按键才能生效如果刚好处于会话中怎么办别担心我们可以使用对应的快捷键此时将打开一个会话列表按上下键或者鼠标滚轮可选中目标会话按左右键可收起或展开会话的窗口选中目标会话或窗口后按回车键即可完成切换快捷指令关于快捷指令首先要认识到的是的所有指令都包含同一个前缀默认为输入完前缀过后控制台激活命令按键才能生效前面会话相关的操作中我们共用到了两个快捷键但这仅仅是冰山一角欲窥庞大的快捷键体系请看下表系统指令前缀指令描述显示快捷键帮助文档断开当前会话选择要断开的会话挂起当前会话强制重载当前会话显示会话列表用于选择并切换进入命令行模式此时可直接输入等命令进入复制模式按退出粘贴复制模式中复制的文本列出提示信息缓存窗口指令前缀指令描述新建窗口关闭当前窗口关闭前需输入确认切换到指定窗口切换到上一窗口切换到下一窗口打开窗口列表用于且切换窗口重命名当前窗口修改当前窗口编号适用于窗口重新排序快速定位到窗口输入关键字匹配窗口名称面板指令前缀指令描述当前面板上下一分为二下侧新建面板当前面板左右一分为二右侧新建面板关闭当前面板关闭前需输入确认最大化当前面板再重复一次按键后恢复正常版本新增将当前面板移动到新的窗口打开原窗口中存在两个及以上面板有效切换到最后一次使用的面板显示面板编号在编号消失前输入对应的数字可切换到相应的面板向前置换当前面板向后置换当前面板顺时针旋转当前窗口中的所有面板方向键移动光标切换面板选择下一面板空格键在自带的面板布局中循环切换方向键以个单元格为单位调整当前面板边缘方向键以个单元格为单位调整当前面板边缘下被系统快捷键覆盖显示时钟的丝滑分屏功能正是得益于以上系统窗口面板的快捷指令只要你愿意你就可以解除任意的快捷指令然后绑上你喜欢的指令当然这就涉及到它的可配置性了请继续往下读自定义配置额外配置即键意味着解除绑定绑定为新的指令前缀从版起支持设置第二个指令前缀设置一个不常用的键作为指令前缀按键更快些绑定配置文件生效快捷键为新增面板绑定两个更常用的指令垂直方向新增面板默认进入当前目录水平方向新增面板默认进入当前目录开启鼠标支持对于支持鼠标选取文本等支持鼠标拖动调整面板的大小通过拖动面板间的分割线支持鼠标选中并切换面板支持鼠标选中并切换窗口通过点击状态栏窗口名称及以上的版本仅需加入如下配置等同于以上个指令的效果切换面板的时候需要按方向键可以设置成方向键配置文件里面的表示即键快速面板切换绑定键为面板切换的上下左右键绑定为绑定为绑定为绑定为选择最后一个面板选择最后一个窗口与前一个面板交换位置与后一个面板交换位置面板大小调整绑定键为面板上下左右调整边缘的快捷指令绑定为往调整面板边缘个单元格绑定为往调整面板边缘个单元格绑定为往调整面板边缘个单元格绑定为往调整面板边缘个单元格安装插件保持会话分钟备份一次启用自动恢复开启恢复面板内容功能初始化插件管理器保证这行在的非常靠后的位置").trim().substring(0, 1000);
+    let value = Math.floor(Math.random() * 3) + 1000;
+    while (value === prevParam || truncateDescription.length - value === prevParam) {
+      value = Math.floor(Math.random() * 3) + 1000;
+    }
+    aiTitleRefreshIcon.style.opacity = "0.2";
+    aiTitleRefreshIcon.style.transitionDuration = "0.3s";
+    aiTitleRefreshIcon.style.transform = "rotate(" + 360 * refreshNum + "deg)";
+    if (truncateDescription.length <= 1000) {
+      let param = truncateDescription.length - Math.floor(Math.random() * 3);
+      while (param === prevParam) {
+        param = truncateDescription.length - Math.floor(Math.random() * 3);
+      }
+      aiAbstract(param);
+      prevParam = param;
+    } else {
+      aiAbstract(value);
+      prevParam = value;
+    }
+    showAiBtn();
+    refreshNum++;
+  });
+
+  document.getElementById("go-tianli-blog").addEventListener("click", () => {
+    window.open("https://afdian.net/item/886a79d4db6711eda42a52540025c377", "_blank");
+  });
+  
+  if (false) {
+    document.getElementById("ai-Toggle").addEventListener("click", () => {
+      changeShowMode()
+    });
+  }
+
+  function showAiBtn() {
+    document.querySelectorAll(".ai-btn-item").forEach(item => {
+      if (item.id !== "go-tianli-blog") {
+        item.style.display = "block";
+      }
+      if (item.id === "go-tianli-blog") {
+        item.style.display = "none";
+      }
+    });
+  }
+
+
+  aiAbstract();
+  showAiBtn()
+})()</script></div><article class="post-content" id="article-container"><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>前几天在B站看到一个视频，感觉UP主的终端特别好看，尤其是分屏对工作效率的提升，本篇文章介绍一下在 Mac 下搭建终端环境 Tmux + iTerm2 + NeoVim + zsh 美化你的终端界面，提升效率</p>
+<span id="more"></span>
+
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="http://louiszhai.github.io/2017/09/30/tmux/" target="_blank" class="LinkCard" style='text-decoration: none;'>Tmux使用手册</a></p>
+<h1 id="zsh-oh-my-zsh"><a href="#zsh-oh-my-zsh" class="headerlink" title="zsh+oh my zsh"></a>zsh+oh my zsh</h1><p>安装zsh和 oh my zsh  </p>
+<p><a href="https://blog.csdn.net/ljl6158999/article/details/118144440" target="_blank" class="LinkCard" style='text-decoration: none;'>Mac Big Sur升级后brew安装报错问题解决</a></p>
+<p><a href="https://blog.csdn.net/qq_43531694/article/details/106862753" target="_blank" class="LinkCard" style='text-decoration: none;'>curl 443报错问题（亲测方案一有效）</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 zsh、查看版本、 设置为默认</span></span><br><span class="line">brew install zsh</span><br><span class="line">zsh --version</span><br><span class="line">chsh -s /bin/zsh</span><br><span class="line"><span class="comment">#安装 oh my zsh</span></span><br><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="iTerm2"><a href="#iTerm2" class="headerlink" title="iTerm2"></a>iTerm2</h1><h2 id="设置主题"><a href="#设置主题" class="headerlink" title="设置主题"></a>设置主题</h2><ul>
+<li>主题下载地址：<a target="_blank" rel="noopener" href="https://draculatheme.com/iterm">https://draculatheme.com/iterm</a></li>
+<li>下载主题的zip包后解压到任意目录后，打开 <code>iTerm2</code> –&gt; <code>Preferences</code> –&gt; <code>Profiles</code> –&gt; <code>Clolors</code></li>
+<li>找到 Color Presets 下来框，点击 import 导入 <code>Dracula.itermcolors</code>  然后重新选择 Dracula</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210905112705614-20210905113506039.png" alt="iTerm2 设置Dracula主题"></p>
+<h2 id="设置字体"><a href="#设置字体" class="headerlink" title="设置字体"></a>设置字体</h2><p>Iterm2 里配置非 acsii 字体，否则对于 powerlevel10k 主题的特殊字体会显示不出来。</p>
+<p>(Iterm2 -&gt; Preferences -&gt; Profiles -&gt; Text -&gt; Non-Ascii-Font 选择 nerd-font and restart Iterm2), 之后重启 Iterm2 生效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts</span></span><br><span class="line">brew tap homebrew/cask-fonts</span><br><span class="line">brew cask install font-hack-nerd-font</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-zplug-插件管理器"><a href="#安装-zplug-插件管理器" class="headerlink" title="安装 zplug 插件管理器"></a>安装 zplug 插件管理器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://github.com/zplug/zplug</span></span><br><span class="line">curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装命令行工具"><a href="#安装命令行工具" class="headerlink" title="安装命令行工具"></a>安装命令行工具</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">brew install fzf</span><br><span class="line"><span class="comment"># To install useful key bindings and fuzzy completion:</span></span><br><span class="line">$(brew --prefix)/opt/fzf/install</span><br><span class="line"></span><br><span class="line">brew install thefuck</span><br><span class="line">brew install autojump</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Tmux"><a href="#Tmux" class="headerlink" title="Tmux"></a>Tmux</h1><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210831230907002.png" alt="Tmux+Neovim"></p>
+<h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><p>tmux是一款优秀的终端复用软件，它比Screen更加强大，至于如何强大，网上有大量的文章讨论了这点，本文不再重复。tmux之所以受人们喜爱，主要得益于以下三</p>
+<ul>
+<li>丝滑分屏（split），虽然iTem2也提供了横向和竖向分屏功能，但这种分屏功能非常拙劣，完全等同于屏幕新开一个窗口，新开的pane不会自动进入到当前目录，也没有记住当前登录状态。这意味着如果我ssh进入到远程服务器时，iTem2新开的pane中，我依然要重新走一遍ssh登录的老路（omg）。tmux就不会这样，tmux窗口中，新开的pane，默认进入到之前的路径，如果是ssh连接，登录状态也依旧保持着，如此一来，我就可以随意的增删pane，这种灵活性，好处不言而喻。</li>
+<li>保护现场（attach），即使命令行的工作只进行到一半，关闭终端后还可以重新进入到操作现场，继续工作。对于ssh远程连接而言，即使网络不稳定也没有关系，掉线后重新连接，可以直奔现场，之前运行中的任务，依旧在跑，就好像从来没有离开过一样；特别是在远程服务器上运行耗时的任务，tmux可以帮你一直保持住会话。如此一来，你就可以随时随地放心地进行移动办公，只要你附近的计算机装有tmux（没有你也可以花几分钟装一个），你就能继续刚才的工作。</li>
+<li>会话共享（适用于结对编程或远程教学），将 tmux 会话的地址分享给他人，这样他们就可以通过 SSH 接入该会话。如果你要给同事演示远程服务器的操作，他不必直勾勾地盯着你的屏幕，借助tmux，他完全可以进入到你的会话，然后静静地看着他桌面上你风骚的键盘走位，只要他愿意，甚至还可以录个屏。</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装成功后再终端输入 tmux 即可进入 tmux 服务</p>
+<hr>
+<blockquote>
+<p>  Mac 下的安装</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先安装Homebrew，有则跳过</span></span><br><span class="line">ruby -e <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>&quot;</span></span><br><span class="line"><span class="comment"># 安装tmux</span></span><br><span class="line">brew install tmux</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<blockquote>
+<p>在Linux中安装</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install tmux</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>开始之前，我们先了解下基本概念：</p>
+<p>tmux采用C&#x2F;S模型构建，输入tmux命令就相当于开启了一个服务器，此时默认将新建一个会话，然后会话中默认新建一个窗口，窗口中默认新建一个面板。会话、窗口、面板之间的联系如下：</p>
+<p>一个tmux <code>session</code>（会话）可以包含多个<code>window</code>（窗口），窗口默认充满会话界面，因此这些窗口中可以运行相关性不大的任务。</p>
+<p>一个<code>window</code>又可以包含多个<code>pane</code>（面板），窗口下的面板，都处于同一界面下，这些面板适合运行相关性高的任务，以便同时观察到它们的运行情况。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210829154439587.png" alt="布局介绍"></p>
+<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><h3 id="新建会话"><a href="#新建会话" class="headerlink" title="新建会话"></a>新建会话</h3><p>新建一个tmux session非常简单，语法为<code>tmux new -s session-name</code>，也可以简写为<code>tmux</code>，为了方便管理，建议指定会话名称，如下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux <span class="comment"># 新建一个无名称的会话</span></span><br><span class="line">tmux new -s demo <span class="comment"># 新建一个名称为demo的会话</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="断开会话"><a href="#断开会话" class="headerlink" title="断开会话"></a>断开会话</h3><p>会话中操作了一段时间，我希望断开会话同时下次还能接着用，怎么做？此时可以使用detach命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux detach <span class="comment"># 断开当前会话，会话在后台运行</span></span><br></pre></td></tr></table></figure>
+
+<p>也许你觉得这个太麻烦了，是的，tmux的会话中，我们已经可以使用tmux快捷键了。使用快捷键组合<code>Ctrl+b</code> + <code>d</code>，三次按键就可以断开当前会话。</p>
+<h3 id="恢复会话"><a href="#恢复会话" class="headerlink" title="恢复会话"></a>恢复会话</h3><p>断开会话后，想要接着上次留下的现场继续工作，就要使用到tmux的attach命令了，语法为<code>tmux attach-session -t session-name</code>，可简写为<code>tmux a -t session-name</code> 或 <code>tmux a</code>。通常我们使用如下两种方式之一即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux a <span class="comment"># 默认进入最新创建的一个会话</span></span><br><span class="line">tmux a -t ada <span class="comment"># 进入到名称为ada的会话</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="关闭会话"><a href="#关闭会话" class="headerlink" title="关闭会话"></a>关闭会话</h3><p>会话的使命完成后，一定是要关闭的。我们可以使用tmux的kill命令，kill命令有<code>kill-pane</code>、<code>kill-server</code>、<code>kill-session</code> 和 <code>kill-window</code>共四种，其中<code>kill-session</code>的语法为<code>tmux kill-session -t session-name</code>。如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux kill-session -t demo <span class="comment"># 关闭demo会话</span></span><br><span class="line">tmux kill-server <span class="comment"># 关闭服务器，所有的会话都将关闭</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="查看所有的会话"><a href="#查看所有的会话" class="headerlink" title="查看所有的会话"></a>查看所有的会话</h3><p>管理会话的第一步就是要查看所有的会话，我们可以使用如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux list-session <span class="comment"># 查看所有会话</span></span><br><span class="line">tmux <span class="built_in">ls</span> <span class="comment"># 查看所有会话，提倡使用简写形式</span></span><br></pre></td></tr></table></figure>
+
+<p>tmux的所有指令，都包含同一个前缀，默认为<code>Ctrl+b</code>，输入完前缀过后，控制台激活，命令按键才能生效</p>
+<p>如果刚好处于会话中怎么办？别担心，我们可以使用对应的tmux快捷键<code>Ctrl+b</code> + <code>s</code>，此时tmux将打开一个会话列表，按上下键(⬆︎⬇︎)或者鼠标滚轮，可选中目标会话，按左右键（⬅︎➜）可收起或展开会话的窗口，选中目标会话或窗口后，按回车键即可完成切换。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210829160231373.png" alt="会话查看"></p>
+<h2 id="Tmux快捷指令"><a href="#Tmux快捷指令" class="headerlink" title="Tmux快捷指令"></a>Tmux快捷指令</h2><p>关于快捷指令，首先要认识到的是：tmux的所有指令，都包含同一个前缀，默认为<code>Ctrl+b</code>，输入完前缀过后，控制台激活，命令按键才能生效。前面tmux会话相关的操作中，我们共用到了两个快捷键<code>Ctrl+b</code> + <code>d</code>、<code>Ctrl+b</code> + <code>s</code>，但这仅仅是冰山一角，欲窥tmux庞大的快捷键体系，请看下表。</p>
+<h3 id="系统指令"><a href="#系统指令" class="headerlink" title="系统指令"></a>系统指令</h3><table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>指令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Ctrl+b</code></td>
+<td><code>?</code></td>
+<td>显示快捷键帮助文档</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>d</code></td>
+<td>断开当前会话</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>D</code></td>
+<td>选择要断开的会话</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>Ctrl+z</code></td>
+<td>挂起当前会话</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>r</code></td>
+<td>强制重载当前会话</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>s</code></td>
+<td>显示会话列表用于选择并切换</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>:</code></td>
+<td>进入命令行模式，此时可直接输入<code>ls</code>等命令</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>[</code></td>
+<td>进入复制模式，按<code>q</code>退出</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>]</code></td>
+<td>粘贴复制模式中复制的文本</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>~</code></td>
+<td>列出提示信息缓存</td>
+</tr>
+</tbody></table>
+<h3 id="窗口（window）指令"><a href="#窗口（window）指令" class="headerlink" title="窗口（window）指令"></a>窗口（window）指令</h3><table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>指令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Ctrl+b</code></td>
+<td><code>c</code></td>
+<td>新建窗口</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>&amp;</code></td>
+<td>关闭当前窗口（关闭前需输入<code>y</code> or <code>n</code>确认）</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>0~9</code></td>
+<td>切换到指定窗口</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>p</code></td>
+<td>切换到上一窗口</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>n</code></td>
+<td>切换到下一窗口</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>w</code></td>
+<td>打开窗口列表，用于且切换窗口</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>,</code></td>
+<td>重命名当前窗口</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>.</code></td>
+<td>修改当前窗口编号（适用于窗口重新排序）</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>f</code></td>
+<td>快速定位到窗口（输入关键字匹配窗口名称）</td>
+</tr>
+</tbody></table>
+<h3 id="面板（pane）指令"><a href="#面板（pane）指令" class="headerlink" title="面板（pane）指令"></a>面板（pane）指令</h3><table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>指令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Ctrl+b</code></td>
+<td><code>&quot;</code></td>
+<td>当前面板上下一分为二，下侧新建面板</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>%</code></td>
+<td>当前面板左右一分为二，右侧新建面板</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>x</code></td>
+<td>关闭当前面板（关闭前需输入<code>y</code> or <code>n</code>确认）</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>z</code></td>
+<td>最大化当前面板，再重复一次按键后恢复正常（v1.8版本新增）</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>!</code></td>
+<td>将当前面板移动到新的窗口打开（原窗口中存在两个及以上面板有效）</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>;</code></td>
+<td>切换到最后一次使用的面板</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>q</code></td>
+<td>显示面板编号，在编号消失前输入对应的数字可切换到相应的面板</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>&#123;</code></td>
+<td>向前置换当前面板</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>&#125;</code></td>
+<td>向后置换当前面板</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>Ctrl+o</code></td>
+<td>顺时针旋转当前窗口中的所有面板</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>方向键</code></td>
+<td>移动光标切换面板</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>o</code></td>
+<td>选择下一面板</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>空格键</code></td>
+<td>在自带的面板布局中循环切换</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>Alt+方向键</code></td>
+<td>以5个单元格为单位调整当前面板边缘</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>Ctrl+方向键</code></td>
+<td>以1个单元格为单位调整当前面板边缘（Mac下被系统快捷键覆盖）</td>
+</tr>
+<tr>
+<td><code>Ctrl+b</code></td>
+<td><code>t</code></td>
+<td>显示时钟</td>
+</tr>
+</tbody></table>
+<p>tmux的丝滑分屏功能正是得益于以上系统、窗口、面板的快捷指令，只要你愿意，你就可以解除任意的快捷指令，然后绑上你喜欢的指令，当然这就涉及到它的可配置性了，请继续往下读。</p>
+<h2 id="自定义配置"><a href="#自定义配置" class="headerlink" title="自定义配置"></a>自定义配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-------------------------------额外配置----------------------</span></span><br><span class="line"><span class="built_in">set</span> -g prefix C-a <span class="comment">#</span></span><br><span class="line">unbind C-b <span class="comment"># C-b即Ctrl+b键，unbind意味着解除绑定</span></span><br><span class="line"><span class="built_in">bind</span> C-a send-prefix <span class="comment"># 绑定Ctrl+a为新的指令前缀</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从tmux v1.6版起，支持设置第二个指令前缀</span></span><br><span class="line">set-option -g prefix2 ` <span class="comment"># 设置一个不常用的`键作为指令前缀，按键更快些</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 绑定~/.tmux.conf配置文件生效快捷键为r</span></span><br><span class="line"><span class="built_in">bind</span> r source-file ~/.tmux.conf \; display-message <span class="string">&quot;Config reloaded..&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#新增面板绑定两个更常用的指令 -、|</span></span><br><span class="line">unbind <span class="string">&#x27;&quot;&#x27;</span></span><br><span class="line"><span class="built_in">bind</span> - splitw -v -c <span class="string">&#x27;#&#123;pane_current_path&#125;&#x27;</span> <span class="comment"># 垂直方向新增面板，默认进入当前目录</span></span><br><span class="line">unbind %</span><br><span class="line"><span class="built_in">bind</span> | splitw -h -c <span class="string">&#x27;#&#123;pane_current_path&#125;&#x27;</span> <span class="comment"># 水平方向新增面板，默认进入当前目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#开启鼠标支持 对于tmux v2.1(2015.10.28)</span></span><br><span class="line"><span class="comment">#setw -g mode-mouse on # 支持鼠标选取文本等</span></span><br><span class="line"><span class="comment">#setw -g mouse-resize-pane on # 支持鼠标拖动调整面板的大小(通过拖动面板间的分割线)</span></span><br><span class="line"><span class="comment">#setw -g mouse-select-pane on # 支持鼠标选中并切换面板</span></span><br><span class="line"><span class="comment">#setw -g mouse-select-window on # 支持鼠标选中并切换窗口(通过点击状态栏窗口名称)</span></span><br><span class="line"><span class="comment">#tmux v2.1及以上的版本，仅需加入如下配置</span></span><br><span class="line">set-option -g mouse on <span class="comment"># 等同于以上4个指令的效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换面板的时候，需要按 ctlr+b 方向键，可以设置成 alt+方向键。配置文件里面的 M 表示 Meta，即 Alt 键。</span></span><br><span class="line"><span class="built_in">bind</span> -n M-Left select-pane -L</span><br><span class="line"><span class="built_in">bind</span> -n M-Right select-pane -R</span><br><span class="line"><span class="built_in">bind</span> -n M-Up select-pane -U</span><br><span class="line"><span class="built_in">bind</span> -n M-Down select-pane -D</span><br><span class="line"></span><br><span class="line"><span class="comment">#快速面板切换</span></span><br><span class="line"><span class="comment"># 绑定hjkl键为面板切换的上下左右键</span></span><br><span class="line"><span class="built_in">bind</span> -r k select-pane -U <span class="comment"># 绑定k为↑</span></span><br><span class="line"><span class="built_in">bind</span> -r j select-pane -D <span class="comment"># 绑定j为↓</span></span><br><span class="line"><span class="built_in">bind</span> -r h select-pane -L <span class="comment"># 绑定h为←</span></span><br><span class="line"><span class="built_in">bind</span> -r l select-pane -R <span class="comment"># 绑定l为→</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r e lastp <span class="comment"># 选择最后一个面板</span></span><br><span class="line"><span class="built_in">bind</span> -r ^e last <span class="comment"># 选择最后一个窗口</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r ^u swapp -U <span class="comment"># 与前一个面板交换位置</span></span><br><span class="line"><span class="built_in">bind</span> -r ^d swapp -D <span class="comment"># 与后一个面板交换位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#面板大小调整</span></span><br><span class="line"><span class="comment"># 绑定Ctrl+hjkl键为面板上下左右调整边缘的快捷指令</span></span><br><span class="line"><span class="built_in">bind</span> -r ^k resizep -U 10 <span class="comment"># 绑定Ctrl+k为往↑调整面板边缘10个单元格</span></span><br><span class="line"><span class="built_in">bind</span> -r ^j resizep -D 10 <span class="comment"># 绑定Ctrl+j为往↓调整面板边缘10个单元格</span></span><br><span class="line"><span class="built_in">bind</span> -r ^h resizep -L 10 <span class="comment"># 绑定Ctrl+h为往←调整面板边缘10个单元格</span></span><br><span class="line"><span class="built_in">bind</span> -r ^l resizep -R 10 <span class="comment"># 绑定Ctrl+l为往→调整面板边缘10个单元格</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装插件保持会话</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">&#x27;tmux-plugins/tpm&#x27;</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">&#x27;tmux-plugins/tmux-sensible&#x27;</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">&#x27;tmux-plugins/tmux-resurrect&#x27;</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">&#x27;tmux-plugins/tmux-continuum&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g @continuum-save-interval <span class="string">&#x27;240&#x27;</span> <span class="comment">#240分钟备份一次</span></span><br><span class="line"><span class="built_in">set</span> -g @continuum-restore <span class="string">&#x27;on&#x27;</span>  <span class="comment"># 启用自动恢复</span></span><br><span class="line"><span class="built_in">set</span> -g @resurrect-capture-pane-contents <span class="string">&#x27;on&#x27;</span> <span class="comment"># 开启恢复面板内容功能</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">run <span class="string">&#x27;~/.tmux/plugins/tpm/tpm&#x27;</span> <span class="comment"># 初始化tmux插件管理器(保证这行在~/.tmux.conf的非常靠后的位置)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.3001.net/images/20210606/16229390604952.png" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.3001.net/images/20210606/16229390604952.png" title="头像" alt="头像"></a><div class="post-copyright__author_name">Ada</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://adalucky.github.io/worker/Ops/%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://adalucky.github.io/worker/Ops/%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/')">Tmux</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://adalucky.github.io/worker/Ops/%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=Tmux&amp;url=https://adalucky.github.io/worker/Ops/%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/&amp;pic=https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/other/tmux.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="rm.copyPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://adalucky.github.io" target="_blank">Ada</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Tmux/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Tmux<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/NeoVim/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>NeoVim<span class="tagsPageCount">1</span></a></div></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/worker/Tester/Security/thinkphp/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/security/thinkphp.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Thinkphp</div></div></a></div><div class="next-post pull-right"><a href="/worker/Tester/Performance/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928021129.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">性能测试基础知识</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-top" title="点击展开"><div class="card-info-avatar"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.3001.net/images/20210606/16229390604952.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div></div></div><div class="author-info__description">我的个人博客</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/jqqdgzh.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.0.1.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#zsh-oh-my-zsh"><span class="toc-number">2.</span> <span class="toc-text">zsh+oh my zsh</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iTerm2"><span class="toc-number">3.</span> <span class="toc-text">iTerm2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%BB%E9%A2%98"><span class="toc-number">3.1.</span> <span class="toc-text">设置主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%AD%97%E4%BD%93"><span class="toc-number">3.2.</span> <span class="toc-text">设置字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-zplug-%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-number">3.3.</span> <span class="toc-text">安装 zplug 插件管理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-number">3.4.</span> <span class="toc-text">安装命令行工具</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tmux"><span class="toc-number">4.</span> <span class="toc-text">Tmux</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="toc-number">4.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">4.2.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">4.3.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4"><span class="toc-number">4.4.</span> <span class="toc-text">基础命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%BC%9A%E8%AF%9D"><span class="toc-number">4.4.1.</span> <span class="toc-text">新建会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%AD%E5%BC%80%E4%BC%9A%E8%AF%9D"><span class="toc-number">4.4.2.</span> <span class="toc-text">断开会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E4%BC%9A%E8%AF%9D"><span class="toc-number">4.4.3.</span> <span class="toc-text">恢复会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E4%BC%9A%E8%AF%9D"><span class="toc-number">4.4.4.</span> <span class="toc-text">关闭会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%9A%84%E4%BC%9A%E8%AF%9D"><span class="toc-number">4.4.5.</span> <span class="toc-text">查看所有的会话</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tmux%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4"><span class="toc-number">4.5.</span> <span class="toc-text">Tmux快捷指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%8C%87%E4%BB%A4"><span class="toc-number">4.5.1.</span> <span class="toc-text">系统指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%EF%BC%88window%EF%BC%89%E6%8C%87%E4%BB%A4"><span class="toc-number">4.5.2.</span> <span class="toc-text">窗口（window）指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E6%9D%BF%EF%BC%88pane%EF%BC%89%E6%8C%87%E4%BB%A4"><span class="toc-number">4.5.3.</span> <span class="toc-text">面板（pane）指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE"><span class="toc-number">4.6.</span> <span class="toc-text">自定义配置</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/worker/Toolbox/Hexo/" title="Hexo"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/other/hexo.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo"/></a><div class="content"><a class="title" href="/worker/Toolbox/Hexo/" title="Hexo">Hexo</a><time datetime="2023-08-14T16:00:00.000Z" title="发表于 2023-08-15 00:00:00">2023-08-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/worker/Backender/MongoDB/" title="MongoDB"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/mongodb.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MongoDB"/></a><div class="content"><a class="title" href="/worker/Backender/MongoDB/" title="MongoDB">MongoDB</a><time datetime="2023-07-04T16:00:00.000Z" title="发表于 2023-07-05 00:00:00">2023-07-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/worker/Ops/Docker%20Compose/" title="Docker Compose"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/docker-compose.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker Compose"/></a><div class="content"><a class="title" href="/worker/Ops/Docker%20Compose/" title="Docker Compose">Docker Compose</a><time datetime="2023-06-26T16:00:00.000Z" title="发表于 2023-06-27 00:00:00">2023-06-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/worker/Ops/Linux%E5%91%BD%E4%BB%A4/" title="Linux 命令"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/linux.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux 命令"/></a><div class="content"><a class="title" href="/worker/Ops/Linux%E5%91%BD%E4%BB%A4/" title="Linux 命令">Linux 命令</a><time datetime="2023-06-26T16:00:00.000Z" title="发表于 2023-06-27 00:00:00">2023-06-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/worker/Ops/asdf%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" title="asdf"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/asdf.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="asdf"/></a><div class="content"><a class="title" href="/worker/Ops/asdf%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" title="asdf">asdf</a><time datetime="2023-06-13T16:00:00.000Z" title="发表于 2023-06-14 00:00:00">2023-06-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2023 By <a class="footer-bar-link" href="/" title="Ada" target="_blank">Ada</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div></div></div><div id="sidebar"><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.3001.net/images/20210606/16229390604952.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><span> 总览</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><span> 分类</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><span> 标签</span></a></div></div></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="anzhiyufont anzhiyu-icon-comment-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><a id="switch_commentBarrage" href="javascript:anzhiyu.switchCommentBarrage();" title="开关弹幕"><i class="anzhiyufont anzhiyu-icon-danmu"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.3.1/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.cbd.int/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("07/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.5.4",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#3b70fc",
+      "",
+      "color:#3b70fc",
+      "color:#3b70fc",
+      "",
+      "color:#3b70fc",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Ada 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="https://cdn.cbd.int/algoliasearch@4.18.0/dist/algoliasearch-lite.umd.js"></script><script src="https://cdn.cbd.int/instantsearch.js@4.56.5/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'HvNn2fnND9DnBkt32cvR8g5x-gzGzoHsz',
+      appKey: '1FgE4n7EeWrdtvsJCcB20dfD',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.cbd.int/valine@1.5.1/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) anzhiyu.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script src="https://cdn.cbd.int/blueimp-md5@2.19.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=mp'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const serverURL = 'https://HvNn2fnN.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": 'HvNn2fnND9DnBkt32cvR8g5x-gzGzoHsz',
+        "X-LC-Key": '1FgE4n7EeWrdtvsJCcB20dfD',
+        "Content-Type": "application/json"
+      },
+    }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      }) 
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('valine-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "visitor@anheyu.com";</script><script>//动态标题
+let leaveTitle = 'w(ﾟДﾟ)w 不要走！再看看嘛！';
+let backTitle = '♪(^∇^*)欢迎肥来！';
+let OriginTitile = document.title
+let titleTime
+document.addEventListener('visibilitychange', function () {
+  if (document.hidden) {
+    //离开当前页面时标签显示内容
+    document.title = leaveTitle
+    clearTimeout(titleTime)
+  } else {
+    //返回当前页面时标签显示内容
+    document.title = backTitle + OriginTitile
+    //两秒后变回正常标题
+    titleTime = setTimeout(function () {
+      document.title = OriginTitile
+    }, 2000)
+  }
+})</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><script>// 初始化函数
+let rm = {};
+
+//禁止图片与超链接拖拽
+let aElements = document.getElementsByTagName("a");
+for (let i = 0; i < aElements.length; i++) {
+  aElements[i].setAttribute("draggable", "false");
+  let imgElements = aElements[i].getElementsByTagName("img");
+  for (let j = 0; j < imgElements.length; j++) {
+    imgElements[j].setAttribute("draggable", "false");
+  }
+}
+
+// 显示菜单
+rm.showRightMenu = function (isTrue, x = 0, y = 0) {
+  console.info(x, y)
+  let rightMenu = document.getElementById("rightMenu");
+  rightMenu.style.top = x + "px";
+  rightMenu.style.left = y + "px";
+  if (isTrue) {
+    rightMenu.style.display = "block";
+    stopMaskScroll();
+  } else {
+    rightMenu.style.display = "none";
+  }
+};
+
+// 隐藏菜单
+rm.hideRightMenu = function () {
+  rm.showRightMenu(false);
+  let rightMenuMask = document.querySelector("#rightmenu-mask");
+  rightMenuMask.style.display = "none";
+};
+
+// 尺寸
+let rmWidth = document.getElementById("rightMenu").offsetWidth;
+let rmHeight = document.getElementById("rightMenu").offsetHeight;
+
+// 重新定义尺寸
+rm.reloadrmSize = function () {
+  rightMenu.style.visibility = "hidden";
+  rightMenu.style.display = "block";
+  // 获取宽度和高度
+  rmWidth = document.getElementById("rightMenu").offsetWidth;
+  rmHeight = document.getElementById("rightMenu").offsetHeight;
+  rightMenu.style.visibility = "visible";
+};
+
+// 获取点击的href
+let domhref = "";
+let domImgSrc = "";
+let globalEvent = null;
+
+var oncontextmenuFunction = function (event) {
+  if (document.body.clientWidth > 768) {
+    let pageX = event.clientX + 10; //加10是为了防止显示时鼠标遮在菜单上
+    let pageY = event.clientY;
+
+    //其他额外菜单
+    const $rightMenuOther = document.querySelector(".rightMenuOther");
+    const $rightMenuPlugin = document.querySelector(".rightMenuPlugin");
+    const $rightMenuCopyText = document.querySelector("#menu-copytext");
+    const $rightMenuPasteText = document.querySelector("#menu-pastetext");
+    const $rightMenuCommentText = document.querySelector("#menu-commenttext");
+    const $rightMenuNewWindow = document.querySelector("#menu-newwindow");
+    const $rightMenuNewWindowImg = document.querySelector("#menu-newwindowimg");
+    const $rightMenuCopyLink = document.querySelector("#menu-copylink");
+    const $rightMenuCopyImg = document.querySelector("#menu-copyimg");
+    const $rightMenuDownloadImg = document.querySelector("#menu-downloadimg");
+    const $rightMenuSearch = document.querySelector("#menu-search");
+    const $rightMenuSearchBaidu = document.querySelector("#menu-searchBaidu");
+    const $rightMenuMusicToggle = document.querySelector("#menu-music-toggle");
+    const $rightMenuMusicBack = document.querySelector("#menu-music-back");
+    const $rightMenuMusicForward = document.querySelector("#menu-music-forward");
+    const $rightMenuMusicPlaylist = document.querySelector("#menu-music-playlist");
+    const $rightMenuMusicCopyMusicName = document.querySelector("#menu-music-copyMusicName");
+
+    let href = event.target.href;
+    let imgsrc = event.target.currentSrc;
+
+    // 判断模式 扩展模式为有事件
+    let pluginMode = false;
+    $rightMenuOther.style.display = "block";
+    globalEvent = event;
+
+    // 检查是否需要复制 是否有选中文本
+    if (selectTextNow && window.getSelection()) {
+      pluginMode = true;
+      $rightMenuCopyText.style.display = "block";
+      $rightMenuCommentText.style.display = "block";
+      $rightMenuSearch.style.display = "block";
+      $rightMenuSearchBaidu.style.display = "block";
+    } else {
+      $rightMenuCopyText.style.display = "none";
+      $rightMenuCommentText.style.display = "none";
+      $rightMenuSearchBaidu.style.display = "none";
+      $rightMenuSearch.style.display = "none";
+    }
+
+    //检查是否右键点击了链接a标签
+    if (href) {
+      pluginMode = true;
+      $rightMenuNewWindow.style.display = "block";
+      $rightMenuCopyLink.style.display = "block";
+      domhref = href;
+    } else {
+      $rightMenuNewWindow.style.display = "none";
+      $rightMenuCopyLink.style.display = "none";
+    }
+
+    //检查是否需要复制图片
+    if (imgsrc) {
+      pluginMode = true;
+      $rightMenuCopyImg.style.display = "block";
+      $rightMenuDownloadImg.style.display = "block";
+      $rightMenuNewWindowImg.style.display = "block";
+      document.getElementById("rightMenu").style.width="12rem"
+      domImgSrc = imgsrc;
+    } else {
+      $rightMenuCopyImg.style.display = "none";
+      $rightMenuDownloadImg.style.display = "none";
+      $rightMenuNewWindowImg.style.display = "none";
+    }
+
+    // 判断是否为输入框
+    if (event.target.tagName.toLowerCase() === "input" || event.target.tagName.toLowerCase() === "textarea") {
+      pluginMode = true;
+      $rightMenuPasteText.style.display = "block";
+    } else {
+      $rightMenuPasteText.style.display = "none";
+    }
+    const navMusicEl = document.querySelector("#nav-music");
+    //判断是否是音乐
+    if (navMusicEl && navMusicEl.contains(event.target)) {
+      pluginMode = true;
+      $rightMenuMusicToggle.style.display = "block";
+      $rightMenuMusicBack.style.display = "block";
+      $rightMenuMusicForward.style.display = "block";
+      $rightMenuMusicPlaylist.style.display = "block";
+      $rightMenuMusicCopyMusicName.style.display = "block";
+    } else {
+      $rightMenuMusicToggle.style.display = "none";
+      $rightMenuMusicBack.style.display = "none";
+      $rightMenuMusicForward.style.display = "none";
+      $rightMenuMusicPlaylist.style.display = "none";
+      $rightMenuMusicCopyMusicName.style.display = "none";
+    }
+
+    // 如果不是扩展模式则隐藏扩展模块
+    if (pluginMode) {
+      $rightMenuOther.style.display = "none";
+      $rightMenuPlugin.style.display = "block";
+    } else {
+      $rightMenuPlugin.style.display = "none";
+    }
+
+    rm.reloadrmSize();
+
+    // 鼠标默认显示在鼠标右下方，当鼠标靠右或靠下时，将菜单显示在鼠标左方\上方
+    if (pageX + rmWidth > window.innerWidth) {
+      pageX -= rmWidth + 10;
+    }
+    if (pageY + rmHeight > window.innerHeight) {
+      pageY -= pageY + rmHeight - window.innerHeight;
+    }
+
+    rm.showRightMenu(true, pageY, pageX);
+    document.getElementById("rightmenu-mask").style.display = "flex";
+    return false;
+  }
+};
+
+// 监听右键初始化
+window.oncontextmenu = oncontextmenuFunction
+
+// 下载图片状态
+rm.downloadimging = false;
+
+// 复制图片到剪贴板
+rm.writeClipImg = function (imgsrc) {
+  console.log("按下复制");
+  rm.hideRightMenu();
+  anzhiyu.snackbarShow("正在下载中，请稍后", false, 10000);
+  if (rm.downloadimging == false) {
+    rm.downloadimging = true;
+    setTimeout(function () {
+      copyImage(imgsrc);
+      anzhiyu.snackbarShow("复制成功！图片已添加盲水印，请遵守版权协议");
+      rm.downloadimging = false;
+    }, "10000");
+  }
+};
+
+function imageToBlob(imageURL) {
+  const img = new Image();
+  const c = document.createElement("canvas");
+  const ctx = c.getContext("2d");
+  img.crossOrigin = "";
+  img.src = imageURL;
+  return new Promise(resolve => {
+    img.onload = function () {
+      c.width = this.naturalWidth;
+      c.height = this.naturalHeight;
+      ctx.drawImage(this, 0, 0);
+      c.toBlob(
+        blob => {
+          // here the image is a blob
+          resolve(blob);
+        },
+        "image/png",
+        0.75
+      );
+    };
+  });
+}
+
+async function copyImage(imageURL) {
+  const blob = await imageToBlob(imageURL);
+  const item = new ClipboardItem({ "image/png": blob });
+  navigator.clipboard.write([item]);
+}
+
+rm.copyUrl = function (id) {
+  const input = document.createElement("input"); // Create a new <input> element
+  input.id = "copyVal"; // Set the id of the new element to "copyVal"
+  document.body.appendChild(input); // Append the new element to the end of the <body> element
+  
+  const text = id;
+  input.value = text;
+  input.select();
+  input.setSelectionRange(0, input.value.length);
+  document.execCommand("copy");
+  
+  input.remove(); // Remove the <input> element from the DOM
+};
+
+function stopMaskScroll() {
+  if (document.getElementById("rightmenu-mask")) {
+    let xscroll = document.getElementById("rightmenu-mask");
+    xscroll.addEventListener(
+      "mousewheel",
+      function (e) {
+        //阻止浏览器默认方法
+        rm.hideRightMenu();
+        // e.preventDefault();
+      },
+      { passive: true }
+    );
+  }
+  if (document.getElementById("rightMenu")) {
+    let xscroll = document.getElementById("rightMenu");
+    xscroll.addEventListener(
+      "mousewheel",
+      function (e) {
+        //阻止浏览器默认方法
+        rm.hideRightMenu();
+        // e.preventDefault();
+      },
+      { passive: true }
+    );
+  }
+}
+
+rm.rightmenuCopyText = function (txt) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(txt);
+  }
+  rm.hideRightMenu();
+};
+
+rm.copyPageUrl = function (url) {
+  if (!url) {
+    url = window.location.href;
+  }
+  rm.copyUrl(url);
+  anzhiyu.snackbarShow("复制链接地址成功", false, 2000);
+  rm.hideRightMenu();
+};
+
+rm.sharePage = function () {
+  var content = window.location.href;
+  rm.copyUrl(url);
+  anzhiyu.snackbarShow("复制链接地址成功", false, 2000);
+  rm.hideRightMenu();
+};
+
+// 复制当前选中文本
+var selectTextNow = "";
+document.onmouseup = document.ondblclick = selceText;
+
+function selceText() {
+  var txt;
+  if (document.selection) {
+    txt = document.selection.createRange().text;
+  } else {
+    txt = window.getSelection().toString();
+  }
+  selectTextNow = txt !== "" ? txt : "";
+}
+
+// 读取剪切板
+rm.readClipboard = function () {
+  if (navigator.clipboard) {
+    navigator.clipboard.readText().then(clipText => rm.insertAtCaret(globalEvent.target, clipText));
+  }
+};
+
+// 粘贴文本到焦点
+rm.insertAtCaret = function (elemt, value) {
+  const startPos = elemt.selectionStart,
+    endPos = elemt.selectionEnd;
+  if (document.selection) {
+    elemt.focus();
+    var sel = document.selection.createRange();
+    sel.text = value;
+    elemt.focus();
+  } else {
+    if (startPos || startPos == "0") {
+      var scrollTop = elemt.scrollTop;
+      elemt.value = elemt.value.substring(0, startPos) + value + elemt.value.substring(endPos, elemt.value.length);
+      elemt.focus();
+      elemt.selectionStart = startPos + value.length;
+      elemt.selectionEnd = startPos + value.length;
+      elemt.scrollTop = scrollTop;
+    } else {
+      elemt.value += value;
+      elemt.focus();
+    }
+  }
+};
+
+//粘贴文本
+rm.pasteText = function () {
+  const result = rm.readClipboard() || "";
+  rm.hideRightMenu();
+};
+
+//引用到评论
+rm.rightMenuCommentText = function (txt) {
+  rm.hideRightMenu();
+  const postCommentDom = document.getElementById("post-comment");
+  var domTop = postCommentDom.offsetTop;
+  window.scrollTo(0, domTop - 80);
+  if (txt == "undefined" || txt == "null") txt = "好棒！";
+  function setText() {
+    setTimeout(() => {
+      var input = document.getElementsByClassName("el-textarea__inner")[0];
+      if (!input) setText();
+      let evt = document.createEvent("HTMLEvents");
+      evt.initEvent("input", true, true);
+      let inputValue = replaceAll(txt, "\n", "\n> ");
+      input.value = "> " + inputValue + "\n\n";
+      input.dispatchEvent(evt);
+      input.focus();
+      input.setSelectionRange(-1, -1);
+      if (document.getElementById("comment-tips")) {
+        document.getElementById("comment-tips").classList.add("show");
+      }
+    }, 100);
+  }
+  setText();
+};
+
+//替换所有内容
+function replaceAll(string, search, replace) {
+  return string.split(search).join(replace);
+}
+
+// 百度搜索
+rm.searchBaidu = function () {
+  anzhiyu.snackbarShow("即将跳转到百度搜索", false, 2000);
+  setTimeout(function () {
+    window.open("https://www.baidu.com/s?wd=" + selectTextNow);
+  }, "2000");
+  rm.hideRightMenu();
+};
+
+//分享链接
+rm.copyLink = function () {
+  rm.rightmenuCopyText(domhref);
+  anzhiyu.snackbarShow("已复制链接地址");
+};
+
+function addRightMenuClickEvent() {
+  // 添加点击事件
+  document.getElementById("menu-backward").addEventListener("click", function () {
+  window.history.back();
+    rm.hideRightMenu();
+  });
+
+  document.getElementById("menu-forward").addEventListener("click", function () {
+    window.history.forward();
+    rm.hideRightMenu();
+  });
+
+  document.getElementById("menu-refresh").addEventListener("click", function () {
+    window.location.reload();
+  });
+
+  document.getElementById("menu-top").addEventListener("click", function () {
+    anzhiyu.scrollToDest(0, 500);
+    rm.hideRightMenu();
+  });
+
+  const menuLinks = document.querySelectorAll(".menu-link");
+  menuLinks.forEach(function (link) {
+    link.addEventListener("click", rm.hideRightMenu);
+  });
+
+  document.getElementById("menu-darkmode").addEventListener("click", anzhiyu.switchDarkMode);
+
+  document.getElementById("menu-home") && document.getElementById("menu-home").addEventListener("click", function () {
+    window.location.href = window.location.origin;
+  });
+
+  document.getElementById("menu-randomPost").addEventListener("click", function () {
+    toRandomPost();
+  });
+
+  document.getElementById("menu-commentBarrage").addEventListener("click", anzhiyu.switchCommentBarrage);
+
+  document.getElementById("rightmenu-mask").addEventListener("click", rm.hideRightMenu);
+
+  document.getElementById("rightmenu-mask").addEventListener("contextmenu", function (event) {
+    rm.hideRightMenu();
+    event.preventDefault(); // Prevent the default context menu from appearing
+  });
+
+  document.getElementById("menu-copy").addEventListener("click", rm.copyPageUrl);
+
+  document.getElementById("menu-pastetext").addEventListener("click", rm.pasteText);
+
+  document.getElementById("menu-copytext").addEventListener("click", function () {
+    rm.rightmenuCopyText(selectTextNow);
+    anzhiyu.snackbarShow("复制成功，复制和转载请标注本文地址");
+  });
+
+  document.getElementById("menu-commenttext").addEventListener("click", function () {
+    rm.rightMenuCommentText(selectTextNow);
+  });
+
+  document.getElementById("menu-newwindow").addEventListener("click", function () {
+    window.open(domhref, "_blank");
+    rm.hideRightMenu();
+  });
+
+  document.getElementById("menu-copylink").addEventListener("click", rm.copyLink);
+
+  document.getElementById("menu-downloadimg").addEventListener("click", function () {
+    anzhiyu.downloadImage(domImgSrc, "anzhiyu");
+  });
+
+  document.getElementById("menu-newwindowimg").addEventListener("click", function () {
+    window.open(domImgSrc, "_blank");
+    rm.hideRightMenu();
+  });
+
+  document.getElementById("menu-copyimg").addEventListener("click", function () {
+    rm.writeClipImg(domImgSrc);
+  });
+
+  document.getElementById("menu-searchBaidu").addEventListener("click", rm.searchBaidu);
+
+  //音乐
+  document.getElementById("menu-music-toggle").addEventListener("click", anzhiyu.musicToggle);
+
+  document.getElementById("menu-music-back").addEventListener("click", anzhiyu.musicSkipBack);
+
+  document.getElementById("menu-music-forward").addEventListener("click", anzhiyu.musicSkipForward);
+
+  document.getElementById("menu-music-copyMusicName").addEventListener("click", function () {
+    rm.rightmenuCopyText(anzhiyu.musicGetName());
+    anzhiyu.snackbarShow("复制歌曲名称成功", false, 3000);
+  });
+
+}
+
+addRightMenuClickEvent();</script><script data-pjax>var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+var pageHeaderEl = document.getElementById("page-header");
+var navMusicEl = document.getElementById("nav-music");
+var consoleEl = document.getElementById("console");
+// 已随机的歌曲
+var selectRandomSong = [];
+// 音乐默认声音大小
+var musicVolume = 0.8;
+// 是否切换了周杰伦音乐列表
+var changeMusicListFlag = false;
+// 当前默认播放列表
+var defaultPlayMusicList = [];
+
+document.getElementById("page-name").innerText = document.title.split(" | Ada")[0];
+anzhiyu.initIndexEssay();
+anzhiyu.changeTimeInEssay();
+anzhiyu.removeBodyPaceClass();
+anzhiyu.qrcodeCreate();
+anzhiyu.changeTimeInAlbumDetail();
+anzhiyu.reflashEssayWaterFall();
+anzhiyu.sayhi();
+anzhiyu.stopImgRightDrag();
+anzhiyu.addNavBackgroundInit();
+anzhiyu.setValueToBodyType();
+anzhiyu.catalogActive();
+anzhiyu.tagsPageActive();
+anzhiyu.categoriesBarActive();
+anzhiyu.topCategoriesBarScroll();
+anzhiyu.switchRightClickMenuHotReview();
+anzhiyu.getCustomPlayList();
+anzhiyu.addEventListenerConsoleMusicList(false);
+setTimeout(() => {if (typeof addFriendLinksInFooter === "function") {addFriendLinksInFooter();}}, 200)</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/51b8faf5.js","daovoice")
+</script><script>var isChatBtn = true
+daovoice('init', {
+  app_id: '51b8faf5',},{
+  launcher: { 
+     disableLauncherIcon: isChatBtn // 悬浮 ICON 是否显示
+  },
+});
+daovoice('update');
+
+if (isChatBtn) {
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      daovoice('show')
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      daovoice('update', {},{
+        launcher: { 
+        disableLauncherIcon: true // 悬浮 ICON 是否显示
+        },
+      });
+    }
+    function chatBtnShow () {
+      daovoice('update', {},{
+        launcher: { 
+        disableLauncherIcon: false // 悬浮 ICON 是否显示
+        },
+      });
+    }
+  }
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div><script>(function (w, d, s, id) {
+            if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) }; var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1; js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window, document, 'script', 'webpushr-jssdk'));webpushr('setup', { 'key': 'BJjeD4reRc-1D_UEhL5kJQ8sMsvWDWxrZjvv5Wg1G1OHaFJhaKNKofyRr208shfSmbYfP2v8u9hZ7LlTZ0LnXK0' });</script></body></html>

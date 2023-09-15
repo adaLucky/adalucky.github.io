@@ -1,0 +1,1601 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Appium | Ada</title><meta name="keywords" content="Appium"><meta name="author" content="Ada"><meta name="copyright" content="Ada"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Appium"><meta name="application-name" content="Appium"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Appium"><meta property="og:url" content="https://adalucky.github.io/worker/Tester/Automation/Appium/index.html"><meta property="og:site_name" content="Ada"><meta property="og:description" content="简介Appium是一个开源的，适用于原生或混合移动应用（ hybrid mobile apps ）的自动化测试工具，Appium应用WebDriver: JSON wire protocol驱动安卓和iOS移动应用。Appium选择了Client&amp;#x2F;Server的设计模式。只要client能"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/auto/appium.jpeg"><meta property="article:author" content="Ada"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/auto/appium.jpeg"><link rel="shortcut icon" href="https://image.3001.net/images/20210606/16229390604952.png"><link rel="canonical" href="https://adalucky.github.io/worker/Tester/Automation/Appium/"><link rel="preconnect" href="//npm.elemecdn.com"/><link rel="preconnect" href="//npm.onmicrosoft.cn"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: false,
+  mainTone: {"mode":"both","api":"https://img2color-go.vercel.app/api?img=","cover_change":true},
+  authorStatus: undefined,
+  algolia: {"appId":"Y7A93ZJERO","apiKey":"c032c0266df92b8e1e7f23f484b1992a","indexName":"hexo","hits":{"per_page":6},"languages":{"input_placeholder":"键入后按下回车搜索！","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#3b70fc","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Appium',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-09-15 12:42:30',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assets/css/webpushr.css?1"><meta name="generator" content="Hexo 6.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://image.3001.net/images/20210606/16229390604952.png"/><div class="loading-image-dot"></div><div id="loading-percentage">0%</div></div></div><script>if (GLOBAL_CONFIG.preloader.source == "2" || GLOBAL_CONFIG.preloader.source == "3") {
+  const loadingPercentage = document.getElementById("loading-percentage");
+  let loadingPercentageTimer = setInterval(function() {
+    var progressBar = document.querySelector(".pace-progress");
+    if (!progressBar) return
+    var currentValue = progressBar.getAttribute("data-progress-text");
+    if (currentValue !== loadingPercentage.textContent) {
+      loadingPercentage.textContent = currentValue;
+      if (currentValue === "100%") {
+        clearInterval(loadingPercentageTimer);
+      }
+    }
+  }, 100);
+}
+
+const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div id="web_box"><div id="web_container"><div id="menu-mask"></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://adalucky.github.io/" title="博客" target="_blank"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="https://gitee.com/automatex/automate/" title="测试平台" target="_blank"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="测试平台"/><span class="back-menu-item-text">测试平台</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">Ada</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><span> 总览</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><span> 分类</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><span> 标签</span></a></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png" target="_blank"><img class="post-qr-code-img" alt="wechat" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png" target="_blank"><img class="post-qr-code-img" alt="alipay" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> <span>最新评论</span></span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/Appium/" style="font-size: 1.05rem;">Appium<sup>1</sup></a><a href="/tags/Axios/" style="font-size: 1.05rem;">Axios<sup>1</sup></a><a href="/tags/Centos/" style="font-size: 1.05rem;">Centos<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 1.05rem;">Docker<sup>2</sup></a><a href="/tags/ES6/" style="font-size: 1.05rem;">ES6<sup>1</sup></a><a href="/tags/Fiddler/" style="font-size: 1.05rem;">Fiddler<sup>1</sup></a><a href="/tags/Gradle/" style="font-size: 1.05rem;">Gradle<sup>1</sup></a><a href="/tags/Hexo/" style="font-size: 1.05rem;">Hexo<sup>2</sup></a><a href="/tags/JDK17/" style="font-size: 1.05rem;">JDK17<sup>1</sup></a><a href="/tags/Java/" style="font-size: 1.05rem;">Java<sup>3</sup></a><a href="/tags/Kafka/" style="font-size: 1.05rem;">Kafka<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>1</sup></a><a href="/tags/MQ/" style="font-size: 1.05rem;">MQ<sup>1</sup></a><a href="/tags/MongoDB/" style="font-size: 1.05rem;">MongoDB<sup>1</sup></a><a href="/tags/NPM/" style="font-size: 1.05rem;">NPM<sup>1</sup></a><a href="/tags/NeoVim/" style="font-size: 1.05rem;">NeoVim<sup>1</sup></a><a href="/tags/Nginx/" style="font-size: 1.05rem;">Nginx<sup>2</sup></a><a href="/tags/OSS/" style="font-size: 1.05rem;">OSS<sup>1</sup></a><a href="/tags/Obsidian/" style="font-size: 1.05rem;">Obsidian<sup>1</sup></a><a href="/tags/SpringBoot/" style="font-size: 1.05rem;">SpringBoot<sup>3</sup></a><a href="/tags/TS/" style="font-size: 1.05rem;">TS<sup>3</sup></a><a href="/tags/Tmux/" style="font-size: 1.05rem;">Tmux<sup>1</sup></a><a href="/tags/Vite/" style="font-size: 1.05rem;">Vite<sup>1</sup></a><a href="/tags/Vue3/" style="font-size: 1.05rem;">Vue3<sup>1</sup></a><a href="/tags/Webpack/" style="font-size: 1.05rem;">Webpack<sup>1</sup></a><a href="/tags/Yarn/" style="font-size: 1.05rem;">Yarn<sup>1</sup></a><a href="/tags/asdf/" style="font-size: 1.05rem;">asdf<sup>1</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/docker/" style="font-size: 1.05rem;">docker<sup>1</sup></a><a href="/tags/docker-compose/" style="font-size: 1.05rem;">docker-compose<sup>1</sup></a><a href="/tags/eslint/" style="font-size: 1.05rem;">eslint<sup>1</sup></a><a href="/tags/html/" style="font-size: 1.05rem;">html<sup>1</sup></a><a href="/tags/jenkins/" style="font-size: 1.05rem;">jenkins<sup>1</sup></a><a href="/tags/pinia/" style="font-size: 1.05rem;">pinia<sup>1</sup></a><a href="/tags/setting/" style="font-size: 1.05rem;">setting<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/" style="font-size: 1.05rem;">前端基础<sup>6</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.05rem;">数据库<sup>1</sup></a><a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 1.05rem;">消息队列<sup>1</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 1.05rem;">环境管理<sup>1</sup></a><a href="/tags/%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B/" style="font-size: 1.05rem;">非关系型<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/06/"><span class="card-archive-list-date">六月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/08/"><span class="card-archive-list-date">八月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/06/"><span class="card-archive-list-date">六月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">五月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/04/"><span class="card-archive-list-date">四月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" onclick="anzhiyu.switchDarkMode()" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item on" id="consoleCommentBarrage" onclick="anzhiyu.switchCommentBarrage()" title="热评开关"><a class="commentBarrage"><i class="anzhiyufont anzhiyu-icon-message"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/Automation/">Automation</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Appium/" tabindex="-1"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Appium</span></a></span></div></div><h1 class="post-title">Appium</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-18T10:41:00.000Z" title="发表于 2022-02-18 18:41:00">2022-02-18</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-09-15T04:42:30.131Z" title="更新于 2023-09-15 12:42:30">2023-09-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">4.6k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="Appium"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为成都"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>成都</span><span class="post-meta-separator"></span><span class="post-meta-commentcount"><i class="anzhiyufont anzhiyu-icon-comments post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/worker/Tester/Automation/Appium/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/worker/Tester/Automation/Appium/" itemprop="commentCount"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></a></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/auto/appium.jpeg"></div></header><main class="layout" id="content-inner"><div id="post"><div class="post-ai-description"><div class="ai-title"><i class="anzhiyufont anzhiyu-icon-bilibili"></i><div class="ai-title-text">AI-摘要</div><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right"></i><div id="ai-tag">Tianli GPT</div></div><div class="ai-explanation">AI初始化中...</div><div class="ai-btn-box"><div class="ai-btn-item">介绍自己</div><div class="ai-btn-item">生成本文简介</div><div class="ai-btn-item">推荐相关文章</div><div class="ai-btn-item">前往主页</div><div class="ai-btn-item" id="go-tianli-blog">前往tianli博客</div></div><script data-pjax>(function(){
+  // 当前随机到的ai摘要到index
+  let lastAiRandomIndex = -1;
+  let animationRunning = true; // 标志变量，控制动画函数的运行
+  // 当前gpt模式
+  let mode = "tianli"
+  // 刷新点击次数
+  let refreshNum = 0
+  // 记录上一次传递给aiAbstract的参数
+  let prevParam;
+  const aiTitleRefreshIcon = document.querySelector(".ai-title .anzhiyufont.anzhiyu-icon-arrow-rotate-right")
+  const explanation = document.querySelector(".ai-explanation");
+  const post_ai = document.querySelector(".post-ai-description");
+  let ai_str = "";
+  let ai_str_length = "";
+  let delay_init = 600;
+  let i = 0;
+  let j = 0;
+  let sto = [];
+  let elapsed = 0;
+  const animate = timestamp => {
+    if (!animationRunning) {
+      return; // 动画函数停止运行
+    }
+    if (!animate.start) animate.start = timestamp;
+    elapsed = timestamp - animate.start;
+    if (elapsed >= 20) {
+      animate.start = timestamp;
+      if (i < ai_str_length - 1) {
+        let char = ai_str.charAt(i + 1);
+        let delay = /[,.，。!?！？]/.test(char) ? 150 : 20;
+        if (explanation.firstElementChild) {
+          explanation.removeChild(explanation.firstElementChild);
+        }
+        explanation.innerHTML += char;
+        let div = document.createElement("div");
+        div.className = "ai-cursor";
+        explanation.appendChild(div);
+        i++;
+        if (delay === 150) {
+          document.querySelector(".ai-explanation .ai-cursor").style.opacity = "0";
+        }
+        if (i === ai_str_length - 1) {
+          observer.disconnect(); // 暂停监听
+          explanation.removeChild(explanation.firstElementChild);
+        }
+        sto[0] = setTimeout(() => {
+          requestAnimationFrame(animate);
+        }, delay);
+      }
+    } else {
+      requestAnimationFrame(animate);
+    }
+  };
+  const observer = new IntersectionObserver(
+    entries => {
+      let isVisible = entries[0].isIntersecting;
+      animationRunning = isVisible; // 标志变量更新
+      if (animationRunning) {
+        delay_init = i === 0 ? 200 : 20;
+        sto[1] = setTimeout(() => {
+          if (j) {
+            i = 0;
+            j = 0;
+          }
+          if (i === 0) {
+            explanation.innerHTML = ai_str.charAt(0);
+          }
+          requestAnimationFrame(animate);
+        }, delay_init);
+      }
+    },
+    { threshold: 0 }
+  );
+  function clearSTO() {
+    if (sto.length) {
+      sto.forEach(item => {
+        if (item) {
+          clearTimeout(item);
+        }
+      });
+    }
+  }
+  function startAI(str, df = true) {
+    i = 0; //重置计数器
+    j = 1;
+    clearSTO();
+    animationRunning = false;
+    elapsed = 0;
+    observer.disconnect(); // 暂停上一次监听
+    explanation.innerHTML = df ? "生成中. . ." : "请等待. . .";
+    ai_str = str;
+    ai_str_length = ai_str.length;
+    observer.observe(post_ai); //启动新监听
+  }
+
+  async function aiAbstract(num = 1000) {
+    i = 0; //重置计数器
+    j = 1;
+    clearSTO();
+    animationRunning = false;
+    elapsed = 0;
+    observer.disconnect(); // 暂停上一次监听
+    if (mode === "tianli") {
+      num = Math.max(10, Math.min(2000, num));
+      const options = {
+        key: "4e3ea06311f19e3442c0",
+        Referer: "https://adalucky.github.io/"
+      };
+      const truncateDescription = ("Appium" + "简介, 参考资料, adb环境, windows安装, mac安装, 下载cmdline-tools, 文件解压, sdkmanager 命令行操作, 安装包, 环境配置, adb环境验证, Appium启动验证, uiautomatorviewer启动校验, adb常用命令, 基础命令, 查看当前版本, 设备检查及输入, 连接模拟器, 设备操作, 进入设备终端, 从手机中拉取文件至本地, 上传文件, 手机日志, 指令, 包管理, 安装x2F卸载APP, 包名及入口获取, 前台页面查看, 查看包名类名, 查看启动入口, 后台查看, 查看包名和启动入口, 查看包名, 查看启动入口, 扩展, 系统, 其它, 通过wifi连接adb, appium, 简介, 安装Appium Desktop, 安装appium-doctor, 运行, 启动, 参数配置, Error报错处理, Stderr ‘Security exception Permission denial writing to settings, Could not find a connected Android device in 20201ms., The JAVA_HOME environment variable must be set for Android Tools to work properly, Injecting to another application requires INJECT_EVENTS permission简介是一个开源的适用于原生或混合移动应用的自动化测试工具应用驱动安卓和移动应用选择了的设计模式只要能够发送请求给那么的话用什么语言来实现都是可以的这就是如何做到支持多语言的原因参考资料需要安装的环境和程序环境安装前置电脑已安装手机驱动调试模式已打开开发者选项和模拟点击根据情况后面会需要打开下载安装包位解压到非中文路径且路径名无特殊字符配置系统环境变量和路径安装下载下载的作用是通过命令行去控制下载工具包如等创建目录存放下载的下载链接页面滑动往下面拉一点找下文件解压默认情况下同级的其它文件都是没有的我这边是因为后面下载了工具包所以截图里面有命令行操作由于没有配置全局环境需要先切换到目录执行切换路径包管理查看安装包通过安装语法参考官方安装软件包官方示例包名可选参数例如下面展示了如何安装最新的平台工具包括和以及适用于级别的工具这个是官方的示例根据意思如果不加号指定版本就是最新的多个包用空格隔开用括起来下载指定版本卸载软件包更新已安装的软件包环境配置配置系统环境变量注意上面的高亮是配置系统环境变量和一样有用户变量只对当前用户有效系统变量对所有用户有效在启动后只认系统变量如果设置的是用户变量到时候可能一直提示你没有设置在系统中是系统变量配置文件是用户变量在编辑文件的时候如果提示没有权限那么找到文件夹和文件添加用户的读写权限修改这种配置文件记得先备份养成良好的习惯配置系统变量再提示一遍是系统变量步骤一打开系统变量配置文件和文件步骤二添加配置文件保存系统变量系统变量步骤三添加配置文件保存步骤四生效一下环境验证在终端输入查看是否安装成功查看的版本查看设备连接启动验证启动校验是工具包里面的一个元素探测工具用于定位识别元素为后期自动化元素定位提供基础数据常用命令基础命令查看当前版本查看当前的版本这个版本好像低于还是哪个版本以下的如果执行键盘输入中文到输入框会有乱码现象之前用键盘输入设备检查及输入查看的帮助手册检查连接到电脑的安卓设备如果有检测到可以验证一下模拟点击手机返回的命令手机会模拟返回按键操作有反应代表连接正常状态在线离线未授权未检测到连接模拟器有时候没有真机或者真机的版本太高不好获得权限可以采用模拟器推荐模拟器夜神雷电模拟器先把模拟器打开指的使用本机是夜神模拟器的端口号根据你的模拟器端口可能会有变化设备操作进入设备终端进入到设备的终端控制台就像连接服务器一样底层是基于的需要连接然后也可以用命令退出终端当需要回退到窗口进行命令操作时或者从手机中拉取文件至本地将手机中的文件拉取到你自己的电脑本地一般会用于日志的拉取或者对网卡的抓包信息手机路径源文件本机路径目标文件上传文件将本地的文件上传推送到设备中本机路径源文件手机路径目标路径新命名文件这里有个小窍门就是后面本地文件可以直接找到拖进去不用手动输本地路径可以重复推送自动覆盖手机日志清理缓存区域的日志清理系统事件信息日志清理手机内所有日志的命令如果手机之前的日志不需要了一般用这个拉取日志这里本地路径必须是一个目录前面是大于符号重定向后面要给拉取的日志取一个别名不然拉取会失败日志是动态的所以估计秒拉取完成后用结束根据电脑快捷键决定本地路径命名日志名指令可以通过输入一些指令让设备做对应的动作比如模拟我们的滑动截屏输入等等截屏文件输出路径截屏并保存在这个路径录屏结束设置分辨率指定比特率旋转模拟点击返回按钮模拟手势滑动点击实现微信跳一跳高分核心方法起始点击点的位置终止点击点的位置操作耗时毫秒数单击屏幕屏幕点击坐标坐标包管理安装卸载和上传一样可以直接拖注意格式是的文件手机模式换成文件传输不能为充电模式成功后会提示提示表示有安装过同名的包可以采用下面的覆盖安装安装包路径覆盖安装安装包路径静默安装这个不会据说在比较老的版本中支持它的作用就是安装后同时赋予默认的权限在自动化测试时候如果监测到没有安装对应的那么可以采用尝试静默安装卸载提示代表成功应用包名一般是格式包名及入口获取包名类名主入口包名在中每个都拥有唯一的包名不能重复如果重复了就会提示你已经安装是否覆盖安装主入口每个都有一个主要函数的入口类名可以看做是每个页面的一个标识句柄前台页面查看查看包名类名把软件打开保持前台界面运行命令安卓以内安卓以上查看包名主入口和中间的就是包名以开头包名后面跟类名如果没有查到先把软件关了重新打开记得大写小驼峰第一个小写后面首字母大写查看启动入口先把需要查询的关掉然后清除日志再打开动态监控然后启动清除日志关闭后执行动态监控后台查看在不运行的情况下直接查看本地的文件需要在的目录下同级目录启动窗口或者配置路径查看包名和启动入口查看安装包的包名和启动入口文件路径查看包名查看文件的包名的路径查看启动入口扩展系统包名读取电量和温度内存使用信息查看启动时间一般是看冷启动注意大小写和更换包名里面的数据就是启动时间获取当前设备的地址其它启动应用包名启动入口多台设备下指定一台设备操作指令进程服务重启服务关闭服务连接断开设备设置端口如需连接连接设备取消连接设备重启关闭设备重启关机清除程序数据程序安装与卸载安装覆盖安装出来的包是的安装卸载不保留数据卸载保留数据查看已安装的应用查看所有应用查看系统应用查看三方应用查看当前聚焦程序包名类名安卓前台运行安卓前台运行程序查看安装包包名启动入口元素探测查看的包名和启动入口找包名找启动入口启动元素探测文件监控事件其它内存监控获取设备的地址包名启动入口查看启动时间一般是看冷启动查看屏幕分辨率读取电量和温度内存使用信息息屏或唤醒菜单键上滑解锁可以一起用对应值通过连接首先个人不推荐连接不稳定如果需要使用需要满足手机和电脑在同一局域网保持连接能监测到设备确定你的手机和电脑通讯号拔掉线再通过手机地址跟模拟器差不多一个原理不需要再输端口号了上面确定过了手机地址找到然后找到详细信息里面的地址需要在局域网内网络断开设备设备的地址即可断开如果多设备连接的情况需要给每个设备设置不同的如果一直连接不上回想一下你的设备会在局域网其它电脑里面连接过该设备吗手机开发者模式调试撤销调试然后再试下第二步这个输入一次即可在不撤销调试均有效后面不用直接进入第三步开始连接不要同一部手机同时使用和会出问题简介是移动端自动化测试工具市面上还有很多如原生应用仅使用或的标准编写的应用移动浏览器应用用移动平台的浏览器访问的应用混合应用把一个基于实现的功能进行包装的应用更多资料栏目是否支持跨进程是否是是否支持跨平台是否否是否支持脚本录制是需付费否是否支持无源码的是是是支持的编程语言主流语言均支持支持的应用类型安装安装后首次打开如果为英文版本可调成中文左上角中文配置地址和端口后启动注这个程序个人感觉兼容性很差当时的版本下载的时候找到热度高的版本和对应的位数系统使用本程序前需要注意以下几点打开手机的开发者模式勾选调试手机模式不要设置为仅充电通过终端能监测到设备并且处于已授权状态尽量不使用模式连接比较卡部分手机可能需要开启禁止权限监控开发者选项应用禁止权限监控安装这个安装非必选项主要用于检测哪些配置没有设置的安装命令启动命令运行启动运行点击上图的启动服务器进入下图后点击启动会话参数配置设备的名称如果是无线连接的设备名称输入设备形式通过监会出现如果监测不到证明没有连上设备确保驱动安装调试模式都打开设备类型获取安装包名启动入口启动路径启动入口每个只有一个入口报错处理由于未开启权限监控导致开启方法开发者选项应用禁止权限监控报错内容电脑在设定时间内找不到设备一般这种情况下用也找不到设备这个时候去检查一下开发者选项调试如果都开启了那再看下连接后不能设置仅充电电脑是否安装了手机的驱动如果没有的话需要安装手机的驱动高通的可以安装高通的通用版最终要保证能通过命令检测到手机未设置环境变量通过执行均正常通过执行也是正常未开启模拟点击").trim().substring(0, num)
+
+      const queryParams = `key=${options.key}&content=${truncateDescription}`;
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Referer: options.Referer
+        },
+      };
+      try {
+        let animationInterval = null
+        if (animationInterval) clearInterval(animationInterval);
+        animationInterval = setInterval(() => {
+          const animationText = "生成中" + ".".repeat(j);
+          explanation.innerHTML = animationText;
+          j = (j % 3) + 1; // 在 1、2、3 之间循环
+        }, 500);
+        const response = await fetch(`https://summary.tianli0.top/?${queryParams}`, requestOptions);
+        let result;
+        if (response.status === 403) {
+          result = {
+            summary: "403 refer与key不匹配，本地无法显示。"
+          }
+        } else if (response.status === 500) {
+          result = {
+            summary: "500 系统内部错误"
+          }
+        } else {
+          result = await response.json();
+        }
+        const summary = result.summary.trim();
+        setTimeout(() => {
+          aiTitleRefreshIcon.style.opacity = "1";
+        }, 300)
+        startAI(summary);
+        clearInterval(animationInterval)
+      } catch (error) {
+        console.error(error);
+        explanation.innerHTML = "发生异常" + error;
+      }
+    } else {
+      const strArr = "true".split(",").map(item => item.trim()); // 将字符串转换为数组，去除每个字符串前后的空格
+      if (strArr.length !== 1) {
+        let randomIndex = Math.floor(Math.random() * strArr.length); // 随机生成一个索引
+        while (randomIndex === lastAiRandomIndex) { // 如果随机到了上次的索引
+          randomIndex = Math.floor(Math.random() * strArr.length); // 再次随机
+        }
+        lastAiRandomIndex = randomIndex; // 更新上次随机到的索引
+        startAI(strArr[randomIndex]);
+      } else {
+        startAI(strArr[0])
+      }
+      setTimeout(() => {
+        aiTitleRefreshIcon.style.opacity = "1";
+      }, 600)
+    }
+  }
+
+  function aiRecommend() {
+    i = 0; //重置计数器
+    j = 1;
+    clearSTO();
+    animationRunning = false;
+    elapsed = 0;
+    explanation.innerHTML = "生成中. . .";
+    ai_str = "";
+    ai_str_length = "";
+    observer.disconnect(); // 暂停上一次监听
+    sto[2] = setTimeout(() => {
+      explanation.innerHTML = recommendList();
+    }, 600);
+  }
+  function aiGoHome() {
+    startAI("正在前往博客主页...", false);
+    sto[2] = setTimeout(() => {
+      pjax.loadUrl("/");
+    }, 1000);
+  }
+  const ai_btn_item = document.querySelectorAll(".ai-btn-item");
+  function Introduce() {
+    if (mode == "tianli") {
+      startAI("我是文章辅助AI: TianliGPT，点击下方的按钮，让我生成本文简介、推荐相关文章等。")
+    } else {
+      startAI("我是文章辅助AI: AnZhiYu GPT，点击下方的按钮，让我生成本文简介、推荐相关文章等。")
+    }
+  }
+  function aiTitleRefreshIconClick() {
+    aiTitleRefreshIcon.click()
+  }
+  const aiFunctions = [Introduce, aiTitleRefreshIconClick, aiRecommend, aiGoHome];
+  ai_btn_item.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      aiFunctions[index]();
+    });
+  });
+
+  function recommendList() {
+    let thumbnail = document.querySelectorAll('.relatedPosts-list a');
+    if (!thumbnail.length) {
+      const cardRecentPost = document.querySelector('.card-widget.card-recent-post'); 
+      if (!cardRecentPost) return '';
+
+      thumbnail = cardRecentPost.querySelectorAll('.aside-list-item a');
+
+      let list = '';
+      for (let i = 0; i < thumbnail.length; i++) {
+        const item = thumbnail[i];
+        list += `<div class="ai-recommend-item"><span class="index">${i + 1}：</span><a href="javascript:;" onclick="pjax.loadUrl('${item.href}')" title="${item.title}" data-pjax-state="">${item.title}</a></div>`;
+      }
+      
+      return `很抱歉，无法找到类似的文章，你也可以看看本站最新发布的文章：<br /><div class="ai-recommend">${list}</div>`;
+    }
+
+    let list = '';
+    for (let i = 0; i < thumbnail.length; i++) {
+      const item = thumbnail[i];
+      list += `<div class="ai-recommend-item"><span>推荐${i + 1}：</span><a href="javascript:;" onclick="pjax.loadUrl('${item.href}')" title="${item.title}" data-pjax-state="">${item.title}</a></div>`;
+    }
+
+    return `推荐文章：<br /><div class="ai-recommend">${list}</div>`;
+  }
+
+
+  function changeShowMode() {
+    if (mode === "tianli") {
+      mode = "local";
+      document.getElementById("ai-tag").innerHTML = "AnZhiYu GPT";
+      aiAbstract(1000);
+    } else {
+      mode = "tianli";
+      document.getElementById("ai-tag").innerHTML = "Tianli GPT";
+
+      const truncateDescription = ("" + "简介, 参考资料, adb环境, windows安装, mac安装, 下载cmdline-tools, 文件解压, sdkmanager 命令行操作, 安装包, 环境配置, adb环境验证, Appium启动验证, uiautomatorviewer启动校验, adb常用命令, 基础命令, 查看当前版本, 设备检查及输入, 连接模拟器, 设备操作, 进入设备终端, 从手机中拉取文件至本地, 上传文件, 手机日志, 指令, 包管理, 安装x2F卸载APP, 包名及入口获取, 前台页面查看, 查看包名类名, 查看启动入口, 后台查看, 查看包名和启动入口, 查看包名, 查看启动入口, 扩展, 系统, 其它, 通过wifi连接adb, appium, 简介, 安装Appium Desktop, 安装appium-doctor, 运行, 启动, 参数配置, Error报错处理, Stderr ‘Security exception Permission denial writing to settings, Could not find a connected Android device in 20201ms., The JAVA_HOME environment variable must be set for Android Tools to work properly, Injecting to another application requires INJECT_EVENTS permission简介是一个开源的适用于原生或混合移动应用的自动化测试工具应用驱动安卓和移动应用选择了的设计模式只要能够发送请求给那么的话用什么语言来实现都是可以的这就是如何做到支持多语言的原因参考资料需要安装的环境和程序环境安装前置电脑已安装手机驱动调试模式已打开开发者选项和模拟点击根据情况后面会需要打开下载安装包位解压到非中文路径且路径名无特殊字符配置系统环境变量和路径安装下载下载的作用是通过命令行去控制下载工具包如等创建目录存放下载的下载链接页面滑动往下面拉一点找下文件解压默认情况下同级的其它文件都是没有的我这边是因为后面下载了工具包所以截图里面有命令行操作由于没有配置全局环境需要先切换到目录执行切换路径包管理查看安装包通过安装语法参考官方安装软件包官方示例包名可选参数例如下面展示了如何安装最新的平台工具包括和以及适用于级别的工具这个是官方的示例根据意思如果不加号指定版本就是最新的多个包用空格隔开用括起来下载指定版本卸载软件包更新已安装的软件包环境配置配置系统环境变量注意上面的高亮是配置系统环境变量和一样有用户变量只对当前用户有效系统变量对所有用户有效在启动后只认系统变量如果设置的是用户变量到时候可能一直提示你没有设置在系统中是系统变量配置文件是用户变量在编辑文件的时候如果提示没有权限那么找到文件夹和文件添加用户的读写权限修改这种配置文件记得先备份养成良好的习惯配置系统变量再提示一遍是系统变量步骤一打开系统变量配置文件和文件步骤二添加配置文件保存系统变量系统变量步骤三添加配置文件保存步骤四生效一下环境验证在终端输入查看是否安装成功查看的版本查看设备连接启动验证启动校验是工具包里面的一个元素探测工具用于定位识别元素为后期自动化元素定位提供基础数据常用命令基础命令查看当前版本查看当前的版本这个版本好像低于还是哪个版本以下的如果执行键盘输入中文到输入框会有乱码现象之前用键盘输入设备检查及输入查看的帮助手册检查连接到电脑的安卓设备如果有检测到可以验证一下模拟点击手机返回的命令手机会模拟返回按键操作有反应代表连接正常状态在线离线未授权未检测到连接模拟器有时候没有真机或者真机的版本太高不好获得权限可以采用模拟器推荐模拟器夜神雷电模拟器先把模拟器打开指的使用本机是夜神模拟器的端口号根据你的模拟器端口可能会有变化设备操作进入设备终端进入到设备的终端控制台就像连接服务器一样底层是基于的需要连接然后也可以用命令退出终端当需要回退到窗口进行命令操作时或者从手机中拉取文件至本地将手机中的文件拉取到你自己的电脑本地一般会用于日志的拉取或者对网卡的抓包信息手机路径源文件本机路径目标文件上传文件将本地的文件上传推送到设备中本机路径源文件手机路径目标路径新命名文件这里有个小窍门就是后面本地文件可以直接找到拖进去不用手动输本地路径可以重复推送自动覆盖手机日志清理缓存区域的日志清理系统事件信息日志清理手机内所有日志的命令如果手机之前的日志不需要了一般用这个拉取日志这里本地路径必须是一个目录前面是大于符号重定向后面要给拉取的日志取一个别名不然拉取会失败日志是动态的所以估计秒拉取完成后用结束根据电脑快捷键决定本地路径命名日志名指令可以通过输入一些指令让设备做对应的动作比如模拟我们的滑动截屏输入等等截屏文件输出路径截屏并保存在这个路径录屏结束设置分辨率指定比特率旋转模拟点击返回按钮模拟手势滑动点击实现微信跳一跳高分核心方法起始点击点的位置终止点击点的位置操作耗时毫秒数单击屏幕屏幕点击坐标坐标包管理安装卸载和上传一样可以直接拖注意格式是的文件手机模式换成文件传输不能为充电模式成功后会提示提示表示有安装过同名的包可以采用下面的覆盖安装安装包路径覆盖安装安装包路径静默安装这个不会据说在比较老的版本中支持它的作用就是安装后同时赋予默认的权限在自动化测试时候如果监测到没有安装对应的那么可以采用尝试静默安装卸载提示代表成功应用包名一般是格式包名及入口获取包名类名主入口包名在中每个都拥有唯一的包名不能重复如果重复了就会提示你已经安装是否覆盖安装主入口每个都有一个主要函数的入口类名可以看做是每个页面的一个标识句柄前台页面查看查看包名类名把软件打开保持前台界面运行命令安卓以内安卓以上查看包名主入口和中间的就是包名以开头包名后面跟类名如果没有查到先把软件关了重新打开记得大写小驼峰第一个小写后面首字母大写查看启动入口先把需要查询的关掉然后清除日志再打开动态监控然后启动清除日志关闭后执行动态监控后台查看在不运行的情况下直接查看本地的文件需要在的目录下同级目录启动窗口或者配置路径查看包名和启动入口查看安装包的包名和启动入口文件路径查看包名查看文件的包名的路径查看启动入口扩展系统包名读取电量和温度内存使用信息查看启动时间一般是看冷启动注意大小写和更换包名里面的数据就是启动时间获取当前设备的地址其它启动应用包名启动入口多台设备下指定一台设备操作指令进程服务重启服务关闭服务连接断开设备设置端口如需连接连接设备取消连接设备重启关闭设备重启关机清除程序数据程序安装与卸载安装覆盖安装出来的包是的安装卸载不保留数据卸载保留数据查看已安装的应用查看所有应用查看系统应用查看三方应用查看当前聚焦程序包名类名安卓前台运行安卓前台运行程序查看安装包包名启动入口元素探测查看的包名和启动入口找包名找启动入口启动元素探测文件监控事件其它内存监控获取设备的地址包名启动入口查看启动时间一般是看冷启动查看屏幕分辨率读取电量和温度内存使用信息息屏或唤醒菜单键上滑解锁可以一起用对应值通过连接首先个人不推荐连接不稳定如果需要使用需要满足手机和电脑在同一局域网保持连接能监测到设备确定你的手机和电脑通讯号拔掉线再通过手机地址跟模拟器差不多一个原理不需要再输端口号了上面确定过了手机地址找到然后找到详细信息里面的地址需要在局域网内网络断开设备设备的地址即可断开如果多设备连接的情况需要给每个设备设置不同的如果一直连接不上回想一下你的设备会在局域网其它电脑里面连接过该设备吗手机开发者模式调试撤销调试然后再试下第二步这个输入一次即可在不撤销调试均有效后面不用直接进入第三步开始连接不要同一部手机同时使用和会出问题简介是移动端自动化测试工具市面上还有很多如原生应用仅使用或的标准编写的应用移动浏览器应用用移动平台的浏览器访问的应用混合应用把一个基于实现的功能进行包装的应用更多资料栏目是否支持跨进程是否是是否支持跨平台是否否是否支持脚本录制是需付费否是否支持无源码的是是是支持的编程语言主流语言均支持支持的应用类型安装安装后首次打开如果为英文版本可调成中文左上角中文配置地址和端口后启动注这个程序个人感觉兼容性很差当时的版本下载的时候找到热度高的版本和对应的位数系统使用本程序前需要注意以下几点打开手机的开发者模式勾选调试手机模式不要设置为仅充电通过终端能监测到设备并且处于已授权状态尽量不使用模式连接比较卡部分手机可能需要开启禁止权限监控开发者选项应用禁止权限监控安装这个安装非必选项主要用于检测哪些配置没有设置的安装命令启动命令运行启动运行点击上图的启动服务器进入下图后点击启动会话参数配置设备的名称如果是无线连接的设备名称输入设备形式通过监会出现如果监测不到证明没有连上设备确保驱动安装调试模式都打开设备类型获取安装包名启动入口启动路径启动入口每个只有一个入口报错处理由于未开启权限监控导致开启方法开发者选项应用禁止权限监控报错内容电脑在设定时间内找不到设备一般这种情况下用也找不到设备这个时候去检查一下开发者选项调试如果都开启了那再看下连接后不能设置仅充电电脑是否安装了手机的驱动如果没有的话需要安装手机的驱动高通的可以安装高通的通用版最终要保证能通过命令检测到手机未设置环境变量通过执行均正常通过执行也是正常未开启模拟点击").trim().substring(0, 1000);
+      let value = Math.floor(Math.random() * 3) + 1000;
+      while (value === prevParam || truncateDescription.length - value === prevParam) {
+        value = Math.floor(Math.random() * 3) + 1000;
+      }
+      aiTitleRefreshIcon.style.opacity = "0.2";
+      aiTitleRefreshIcon.style.transitionDuration = "0.3s";
+      aiTitleRefreshIcon.style.transform = "rotate(" + 360 * refreshNum + "deg)";
+      if (truncateDescription.length <= 1000) {
+        let param = truncateDescription.length - Math.floor(Math.random() * 3);
+        while (param === prevParam) {
+          param = truncateDescription.length - Math.floor(Math.random() * 3);
+        }
+        aiAbstract(param);
+        prevParam = param;
+      } else {
+        aiAbstract(value);
+        prevParam = value;
+      }
+      refreshNum++;
+    }
+  }
+
+  //- 监听tag点击事件
+  document.getElementById("ai-tag").addEventListener("click", () => {
+    if (mode === "tianli") {
+      document.querySelectorAll(".ai-btn-item").forEach(item => item.style.display = "none");
+      document.getElementById("go-tianli-blog").style.display = "block";
+      startAI("你好，我是Tianli开发的摘要生成助理TianliGPT，是一个基于GPT-4的生成式AI。我在这里只负责摘要的预生成和显示，你无法与我直接沟通，如果你也需要一个这样的AI摘要接口，可以在下方购买。（暂未开放购买，敬请期待）")
+    } else {
+      document.getElementById("go-tianli-blog").style.display = "none";
+      startAI("你好，我是本站摘要生成助理AnZhiYu GPT，是一个基于GPT-4的生成式AI。我在这里只负责摘要的预生成和显示，你无法与我直接沟通。")
+    }
+
+  });
+
+  aiTitleRefreshIcon.addEventListener("click", () => {
+    const truncateDescription = ("" + "简介, 参考资料, adb环境, windows安装, mac安装, 下载cmdline-tools, 文件解压, sdkmanager 命令行操作, 安装包, 环境配置, adb环境验证, Appium启动验证, uiautomatorviewer启动校验, adb常用命令, 基础命令, 查看当前版本, 设备检查及输入, 连接模拟器, 设备操作, 进入设备终端, 从手机中拉取文件至本地, 上传文件, 手机日志, 指令, 包管理, 安装x2F卸载APP, 包名及入口获取, 前台页面查看, 查看包名类名, 查看启动入口, 后台查看, 查看包名和启动入口, 查看包名, 查看启动入口, 扩展, 系统, 其它, 通过wifi连接adb, appium, 简介, 安装Appium Desktop, 安装appium-doctor, 运行, 启动, 参数配置, Error报错处理, Stderr ‘Security exception Permission denial writing to settings, Could not find a connected Android device in 20201ms., The JAVA_HOME environment variable must be set for Android Tools to work properly, Injecting to another application requires INJECT_EVENTS permission简介是一个开源的适用于原生或混合移动应用的自动化测试工具应用驱动安卓和移动应用选择了的设计模式只要能够发送请求给那么的话用什么语言来实现都是可以的这就是如何做到支持多语言的原因参考资料需要安装的环境和程序环境安装前置电脑已安装手机驱动调试模式已打开开发者选项和模拟点击根据情况后面会需要打开下载安装包位解压到非中文路径且路径名无特殊字符配置系统环境变量和路径安装下载下载的作用是通过命令行去控制下载工具包如等创建目录存放下载的下载链接页面滑动往下面拉一点找下文件解压默认情况下同级的其它文件都是没有的我这边是因为后面下载了工具包所以截图里面有命令行操作由于没有配置全局环境需要先切换到目录执行切换路径包管理查看安装包通过安装语法参考官方安装软件包官方示例包名可选参数例如下面展示了如何安装最新的平台工具包括和以及适用于级别的工具这个是官方的示例根据意思如果不加号指定版本就是最新的多个包用空格隔开用括起来下载指定版本卸载软件包更新已安装的软件包环境配置配置系统环境变量注意上面的高亮是配置系统环境变量和一样有用户变量只对当前用户有效系统变量对所有用户有效在启动后只认系统变量如果设置的是用户变量到时候可能一直提示你没有设置在系统中是系统变量配置文件是用户变量在编辑文件的时候如果提示没有权限那么找到文件夹和文件添加用户的读写权限修改这种配置文件记得先备份养成良好的习惯配置系统变量再提示一遍是系统变量步骤一打开系统变量配置文件和文件步骤二添加配置文件保存系统变量系统变量步骤三添加配置文件保存步骤四生效一下环境验证在终端输入查看是否安装成功查看的版本查看设备连接启动验证启动校验是工具包里面的一个元素探测工具用于定位识别元素为后期自动化元素定位提供基础数据常用命令基础命令查看当前版本查看当前的版本这个版本好像低于还是哪个版本以下的如果执行键盘输入中文到输入框会有乱码现象之前用键盘输入设备检查及输入查看的帮助手册检查连接到电脑的安卓设备如果有检测到可以验证一下模拟点击手机返回的命令手机会模拟返回按键操作有反应代表连接正常状态在线离线未授权未检测到连接模拟器有时候没有真机或者真机的版本太高不好获得权限可以采用模拟器推荐模拟器夜神雷电模拟器先把模拟器打开指的使用本机是夜神模拟器的端口号根据你的模拟器端口可能会有变化设备操作进入设备终端进入到设备的终端控制台就像连接服务器一样底层是基于的需要连接然后也可以用命令退出终端当需要回退到窗口进行命令操作时或者从手机中拉取文件至本地将手机中的文件拉取到你自己的电脑本地一般会用于日志的拉取或者对网卡的抓包信息手机路径源文件本机路径目标文件上传文件将本地的文件上传推送到设备中本机路径源文件手机路径目标路径新命名文件这里有个小窍门就是后面本地文件可以直接找到拖进去不用手动输本地路径可以重复推送自动覆盖手机日志清理缓存区域的日志清理系统事件信息日志清理手机内所有日志的命令如果手机之前的日志不需要了一般用这个拉取日志这里本地路径必须是一个目录前面是大于符号重定向后面要给拉取的日志取一个别名不然拉取会失败日志是动态的所以估计秒拉取完成后用结束根据电脑快捷键决定本地路径命名日志名指令可以通过输入一些指令让设备做对应的动作比如模拟我们的滑动截屏输入等等截屏文件输出路径截屏并保存在这个路径录屏结束设置分辨率指定比特率旋转模拟点击返回按钮模拟手势滑动点击实现微信跳一跳高分核心方法起始点击点的位置终止点击点的位置操作耗时毫秒数单击屏幕屏幕点击坐标坐标包管理安装卸载和上传一样可以直接拖注意格式是的文件手机模式换成文件传输不能为充电模式成功后会提示提示表示有安装过同名的包可以采用下面的覆盖安装安装包路径覆盖安装安装包路径静默安装这个不会据说在比较老的版本中支持它的作用就是安装后同时赋予默认的权限在自动化测试时候如果监测到没有安装对应的那么可以采用尝试静默安装卸载提示代表成功应用包名一般是格式包名及入口获取包名类名主入口包名在中每个都拥有唯一的包名不能重复如果重复了就会提示你已经安装是否覆盖安装主入口每个都有一个主要函数的入口类名可以看做是每个页面的一个标识句柄前台页面查看查看包名类名把软件打开保持前台界面运行命令安卓以内安卓以上查看包名主入口和中间的就是包名以开头包名后面跟类名如果没有查到先把软件关了重新打开记得大写小驼峰第一个小写后面首字母大写查看启动入口先把需要查询的关掉然后清除日志再打开动态监控然后启动清除日志关闭后执行动态监控后台查看在不运行的情况下直接查看本地的文件需要在的目录下同级目录启动窗口或者配置路径查看包名和启动入口查看安装包的包名和启动入口文件路径查看包名查看文件的包名的路径查看启动入口扩展系统包名读取电量和温度内存使用信息查看启动时间一般是看冷启动注意大小写和更换包名里面的数据就是启动时间获取当前设备的地址其它启动应用包名启动入口多台设备下指定一台设备操作指令进程服务重启服务关闭服务连接断开设备设置端口如需连接连接设备取消连接设备重启关闭设备重启关机清除程序数据程序安装与卸载安装覆盖安装出来的包是的安装卸载不保留数据卸载保留数据查看已安装的应用查看所有应用查看系统应用查看三方应用查看当前聚焦程序包名类名安卓前台运行安卓前台运行程序查看安装包包名启动入口元素探测查看的包名和启动入口找包名找启动入口启动元素探测文件监控事件其它内存监控获取设备的地址包名启动入口查看启动时间一般是看冷启动查看屏幕分辨率读取电量和温度内存使用信息息屏或唤醒菜单键上滑解锁可以一起用对应值通过连接首先个人不推荐连接不稳定如果需要使用需要满足手机和电脑在同一局域网保持连接能监测到设备确定你的手机和电脑通讯号拔掉线再通过手机地址跟模拟器差不多一个原理不需要再输端口号了上面确定过了手机地址找到然后找到详细信息里面的地址需要在局域网内网络断开设备设备的地址即可断开如果多设备连接的情况需要给每个设备设置不同的如果一直连接不上回想一下你的设备会在局域网其它电脑里面连接过该设备吗手机开发者模式调试撤销调试然后再试下第二步这个输入一次即可在不撤销调试均有效后面不用直接进入第三步开始连接不要同一部手机同时使用和会出问题简介是移动端自动化测试工具市面上还有很多如原生应用仅使用或的标准编写的应用移动浏览器应用用移动平台的浏览器访问的应用混合应用把一个基于实现的功能进行包装的应用更多资料栏目是否支持跨进程是否是是否支持跨平台是否否是否支持脚本录制是需付费否是否支持无源码的是是是支持的编程语言主流语言均支持支持的应用类型安装安装后首次打开如果为英文版本可调成中文左上角中文配置地址和端口后启动注这个程序个人感觉兼容性很差当时的版本下载的时候找到热度高的版本和对应的位数系统使用本程序前需要注意以下几点打开手机的开发者模式勾选调试手机模式不要设置为仅充电通过终端能监测到设备并且处于已授权状态尽量不使用模式连接比较卡部分手机可能需要开启禁止权限监控开发者选项应用禁止权限监控安装这个安装非必选项主要用于检测哪些配置没有设置的安装命令启动命令运行启动运行点击上图的启动服务器进入下图后点击启动会话参数配置设备的名称如果是无线连接的设备名称输入设备形式通过监会出现如果监测不到证明没有连上设备确保驱动安装调试模式都打开设备类型获取安装包名启动入口启动路径启动入口每个只有一个入口报错处理由于未开启权限监控导致开启方法开发者选项应用禁止权限监控报错内容电脑在设定时间内找不到设备一般这种情况下用也找不到设备这个时候去检查一下开发者选项调试如果都开启了那再看下连接后不能设置仅充电电脑是否安装了手机的驱动如果没有的话需要安装手机的驱动高通的可以安装高通的通用版最终要保证能通过命令检测到手机未设置环境变量通过执行均正常通过执行也是正常未开启模拟点击").trim().substring(0, 1000);
+    let value = Math.floor(Math.random() * 3) + 1000;
+    while (value === prevParam || truncateDescription.length - value === prevParam) {
+      value = Math.floor(Math.random() * 3) + 1000;
+    }
+    aiTitleRefreshIcon.style.opacity = "0.2";
+    aiTitleRefreshIcon.style.transitionDuration = "0.3s";
+    aiTitleRefreshIcon.style.transform = "rotate(" + 360 * refreshNum + "deg)";
+    if (truncateDescription.length <= 1000) {
+      let param = truncateDescription.length - Math.floor(Math.random() * 3);
+      while (param === prevParam) {
+        param = truncateDescription.length - Math.floor(Math.random() * 3);
+      }
+      aiAbstract(param);
+      prevParam = param;
+    } else {
+      aiAbstract(value);
+      prevParam = value;
+    }
+    showAiBtn();
+    refreshNum++;
+  });
+
+  document.getElementById("go-tianli-blog").addEventListener("click", () => {
+    window.open("https://afdian.net/item/886a79d4db6711eda42a52540025c377", "_blank");
+  });
+  
+  if (false) {
+    document.getElementById("ai-Toggle").addEventListener("click", () => {
+      changeShowMode()
+    });
+  }
+
+  function showAiBtn() {
+    document.querySelectorAll(".ai-btn-item").forEach(item => {
+      if (item.id !== "go-tianli-blog") {
+        item.style.display = "block";
+      }
+      if (item.id === "go-tianli-blog") {
+        item.style.display = "none";
+      }
+    });
+  }
+
+
+  aiAbstract();
+  showAiBtn()
+})()</script></div><article class="post-content" id="article-container"><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Appium是一个开源的，适用于原生或混合移动应用（ hybrid mobile apps ）的自动化测试工具，Appium应用WebDriver: JSON wire protocol驱动安卓和iOS移动应用。Appium选择了Client&#x2F;Server的设计模式。只要client能够发送http请求给server，那么的话client用什么语言来实现都是可以的，这就是如何做到支持多语言的原因；</p>
+<span id="more"></span>
+
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li>需要安装的环境和程序：&#x3D;&#x3D;adb&#x3D;&#x3D; &#x3D;&#x3D;Appium&#x3D;&#x3D; &#x3D;&#x3D;jdk&#x3D;&#x3D;</li>
+</ul>
+<p><a href="https://developer.android.google.cn/studio?hl=zh_cn" target="_blank" class="LinkCard" style='text-decoration: none;'>Android</a></p>
+<h1 id="adb环境"><a href="#adb环境" class="headerlink" title="adb环境"></a>adb环境</h1><h2 id="windows安装"><a href="#windows安装" class="headerlink" title="windows安装"></a>windows安装</h2><ul>
+<li>前置：电脑已&#x3D;&#x3D;安装手机驱动&#x3D;&#x3D;，&#x3D;&#x3D;usb&#x3D;&#x3D;调试模式已打开（开发者选项和usb模拟点击根据情况后面会需要打开）</li>
+<li>1.下载安装包（32&#x2F;64位），解压到非中文路径且路径名无特殊字符</li>
+<li>2.配置系统环境变量和 path 路径</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723113410445.png" alt="配置系统变量"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723113520855.png" alt="配置环境变量path路径"></p>
+<h2 id="mac安装"><a href="#mac安装" class="headerlink" title="mac安装"></a>mac安装</h2><h3 id="下载cmdline-tools"><a href="#下载cmdline-tools" class="headerlink" title="下载cmdline-tools"></a>下载cmdline-tools</h3><ul>
+<li>下载cmdline-tools cmdline-tools的作用是通过命令行去控制下载 SDK 工具包如：platform-tools tools build-tool 等</li>
+<li>创建目录：&#x2F;Users&#x2F;ada&#x2F;Library&#x2F;Android&#x2F;sdk&#x2F;cmdline-tools&#x2F;latest 存放下载的 cmdline-tools</li>
+<li>下载链接：<a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio?hl=zh_cn">https://developer.android.google.cn/studio?hl=zh_cn</a> （页面滑动往下面拉一点找下）</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210724104514141.png" alt="下载cmdline-tools"></p>
+<h3 id="文件解压"><a href="#文件解压" class="headerlink" title="文件解压"></a>文件解压</h3><ul>
+<li>默认情况下sdk同级的其它文件都是没有的，我这边是因为后面下载了工具包所以截图里面有</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210724110059375.png" alt="文件夹创建和解压"></p>
+<h3 id="sdkmanager-命令行操作"><a href="#sdkmanager-命令行操作" class="headerlink" title="sdkmanager 命令行操作"></a>sdkmanager 命令行操作</h3><ul>
+<li>由于没有配置全局环境，需要先切换到bin目录 执行.&#x2F;sdkmanager</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换路径</span></span><br><span class="line"><span class="built_in">cd</span> /Users/ada/Library/Android/sdk/cmdline-tools/latest/bin</span><br><span class="line"><span class="comment"># 包管理查看</span></span><br><span class="line">./sdkmanager --list</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210724111351959.png" alt="sdkmanager --list"></p>
+<h3 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h3><ul>
+<li>通过 <code>sdkmanager</code> 安装 <code>build-tools</code>  <code>platform-tools</code> <code>tools</code></li>
+<li>语法参考官方：<a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio/command-line/sdkmanager?hl=zh_cn">https://developer.android.google.cn/studio/command-line/sdkmanager?hl=zh_cn</a></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装软件包</span></span><br><span class="line">sdkmanager packages [options] <span class="comment">#官方示例 sdkmanager 包名 可选参数</span></span><br><span class="line"><span class="comment">#例如，下面展示了如何安装最新的平台工具（包括 adb 和 fastboot）以及适用于 API 级别 28 的 SDK 工具：</span></span><br><span class="line">sdkmanager <span class="string">&quot;platform-tools&quot;</span> <span class="string">&quot;platforms;android-28&quot;</span> <span class="comment"># 这个是官方的示例，根据意思如果不加;号指定版本就是最新的,多个包用空格隔开，用&quot;&quot;括起来</span></span><br><span class="line"><span class="comment">#下载build-tools指定版本</span></span><br><span class="line">sdkmanager <span class="string">&quot;build-tools;30.0.2&quot;</span></span><br><span class="line"><span class="comment">#卸载软件包</span></span><br><span class="line">sdkmanager --uninstall packages [options]</span><br><span class="line">sdkmanager --uninstall --package_file=package_file [options]</span><br><span class="line"><span class="comment">#更新已安装的软件包</span></span><br><span class="line">sdkmanager --update [options]</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210724113109421.png" alt="下载包"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210724113109421-20220218222034554.png" alt="下载包"></p>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><ul>
+<li>配置&#x3D;&#x3D;系统环境变量&#x3D;&#x3D;<ul>
+<li>注意上面的高亮，是配置系统环境变量，和windows一样有用户变量，只对当前用户有效，系统变量对所有用户有效，<code>Appium在启动后只认系统变量</code>如果设置的是用户变量到时候可能一直提示你没有设置 &#x3D;&#x3D;JAVA_HOME&#x3D;&#x3D;  &#x3D;&#x3D;ANDROID_HOME&#x3D;&#x3D;</li>
+<li>在Macx系统中 &#x3D;&#x3D;&#x2F;etc&#x2F;profile&#x3D;&#x3D; 是系统变量配置文件 &#x3D;&#x3D;~&#x2F;.bash_profile&#x3D;&#x3D; 是用户变量</li>
+<li>在编辑 &#x2F;etc&#x2F;profile 文件的时候如果提示没有权限,那么找到 &#x2F;etc 文件夹和 profile 文件添加用户的读写权限 修改这种配置文件记得先备份，养成良好的习惯</li>
+</ul>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210724114800088.png" alt="添加文件编辑权限"></p>
+<ul>
+<li>Mac配置系统变量 &#x3D;&#x3D;Android_HOME&#x3D;&#x3D;  &#x3D;&#x3D;JAVA_HOME&#x3D;&#x3D;（再提示一遍是系统变量）</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#步骤一： 打开系统变量配置文件 和 ~/.zshrc文件</span></span><br><span class="line">open -e /etc/profile</span><br><span class="line">open -e ~/.zshrc</span><br><span class="line"><span class="comment"># 步骤二：添加配置（/etc/profile文件）保存</span></span><br><span class="line"><span class="comment"># Java系统变量</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=$(/usr/libexec/java_home)</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> CLASS_PATH=<span class="variable">$JAVA_HOME</span>/lib</span><br><span class="line"></span><br><span class="line"><span class="comment"># Android系统变量</span></span><br><span class="line">AAPT_HOME=/Users/ada/Library/Android/sdk/build-tools/30.0.2/</span><br><span class="line"><span class="built_in">export</span> AAPT_HOME</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$AAPT_HOME</span></span><br><span class="line"></span><br><span class="line">ANDROID_HOME=/Users/ada/Library/Android/sdk</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$ANDROID_HOME</span>/tools:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$ANDROID_HOME</span>/tools/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$ANDROID_HOME</span>/platform-tools:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$ANDROID_HOME</span>/build-tools/30.0.2:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$ANDROID_HOME</span>/emulator:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> ANDROID_HOME</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> ANDROID_SDK_ROOT=/Users/ada/Library/Android/sdk</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$ANDROID_SDK_ROOT</span>/emulator:<span class="variable">$ANDROID_SDK_ROOT</span>/tools:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment"># 步骤三：添加配置（~/.zshrc文件）保存</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br><span class="line"><span class="comment">#步骤四：source 生效一下</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"><span class="built_in">source</span> ~/.zshrc </span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210724120624278.png" alt="配置Java、Android系统变量"></p>
+<h2 id="adb环境验证"><a href="#adb环境验证" class="headerlink" title="adb环境验证"></a>adb环境验证</h2><ul>
+<li>在cmd、终端输入 &#x3D;&#x3D;adb version&#x3D;&#x3D;查看是否安装成功</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看adb的版本</span></span><br><span class="line">adb version</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看设备连接</span></span><br><span class="line">adb devices</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723113959083.png" alt="adb版本查看"></p>
+<h2 id="Appium启动验证"><a href="#Appium启动验证" class="headerlink" title="Appium启动验证"></a>Appium启动验证</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210724123306877.png" alt="Appium启动验证"></p>
+<h2 id="uiautomatorviewer启动校验"><a href="#uiautomatorviewer启动校验" class="headerlink" title="uiautomatorviewer启动校验"></a>uiautomatorviewer启动校验</h2><ul>
+<li>uiautomatorviewer 是 adb 工具包里面的一个元素探测工具，用于定位识别元素为后期自动化ui元素定位提供基础数据</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723114535723.png" alt="启动uiautomatorviewer"></p>
+<h1 id="adb常用命令"><a href="#adb常用命令" class="headerlink" title="adb常用命令"></a>adb常用命令</h1><h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><h3 id="查看当前版本"><a href="#查看当前版本" class="headerlink" title="查看当前版本"></a>查看当前版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看当前的 adb 版本 (这个版本好像低于38 39还是哪个版本以下的如果执行键盘输入中文到app输入框会有乱码现象，之前用DeskDock键盘输入)</span></span><br><span class="line">adb version</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723141132382.png" alt="查看adb版本"></p>
+<h3 id="设备检查及输入"><a href="#设备检查及输入" class="headerlink" title="设备检查及输入"></a>设备检查及输入</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看adb的帮助手册</span></span><br><span class="line">adb --<span class="built_in">help</span></span><br><span class="line"><span class="comment"># 检查连接到电脑的安卓设备 </span></span><br><span class="line">adb devices</span><br><span class="line"><span class="comment">#如果有检测到可以验证一下：模拟点击手机返回的命令，手机会模拟返回按键操作，有反应代表连接正常</span></span><br><span class="line">adb shell input keyevent</span><br><span class="line"><span class="comment">#状态 device 在线   offline 离线  unauthorized 未授权  List of devices attached  未检测到</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723150953920.png" alt="检测设备"></p>
+<h3 id="连接模拟器"><a href="#连接模拟器" class="headerlink" title="连接模拟器"></a>连接模拟器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#有时候没有真机，或者真机的版本太高不好获得root权限可以采用模拟器 推荐模拟器【夜神、雷电模拟器】</span></span><br><span class="line">adb connect 127.0.0.1:62001 <span class="comment">#(先把模拟器打开)，127.0.0.1指的使用本机，62001是夜神模拟器的端口号，根据你的模拟器端口可能会有变化</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723152330609.png" alt="连接到模拟器"></p>
+<h2 id="设备操作"><a href="#设备操作" class="headerlink" title="设备操作"></a>设备操作</h2><h3 id="进入设备终端"><a href="#进入设备终端" class="headerlink" title="进入设备终端"></a>进入设备终端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入到设备的终端控制台 就像xshell连接服务器一样，andriod底层是基于linux的，需要连接，然后也可以用linux命令</span></span><br><span class="line">adb shell</span><br><span class="line"><span class="comment">#退出终端 当需要回退到cmd窗口进行adb命令操作时</span></span><br><span class="line"><span class="built_in">exit</span> 或者 adb shell</span><br></pre></td></tr></table></figure>
+
+<h3 id="从手机中拉取文件至本地"><a href="#从手机中拉取文件至本地" class="headerlink" title="从手机中拉取文件至本地"></a>从手机中拉取文件至本地</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将手机中的文件拉取到你自己的电脑本地，一般会用于日志的拉取或者tcpdump对网卡的抓包信息</span></span><br><span class="line">adb pull &lt;手机路径，源文件&gt; &lt;本机路径，目标文件&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723154709253.png" alt="拉取文件"></p>
+<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将本地的文件上传/推送到设备中 </span></span><br><span class="line">adb push &lt;本机路径，源文件&gt;  &lt;手机路径，目标路径&gt; /新命名文件</span><br><span class="line"><span class="comment">#这里有个小窍门，就是push后面本地文件，可以直接找到拖进去，不用手动输本地路径，可以重复推送，自动覆盖</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723155033298.png" alt="上传文件"></p>
+<h3 id="手机日志"><a href="#手机日志" class="headerlink" title="手机日志"></a>手机日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#清理main缓存区域的日志</span></span><br><span class="line">adb logcat -c</span><br><span class="line"><span class="comment">#清理系统事件信息日志</span></span><br><span class="line">adb logcat -c -b events</span><br><span class="line"><span class="comment">#清理手机内所有日志的命令(如果手机之前的日志不需要了一般用这个)</span></span><br><span class="line">adb logcat -c -b main -b events -b radio -b system</span><br><span class="line"><span class="comment">#拉取日志 这里本地路径必须是一个目录，前面是大于符号重定向，后面要给拉取的日志取一个别名，不然拉取会失败，日志是动态的，所以估计3-5秒拉取完成后用ctrl+c/z/x 结束根据电脑快捷键决定</span></span><br><span class="line">adb logcat  &gt; &lt;本地路径&gt;  命名日志名.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#可以通过adb输入一些指令，让设备做对应的动作，比如模拟我们的滑动，截屏，输入等等</span></span><br><span class="line"><span class="comment">#截屏</span></span><br><span class="line">adb shell screencap -p 文件输出路径/fileName.png</span><br><span class="line">adb shell screencap -p /sdcard/01.png <span class="comment">#截屏并保存在/sdcard/01.png这个路径</span></span><br><span class="line"><span class="comment">#录屏</span></span><br><span class="line">adb shell screenrecord /sdcard/fileName.mp4     <span class="comment">#ctrl+c结束  --size 设置分辨率  --bit-rate 指定比特率  --rotate  旋转90°</span></span><br><span class="line"><span class="comment">#模拟点击返回按钮</span></span><br><span class="line">adb shell input keyevent</span><br><span class="line"><span class="comment">#模拟手势滑动点击（实现微信跳一跳高分核心方法）</span></span><br><span class="line">adb shell input touchscreen swipe x1 y1 x2 y2 time <span class="comment">#(x1,y1)：起始点击点的x y位置  (x2,y2)：终止点击点的x位置  time：操作耗时毫秒数</span></span><br><span class="line"><span class="comment"># 单击屏幕屏幕（点击）</span></span><br><span class="line">adb shell input tap X坐标 Y坐标</span><br></pre></td></tr></table></figure>
+
+<h2 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h2><h3 id="安装-卸载APP"><a href="#安装-卸载APP" class="headerlink" title="安装&#x2F;卸载APP"></a>安装&#x2F;卸载APP</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#和上传一样可以直接拖，注意格式是apk的文件（手机usb模式换成文件传输，不能为充电模式），成功后会提示success    提示：adb: failed to install，表示有安装过同名的包，可以采用下面的覆盖安装</span></span><br><span class="line">adb install &lt;安装包路径&gt;</span><br><span class="line"><span class="comment">#覆盖安装</span></span><br><span class="line">adb install -r  &lt;安装包路径&gt;</span><br><span class="line"><span class="comment">#静默安装 这个不会，据说在比较老的Android版本中支持，它的作用就是安装后同时赋予默认的权限，在自动化测试时候如果监测到没有安装对应的APP那么可以采用尝试，静默安装</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#卸载 提示success,代表成功</span></span><br><span class="line">adb uninstall &lt;应用包名，一般是com.xxxx.xxxx格式&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723161135912.png" alt="卸载APP"></p>
+<h3 id="包名及入口获取"><a href="#包名及入口获取" class="headerlink" title="包名及入口获取"></a>包名及入口获取</h3><ul>
+<li>包名、类名、主入口</li>
+<li>package（包名）：在APP中每个APP都拥有唯一的包名不能重复，如果重复了就会提示你已经安装是否覆盖安装</li>
+<li>MainActivity（主入口）：每个APP都有一个主要函数的入口</li>
+<li>activityName（类名）：可以看做是每个页面的一个标识句柄</li>
+</ul>
+<h4 id="前台页面查看"><a href="#前台页面查看" class="headerlink" title="前台页面查看"></a>前台页面查看</h4><h5 id="查看包名类名"><a href="#查看包名类名" class="headerlink" title="查看包名类名"></a>查看包名类名</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#把软件打开保持前台界面，运行命令</span></span><br><span class="line">adb shell dumpsys activity | find <span class="string">&quot;mFocusedActivity&quot;</span> <span class="comment">#安卓7以内</span></span><br><span class="line">adb shell dumpsys activity | find <span class="string">&quot;mResumedActivity&quot;</span> <span class="comment">#安卓8以上</span></span><br><span class="line"><span class="comment">#Mac查看包名、主入口</span></span><br><span class="line">adb shell dumpsys window w |grep \/ |grep name=</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>u0 com.xxxx.xxxx&#x2F;  uo和&#x2F;中间的就是包名，以com开头，包名后面跟类名，如果没有查到先把软件关了，重新打开 ，F A记得大写（小驼峰，第一个小写，后面首字母大写）</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723162335666.png" alt="前台查看包名类名"></p>
+<h5 id="查看启动入口"><a href="#查看启动入口" class="headerlink" title="查看启动入口"></a>查看启动入口</h5><ul>
+<li>先把需要查询的App关掉，然后清除日志，再打开“动态监控”，然后启动App</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#清除日志（关闭 app 后执行）</span></span><br><span class="line">adb logcat -c</span><br><span class="line"><span class="comment"># 动态监控</span></span><br><span class="line">adb logcat | find <span class="string">&quot;Display&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723164329438.png" alt="查看主入口"></p>
+<h4 id="后台查看"><a href="#后台查看" class="headerlink" title="后台查看"></a>后台查看</h4><ul>
+<li>在不运行APP的情况下，直接查看本地的APP文件</li>
+<li>需要在adb 的 build-tools目录下（aapt同级目录）启动cmd窗口或者配置path路径</li>
+</ul>
+<h5 id="查看包名和启动入口"><a href="#查看包名和启动入口" class="headerlink" title="查看包名和启动入口"></a>查看包名和启动入口</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看.apk安装包的包名和启动入口</span></span><br><span class="line">aapt dump badging apk文件路径</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723163208327.png" alt="查看包名和启动入口"></p>
+<h5 id="查看包名"><a href="#查看包名" class="headerlink" title="查看包名"></a>查看包名</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看文件的包名</span></span><br><span class="line">aapt dump badging C:\Users\Administrator\Desktop\inc.apk(APP的路径) | find <span class="string">&quot;package&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723163444450.png" alt="查看apk文件包名"></p>
+<h5 id="查看启动入口-1"><a href="#查看启动入口-1" class="headerlink" title="查看启动入口"></a>查看启动入口</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aapt dump badging C:\Users\Administrator\Desktop\inc.apk | find <span class="string">&quot;launchable-activity&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723163651451.png" alt="查看apk文件启动入口"></p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line">dumpsys meminfo 包名</span><br><span class="line"><span class="comment">#读取电量和温度</span></span><br><span class="line">adb shell dumpsys battery</span><br><span class="line"><span class="comment"># 内存使用信息</span></span><br><span class="line">adb shell dumpsys meminfo</span><br><span class="line"><span class="comment">#查看启动时间（一般是看冷启动）  (注意大小写，和更换包名，thistime totaltime里面的数据就是启动时间)</span></span><br><span class="line">adb shell am start -W com.lemon.lemonban/.activity.WelcomeActivity</span><br><span class="line"><span class="comment">#获取当前设备的IP地址（wifi） </span></span><br><span class="line">adb shell <span class="string">&quot;ip addr | grep global&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动应用</span></span><br><span class="line">adb shell am start -n 包名/启动入口</span><br><span class="line">adb shell am start -n com.inc.mobile.manager/com.inc.mobile.manager.view.ui.activity.LaunchActivity</span><br><span class="line"><span class="comment">#多台设备下指定一台设备操作</span></span><br><span class="line">adb -s devicesName 指令       </span><br><span class="line"><span class="comment">#adb进程服务</span></span><br><span class="line">adb start-server 重启服务</span><br><span class="line">adb kill-server  关闭服务 </span><br><span class="line"><span class="comment">#Wifi连接/断开设备</span></span><br><span class="line">adb tcpip port设置端口如5555(需连接usb)</span><br><span class="line">adb connect ip 连接ip设备</span><br><span class="line">adb disconnect ip:port  取消连接ip设备</span><br><span class="line"><span class="comment">#重启/关闭设备</span></span><br><span class="line">adb reboot <span class="comment">#重启</span></span><br><span class="line">adb shell reboot -p <span class="comment">#关机</span></span><br><span class="line"><span class="comment">#清除程序数据</span></span><br><span class="line">adb shell pm clear packageName</span><br><span class="line"><span class="comment">#程序安装与卸载</span></span><br><span class="line">adb install ***.apk    <span class="comment">#安装</span></span><br><span class="line">adb install -t ***.apk <span class="comment">#覆盖安装</span></span><br><span class="line">adb install -r -t ***.apk <span class="comment">#RUN出来的包是test-onlu的安装</span></span><br><span class="line">adb uninstall packageName  <span class="comment">#卸载不保留数据</span></span><br><span class="line">adb uninstall -k packageName <span class="comment">#卸载保留数据</span></span><br><span class="line"><span class="comment">#查看已安装的应用</span></span><br><span class="line">adb shell pm list packages 查看所有应用</span><br><span class="line">adb shell pm list packages -s  查看系统应用</span><br><span class="line">adb shell pm list packages -3  查看三方应用</span><br><span class="line"><span class="comment">#查看当前聚焦程序包名、类名</span></span><br><span class="line">adb shell dumpsys activity | find <span class="string">&quot;mFocusedActivity&quot;</span>  安卓≤7（前台运行）</span><br><span class="line">adb shell dumpsys activity | find <span class="string">&quot;mResumedActivity&quot;</span>   安卓≥8（前台运行程序）</span><br><span class="line"><span class="comment">#查看apk安装包包名、启动入口、元素探测</span></span><br><span class="line">aapt dump badging ***.apk    <span class="comment">#查看apk的包名和启动入口</span></span><br><span class="line">aapt dump badging ***.apk | find <span class="string">&quot;package&quot;</span> <span class="comment">#找apk包名</span></span><br><span class="line">aapt dump badging ***.apk | find <span class="string">&quot;launchable-activity&quot;</span> <span class="comment">#找apk启动入口</span></span><br><span class="line">C:\Users\Administrator&gt;uiautomatorviewer   <span class="comment">#启动元素探测bat文件</span></span><br><span class="line"><span class="comment">#监控crash/ANR事件：</span></span><br><span class="line">adb shell am monitor</span><br><span class="line"><span class="comment">#其它</span></span><br><span class="line">adb shell dumpsys meminfo PID  内存监控</span><br><span class="line">adb shell <span class="string">&quot;ip addr | grep global&quot;</span> 获取设备的IP地址</span><br><span class="line">adb shell am start -W 包名/启动入口  查看启动时间（一般是看冷启动）</span><br><span class="line">adb shell wm size  查看屏幕分辨率</span><br><span class="line">adb shell dumpsys battery 读取电量和温度</span><br><span class="line">adb shell dumpsys meminfo 内存使用信息</span><br><span class="line">adb shell input keyevent 26 82(26息屏或唤醒/82菜单键，上滑解锁可以一起用)</span><br><span class="line"><span class="comment">#keyevent对应值: https://www.cnblogs.com/zhuminghui/p/10470865.html</span></span><br><span class="line"><span class="comment">#https://blog.csdn.net/xiezhiming1234/article/details/82117709</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="通过wifi连接adb"><a href="#通过wifi连接adb" class="headerlink" title="通过wifi连接adb"></a>通过wifi连接adb</h3><ul>
+<li>0.首先&#x3D;&#x3D;个人不推荐wifi连接，不稳定&#x3D;&#x3D;，如果需要使用需要满足手机和电脑在同一局域网</li>
+<li>1.保持usb连接,adb devices能监测到设备</li>
+<li>2.&#x3D;&#x3D;adb tcpip 5555&#x3D;&#x3D;  确定你的手机和电脑通讯号</li>
+<li>3.拔掉usb线，再通过 &#x3D;&#x3D;adb connect 手机ip地址&#x3D;&#x3D;（跟模拟器差不多一个原理，不需要再输端口号了，上面确定过了，手机IP地址，找到wifi,然后找到详细信息里面的地址，需要在局域网内）</li>
+<li>4.adb 网络断开设备：&#x3D;&#x3D;adb disconnect  &lt;设备的IP地址&gt;:5555&#x3D;&#x3D; 即可断开</li>
+<li>5.如果多设备连接的情况，需要给每个设备设置不同的tcpip<br>&#x3D;&#x3D;adb -s822QADU5246SE tcpip 1996&#x3D;&#x3D;<br>&#x3D;&#x3D;adb -s f06d7a07 tcpip 1997&#x3D;&#x3D;  </li>
+<li>如果一直连接不上，回想一下你的设备会在局域网其它电脑里面连接过该设备吗，手机开发者模式—》调试—》撤销usb调试  然后再试下 第二步 adb tcpip 5555 这个输入一次即可（在不撤销usb调试均有效），后面不用usb 直接进入第三步开始连接  &#x3D;&#x3D;不要同一部手机同时使用usb和wifi，会出问题&#x3D;&#x3D;</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723171428438.png" alt="wifi连接adb"></p>
+<h1 id="appium"><a href="#appium" class="headerlink" title="appium"></a>appium</h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><ul>
+<li>Appium 是移动端自动化测试工具，市面上还有很多如 Robotium UIAutomator </li>
+<li>Native apps（原生应用）：仅使用Android或iOS的标准SDK编写的应用；</li>
+<li>Web apps（移动浏览器应用）：用移动平台的浏览器访问的应用；</li>
+<li>Hybrid apps（混合应用）：把一个基于webview实现的功能进行包装的应用。**<a target="_blank" rel="noopener" href="https://blog.csdn.net/maetelibom/article/details/51557941">更多资料</a>**</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>栏目</th>
+<th>Appium</th>
+<th>Robotium</th>
+<th>UIAutomator</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>是否支持跨进程</td>
+<td>是</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>是否支持跨平台（Android、iOS）</td>
+<td>是</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>是否支持脚本录制</td>
+<td>是</td>
+<td>需付费</td>
+<td>否</td>
+</tr>
+<tr>
+<td>是否支持无源码的APK</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>支持的编程语言</td>
+<td>主流语言均支持</td>
+<td>Java</td>
+<td>Java</td>
+</tr>
+<tr>
+<td>支持的应用类型</td>
+<td>Native apps、hybrid apps、mobile web apps</td>
+<td>Native apps、hybrid apps、mobile web apps</td>
+<td>Native apps、hybrid apps</td>
+</tr>
+</tbody></table>
+<h2 id="安装Appium-Desktop"><a href="#安装Appium-Desktop" class="headerlink" title="安装Appium Desktop"></a>安装Appium Desktop</h2><p>📌1.安装后首次打开如果为英文版本可调成中文：左上角View—languages—中文</p>
+<p>📌2.配置地址和端口后启动</p>
+<p>📌注：这个程序个人感觉兼容性很差(当时的版本)，下载的时候找到热度高的版本和对应的位数系统,使用本程序前需要注意以下几点：&#x3D;&#x3D;打开手机的开发者模式，勾选USB调试&#x3D;&#x3D; &#x3D;&#x3D;手机USB模式不要设置为仅充电&#x3D;&#x3D; &#x3D;&#x3D;通过终端adb devices能监测到设备，并且处于已授权状态&#x3D;&#x3D; &#x3D;&#x3D;尽量不使用wifi模式连接，比较卡&#x3D;&#x3D; &#x3D;&#x3D;部分手机可能需要开启【禁止权限监控】开发者选项–&gt;应用–&gt;禁止权限监控&#x3D;&#x3D;</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723124135834.png" alt="ip和端口配置"></p>
+<h2 id="安装appium-doctor"><a href="#安装appium-doctor" class="headerlink" title="安装appium-doctor"></a>安装appium-doctor</h2><ul>
+<li>这个安装非必选项，主要用于检测哪些配置没有设置的</li>
+<li>安装命令：&#x3D;&#x3D;sudo npm install -g appium-doctor&#x3D;&#x3D;（Mac） 启动命令：&#x3D;&#x3D;appium-doctor&#x3D;&#x3D;</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723193925024.png" alt="appium-doctor"></p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>:arrow_forward:运行 Appium 点击上图的“启动服务器V1.15.1”进入下图后点击启动会话“③”</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723124302077.png" alt="启动会话"></p>
+<h3 id="参数配置"><a href="#参数配置" class="headerlink" title="参数配置"></a>参数配置</h3><p>:one:deviceName**:**设备的名称   如果是WIF无线连接的设备名称输入设备ip:port形式  通过adb devices监会出现：2c0d4390   device,如果监测不到证明没有连上设备，确保驱动安装，调试模式都打开</p>
+<p>:two:platformName<strong>：</strong>设备类型 Android &#x2F; iOS</p>
+<p>:three:appPackage<strong>：</strong>获取安装包名&amp;启动入口</p>
+<p>:four:appActivity<strong>：</strong>启动路径（启动入口，每个APP只有一个入口）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723124418361.png" alt="四大基础数据配置"></p>
+<h3 id="Error报错处理"><a href="#Error报错处理" class="headerlink" title="Error报错处理"></a>Error报错处理</h3><h4 id="Stderr-‘Security-exception-Permission-denial-writing-to-settings"><a href="#Stderr-‘Security-exception-Permission-denial-writing-to-settings" class="headerlink" title="Stderr: ‘Security exception: Permission denial: writing to settings"></a>Stderr: ‘Security exception: Permission denial: writing to settings</h4><ul>
+<li>由于未开启权限监控导致开启方法开发者选项–&gt;应用–&gt;:white_check_mark: 禁止权限监控</li>
+</ul>
+<blockquote>
+<p>报错内容：</p>
+<p>An unknown server-side error occurred while processing the command. Original error: Error executing adbExec. Original error: ‘Command ‘&#x2F;usr&#x2F;local&#x2F;bin&#x2F;adb -P 5037 -s f06d7a07 shell settings delete global hidden_api_policy_pre_p_apps’ exited with code 255’; Stderr: ‘Security exception: Permission denial: writing to settings requires:android.permission.WRITE_SECURE_SETTINGS java.lang.SecurityException: Permission denial: writing to settings requires:android.permission.WRITE_SECURE_SETTINGS at com.android.providers.settings.SettingsProvider.enforceWritePermission(SettingsProvider.java:2340) at com.android.providers.settings.SettingsProvider.mutateGlobalSetting(SettingsProvider.java:1405) at com.android.providers.settings.SettingsProvider.deleteGlobalSetting(SettingsProvider.java:1388) at com.android.providers.settings.SettingsProvider.call(SettingsProvider.java:603) at android.content.ContentProvider.call(ContentProvider.java:2162) at android.content.ContentProvider$Transport.call(ContentProvider.java:481) at com.android.providers.settings.SettingsService$MyShellCommand.deleteForUser(SettingsService.java:399) at com.android.providers.settings.SettingsService$MyShellCommand.onCommand(SettingsService.java:281) at android.os.ShellCommand.exec(ShellCommand.java:104) at com.android.providers.settings.SettingsService.onShellCommand(SettingsService.java:49) at android.os.Binder.shellCommand(Binder.java:881) at android.os.Binder.onTransact(Binder.java:765) at android.os.Binder.execTransactInternal(Binder.java:1021) at android.os.Binder.execTransact(Binder.java:994)’; Code: ‘255’</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723190856548.png" alt="开启禁止监控权限"></p>
+<h4 id="Could-not-find-a-connected-Android-device-in-20201ms"><a href="#Could-not-find-a-connected-Android-device-in-20201ms" class="headerlink" title="Could not find a connected Android device in 20201ms."></a>Could not find a connected Android device in 20201ms.</h4><ul>
+<li>An unknown server-side error occurred while processing the command. Original error: Could not find a connected Android device in 20201ms.</li>
+</ul>
+<blockquote>
+<p>电脑在设定时间内找不到设备，一般这种情况下用 &#x3D;&#x3D;adb devices&#x3D;&#x3D; 也找不到设备，这个时候去检查一下 &#x3D;&#x3D;开发者选项&#x3D;&#x3D; &#x3D;&#x3D;usb调试&#x3D;&#x3D; 如果都开启了，那再看下&#x3D;&#x3D;usb连接后不能设置仅充电&#x3D;&#x3D; &#x3D;&#x3D;电脑是否安装了手机的驱动&#x3D;&#x3D; 如果没有的话需要安装手机的驱动（高通的cpu可以安装高通的通用版），最终要保证能通过 adb 命令检测到手机</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210723192042261.png" alt="开启usb调试"></p>
+<h4 id="The-JAVA-HOME-environment-variable-must-be-set-for-Android-Tools-to-work-properly"><a href="#The-JAVA-HOME-environment-variable-must-be-set-for-Android-Tools-to-work-properly" class="headerlink" title="The JAVA_HOME environment variable must be set for Android Tools to work properly"></a>The JAVA_HOME environment variable must be set for Android Tools to work properly</h4><ul>
+<li>未设置java环境变量</li>
+</ul>
+<blockquote>
+<p>An unknown server-side error occurred while processing the command. Original error: Cannot verify the signature of ‘C:\Users\Administrator\AppData\Local\Programs\Appium\resources\app\node_modules\appium\node_modules\appium-uiautomator2-server\apks\appium-uiautomator2-server-v4.21.1.apk’. Original error: The JAVA_HOME environment variable must be set for Android Tools to work properly</p>
+</blockquote>
+<ul>
+<li>通过java javac java -version执行均正常</li>
+<li>通过appium-doctor执行也是正常</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210724021200458.png" alt="重新安装"></p>
+<h4 id="Injecting-to-another-application-requires-INJECT-EVENTS-permission"><a href="#Injecting-to-another-application-requires-INJECT-EVENTS-permission" class="headerlink" title="Injecting to another application requires INJECT_EVENTS permission"></a>Injecting to another application requires INJECT_EVENTS permission</h4><ul>
+<li>未开启USB模拟点击</li>
+</ul>
+<blockquote>
+<p>An unknown server-side error occurred while processing the command. Original error: java.lang.SecurityException: Injecting to another application requires INJECT_EVENTS permission</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210724022950126.png" alt="开启USB模拟点击"></p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.3001.net/images/20210606/16229390604952.png" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.3001.net/images/20210606/16229390604952.png" title="头像" alt="头像"></a><div class="post-copyright__author_name">Ada</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://adalucky.github.io/worker/Tester/Automation/Appium/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://adalucky.github.io/worker/Tester/Automation/Appium/')">Appium</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://adalucky.github.io/worker/Tester/Automation/Appium/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=Appium&amp;url=https://adalucky.github.io/worker/Tester/Automation/Appium/&amp;pic=https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/auto/appium.jpeg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="rm.copyPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://adalucky.github.io" target="_blank">Ada</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Appium/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Appium<span class="tagsPageCount">1</span></a></div></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/worker/Ops/Jenkins/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/auto/jenkins.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Jenkins</div></div></a></div><div class="next-post pull-right"><a href="/worker/Developer/webpack5/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/auto/webpack.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">webpack5</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-top" title="点击展开"><div class="card-info-avatar"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.3001.net/images/20210606/16229390604952.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div></div></div><div class="author-info__description">我的个人博客</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/jqqdgzh.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.0.1.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#adb%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">adb环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#windows%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">windows安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">mac安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDcmdline-tools"><span class="toc-number">2.2.1.</span> <span class="toc-text">下载cmdline-tools</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%A7%A3%E5%8E%8B"><span class="toc-number">2.2.2.</span> <span class="toc-text">文件解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sdkmanager-%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C"><span class="toc-number">2.2.3.</span> <span class="toc-text">sdkmanager 命令行操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">2.2.4.</span> <span class="toc-text">安装包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.5.</span> <span class="toc-text">环境配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#adb%E7%8E%AF%E5%A2%83%E9%AA%8C%E8%AF%81"><span class="toc-number">2.3.</span> <span class="toc-text">adb环境验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Appium%E5%90%AF%E5%8A%A8%E9%AA%8C%E8%AF%81"><span class="toc-number">2.4.</span> <span class="toc-text">Appium启动验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#uiautomatorviewer%E5%90%AF%E5%8A%A8%E6%A0%A1%E9%AA%8C"><span class="toc-number">2.5.</span> <span class="toc-text">uiautomatorviewer启动校验</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#adb%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">adb常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4"><span class="toc-number">3.1.</span> <span class="toc-text">基础命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%89%88%E6%9C%AC"><span class="toc-number">3.1.1.</span> <span class="toc-text">查看当前版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A3%80%E6%9F%A5%E5%8F%8A%E8%BE%93%E5%85%A5"><span class="toc-number">3.1.2.</span> <span class="toc-text">设备检查及输入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%A8%A1%E6%8B%9F%E5%99%A8"><span class="toc-number">3.1.3.</span> <span class="toc-text">连接模拟器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%93%8D%E4%BD%9C"><span class="toc-number">3.2.</span> <span class="toc-text">设备操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E8%AE%BE%E5%A4%87%E7%BB%88%E7%AB%AF"><span class="toc-number">3.2.1.</span> <span class="toc-text">进入设备终端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E6%89%8B%E6%9C%BA%E4%B8%AD%E6%8B%89%E5%8F%96%E6%96%87%E4%BB%B6%E8%87%B3%E6%9C%AC%E5%9C%B0"><span class="toc-number">3.2.2.</span> <span class="toc-text">从手机中拉取文件至本地</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.3.</span> <span class="toc-text">上传文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E6%9C%BA%E6%97%A5%E5%BF%97"><span class="toc-number">3.2.4.</span> <span class="toc-text">手机日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4"><span class="toc-number">3.2.5.</span> <span class="toc-text">指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E7%AE%A1%E7%90%86"><span class="toc-number">3.3.</span> <span class="toc-text">包管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-%E5%8D%B8%E8%BD%BDAPP"><span class="toc-number">3.3.1.</span> <span class="toc-text">安装&#x2F;卸载APP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85%E5%90%8D%E5%8F%8A%E5%85%A5%E5%8F%A3%E8%8E%B7%E5%8F%96"><span class="toc-number">3.3.2.</span> <span class="toc-text">包名及入口获取</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E5%8F%B0%E9%A1%B5%E9%9D%A2%E6%9F%A5%E7%9C%8B"><span class="toc-number">3.3.2.1.</span> <span class="toc-text">前台页面查看</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%8C%85%E5%90%8D%E7%B1%BB%E5%90%8D"><span class="toc-number">3.3.2.1.1.</span> <span class="toc-text">查看包名类名</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%90%AF%E5%8A%A8%E5%85%A5%E5%8F%A3"><span class="toc-number">3.3.2.1.2.</span> <span class="toc-text">查看启动入口</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E6%9F%A5%E7%9C%8B"><span class="toc-number">3.3.2.2.</span> <span class="toc-text">后台查看</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%8C%85%E5%90%8D%E5%92%8C%E5%90%AF%E5%8A%A8%E5%85%A5%E5%8F%A3"><span class="toc-number">3.3.2.2.1.</span> <span class="toc-text">查看包名和启动入口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%8C%85%E5%90%8D"><span class="toc-number">3.3.2.2.2.</span> <span class="toc-text">查看包名</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%90%AF%E5%8A%A8%E5%85%A5%E5%8F%A3-1"><span class="toc-number">3.3.2.2.3.</span> <span class="toc-text">查看启动入口</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95"><span class="toc-number">3.4.</span> <span class="toc-text">扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.4.1.</span> <span class="toc-text">系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-number">3.4.2.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87wifi%E8%BF%9E%E6%8E%A5adb"><span class="toc-number">3.4.3.</span> <span class="toc-text">通过wifi连接adb</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#appium"><span class="toc-number">4.</span> <span class="toc-text">appium</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="toc-number">4.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Appium-Desktop"><span class="toc-number">4.2.</span> <span class="toc-text">安装Appium Desktop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85appium-doctor"><span class="toc-number">4.3.</span> <span class="toc-text">安装appium-doctor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C"><span class="toc-number">4.4.</span> <span class="toc-text">运行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-number">4.4.1.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE"><span class="toc-number">4.4.2.</span> <span class="toc-text">参数配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Error%E6%8A%A5%E9%94%99%E5%A4%84%E7%90%86"><span class="toc-number">4.4.3.</span> <span class="toc-text">Error报错处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Stderr-%E2%80%98Security-exception-Permission-denial-writing-to-settings"><span class="toc-number">4.4.3.1.</span> <span class="toc-text">Stderr: ‘Security exception: Permission denial: writing to settings</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Could-not-find-a-connected-Android-device-in-20201ms"><span class="toc-number">4.4.3.2.</span> <span class="toc-text">Could not find a connected Android device in 20201ms.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-JAVA-HOME-environment-variable-must-be-set-for-Android-Tools-to-work-properly"><span class="toc-number">4.4.3.3.</span> <span class="toc-text">The JAVA_HOME environment variable must be set for Android Tools to work properly</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Injecting-to-another-application-requires-INJECT-EVENTS-permission"><span class="toc-number">4.4.3.4.</span> <span class="toc-text">Injecting to another application requires INJECT_EVENTS permission</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/worker/Toolbox/Hexo/" title="Hexo"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/other/hexo.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo"/></a><div class="content"><a class="title" href="/worker/Toolbox/Hexo/" title="Hexo">Hexo</a><time datetime="2023-08-14T16:00:00.000Z" title="发表于 2023-08-15 00:00:00">2023-08-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/worker/Backender/MongoDB/" title="MongoDB"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/mongodb.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MongoDB"/></a><div class="content"><a class="title" href="/worker/Backender/MongoDB/" title="MongoDB">MongoDB</a><time datetime="2023-07-04T16:00:00.000Z" title="发表于 2023-07-05 00:00:00">2023-07-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/worker/Ops/Docker%20Compose/" title="Docker Compose"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/docker-compose.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker Compose"/></a><div class="content"><a class="title" href="/worker/Ops/Docker%20Compose/" title="Docker Compose">Docker Compose</a><time datetime="2023-06-26T16:00:00.000Z" title="发表于 2023-06-27 00:00:00">2023-06-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/worker/Ops/Linux%E5%91%BD%E4%BB%A4/" title="Linux 命令"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/linux.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux 命令"/></a><div class="content"><a class="title" href="/worker/Ops/Linux%E5%91%BD%E4%BB%A4/" title="Linux 命令">Linux 命令</a><time datetime="2023-06-26T16:00:00.000Z" title="发表于 2023-06-27 00:00:00">2023-06-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/worker/Ops/asdf%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" title="asdf"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/asdf.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="asdf"/></a><div class="content"><a class="title" href="/worker/Ops/asdf%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" title="asdf">asdf</a><time datetime="2023-06-13T16:00:00.000Z" title="发表于 2023-06-14 00:00:00">2023-06-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2023 By <a class="footer-bar-link" href="/" title="Ada" target="_blank">Ada</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div></div></div><div id="sidebar"><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.3001.net/images/20210606/16229390604952.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><span> 总览</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><span> 分类</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><span> 标签</span></a></div></div></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="anzhiyufont anzhiyu-icon-comment-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><a id="switch_commentBarrage" href="javascript:anzhiyu.switchCommentBarrage();" title="开关弹幕"><i class="anzhiyufont anzhiyu-icon-danmu"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.3.1/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.cbd.int/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("07/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.5.4",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#3b70fc",
+      "",
+      "color:#3b70fc",
+      "color:#3b70fc",
+      "",
+      "color:#3b70fc",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Ada 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="https://cdn.cbd.int/algoliasearch@4.18.0/dist/algoliasearch-lite.umd.js"></script><script src="https://cdn.cbd.int/instantsearch.js@4.56.5/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'HvNn2fnND9DnBkt32cvR8g5x-gzGzoHsz',
+      appKey: '1FgE4n7EeWrdtvsJCcB20dfD',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.cbd.int/valine@1.5.1/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) anzhiyu.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script src="https://cdn.cbd.int/blueimp-md5@2.19.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=mp'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const serverURL = 'https://HvNn2fnN.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": 'HvNn2fnND9DnBkt32cvR8g5x-gzGzoHsz',
+        "X-LC-Key": '1FgE4n7EeWrdtvsJCcB20dfD',
+        "Content-Type": "application/json"
+      },
+    }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      }) 
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('valine-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "visitor@anheyu.com";</script><script>//动态标题
+let leaveTitle = 'w(ﾟДﾟ)w 不要走！再看看嘛！';
+let backTitle = '♪(^∇^*)欢迎肥来！';
+let OriginTitile = document.title
+let titleTime
+document.addEventListener('visibilitychange', function () {
+  if (document.hidden) {
+    //离开当前页面时标签显示内容
+    document.title = leaveTitle
+    clearTimeout(titleTime)
+  } else {
+    //返回当前页面时标签显示内容
+    document.title = backTitle + OriginTitile
+    //两秒后变回正常标题
+    titleTime = setTimeout(function () {
+      document.title = OriginTitile
+    }, 2000)
+  }
+})</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><script>// 初始化函数
+let rm = {};
+
+//禁止图片与超链接拖拽
+let aElements = document.getElementsByTagName("a");
+for (let i = 0; i < aElements.length; i++) {
+  aElements[i].setAttribute("draggable", "false");
+  let imgElements = aElements[i].getElementsByTagName("img");
+  for (let j = 0; j < imgElements.length; j++) {
+    imgElements[j].setAttribute("draggable", "false");
+  }
+}
+
+// 显示菜单
+rm.showRightMenu = function (isTrue, x = 0, y = 0) {
+  console.info(x, y)
+  let rightMenu = document.getElementById("rightMenu");
+  rightMenu.style.top = x + "px";
+  rightMenu.style.left = y + "px";
+  if (isTrue) {
+    rightMenu.style.display = "block";
+    stopMaskScroll();
+  } else {
+    rightMenu.style.display = "none";
+  }
+};
+
+// 隐藏菜单
+rm.hideRightMenu = function () {
+  rm.showRightMenu(false);
+  let rightMenuMask = document.querySelector("#rightmenu-mask");
+  rightMenuMask.style.display = "none";
+};
+
+// 尺寸
+let rmWidth = document.getElementById("rightMenu").offsetWidth;
+let rmHeight = document.getElementById("rightMenu").offsetHeight;
+
+// 重新定义尺寸
+rm.reloadrmSize = function () {
+  rightMenu.style.visibility = "hidden";
+  rightMenu.style.display = "block";
+  // 获取宽度和高度
+  rmWidth = document.getElementById("rightMenu").offsetWidth;
+  rmHeight = document.getElementById("rightMenu").offsetHeight;
+  rightMenu.style.visibility = "visible";
+};
+
+// 获取点击的href
+let domhref = "";
+let domImgSrc = "";
+let globalEvent = null;
+
+var oncontextmenuFunction = function (event) {
+  if (document.body.clientWidth > 768) {
+    let pageX = event.clientX + 10; //加10是为了防止显示时鼠标遮在菜单上
+    let pageY = event.clientY;
+
+    //其他额外菜单
+    const $rightMenuOther = document.querySelector(".rightMenuOther");
+    const $rightMenuPlugin = document.querySelector(".rightMenuPlugin");
+    const $rightMenuCopyText = document.querySelector("#menu-copytext");
+    const $rightMenuPasteText = document.querySelector("#menu-pastetext");
+    const $rightMenuCommentText = document.querySelector("#menu-commenttext");
+    const $rightMenuNewWindow = document.querySelector("#menu-newwindow");
+    const $rightMenuNewWindowImg = document.querySelector("#menu-newwindowimg");
+    const $rightMenuCopyLink = document.querySelector("#menu-copylink");
+    const $rightMenuCopyImg = document.querySelector("#menu-copyimg");
+    const $rightMenuDownloadImg = document.querySelector("#menu-downloadimg");
+    const $rightMenuSearch = document.querySelector("#menu-search");
+    const $rightMenuSearchBaidu = document.querySelector("#menu-searchBaidu");
+    const $rightMenuMusicToggle = document.querySelector("#menu-music-toggle");
+    const $rightMenuMusicBack = document.querySelector("#menu-music-back");
+    const $rightMenuMusicForward = document.querySelector("#menu-music-forward");
+    const $rightMenuMusicPlaylist = document.querySelector("#menu-music-playlist");
+    const $rightMenuMusicCopyMusicName = document.querySelector("#menu-music-copyMusicName");
+
+    let href = event.target.href;
+    let imgsrc = event.target.currentSrc;
+
+    // 判断模式 扩展模式为有事件
+    let pluginMode = false;
+    $rightMenuOther.style.display = "block";
+    globalEvent = event;
+
+    // 检查是否需要复制 是否有选中文本
+    if (selectTextNow && window.getSelection()) {
+      pluginMode = true;
+      $rightMenuCopyText.style.display = "block";
+      $rightMenuCommentText.style.display = "block";
+      $rightMenuSearch.style.display = "block";
+      $rightMenuSearchBaidu.style.display = "block";
+    } else {
+      $rightMenuCopyText.style.display = "none";
+      $rightMenuCommentText.style.display = "none";
+      $rightMenuSearchBaidu.style.display = "none";
+      $rightMenuSearch.style.display = "none";
+    }
+
+    //检查是否右键点击了链接a标签
+    if (href) {
+      pluginMode = true;
+      $rightMenuNewWindow.style.display = "block";
+      $rightMenuCopyLink.style.display = "block";
+      domhref = href;
+    } else {
+      $rightMenuNewWindow.style.display = "none";
+      $rightMenuCopyLink.style.display = "none";
+    }
+
+    //检查是否需要复制图片
+    if (imgsrc) {
+      pluginMode = true;
+      $rightMenuCopyImg.style.display = "block";
+      $rightMenuDownloadImg.style.display = "block";
+      $rightMenuNewWindowImg.style.display = "block";
+      document.getElementById("rightMenu").style.width="12rem"
+      domImgSrc = imgsrc;
+    } else {
+      $rightMenuCopyImg.style.display = "none";
+      $rightMenuDownloadImg.style.display = "none";
+      $rightMenuNewWindowImg.style.display = "none";
+    }
+
+    // 判断是否为输入框
+    if (event.target.tagName.toLowerCase() === "input" || event.target.tagName.toLowerCase() === "textarea") {
+      pluginMode = true;
+      $rightMenuPasteText.style.display = "block";
+    } else {
+      $rightMenuPasteText.style.display = "none";
+    }
+    const navMusicEl = document.querySelector("#nav-music");
+    //判断是否是音乐
+    if (navMusicEl && navMusicEl.contains(event.target)) {
+      pluginMode = true;
+      $rightMenuMusicToggle.style.display = "block";
+      $rightMenuMusicBack.style.display = "block";
+      $rightMenuMusicForward.style.display = "block";
+      $rightMenuMusicPlaylist.style.display = "block";
+      $rightMenuMusicCopyMusicName.style.display = "block";
+    } else {
+      $rightMenuMusicToggle.style.display = "none";
+      $rightMenuMusicBack.style.display = "none";
+      $rightMenuMusicForward.style.display = "none";
+      $rightMenuMusicPlaylist.style.display = "none";
+      $rightMenuMusicCopyMusicName.style.display = "none";
+    }
+
+    // 如果不是扩展模式则隐藏扩展模块
+    if (pluginMode) {
+      $rightMenuOther.style.display = "none";
+      $rightMenuPlugin.style.display = "block";
+    } else {
+      $rightMenuPlugin.style.display = "none";
+    }
+
+    rm.reloadrmSize();
+
+    // 鼠标默认显示在鼠标右下方，当鼠标靠右或靠下时，将菜单显示在鼠标左方\上方
+    if (pageX + rmWidth > window.innerWidth) {
+      pageX -= rmWidth + 10;
+    }
+    if (pageY + rmHeight > window.innerHeight) {
+      pageY -= pageY + rmHeight - window.innerHeight;
+    }
+
+    rm.showRightMenu(true, pageY, pageX);
+    document.getElementById("rightmenu-mask").style.display = "flex";
+    return false;
+  }
+};
+
+// 监听右键初始化
+window.oncontextmenu = oncontextmenuFunction
+
+// 下载图片状态
+rm.downloadimging = false;
+
+// 复制图片到剪贴板
+rm.writeClipImg = function (imgsrc) {
+  console.log("按下复制");
+  rm.hideRightMenu();
+  anzhiyu.snackbarShow("正在下载中，请稍后", false, 10000);
+  if (rm.downloadimging == false) {
+    rm.downloadimging = true;
+    setTimeout(function () {
+      copyImage(imgsrc);
+      anzhiyu.snackbarShow("复制成功！图片已添加盲水印，请遵守版权协议");
+      rm.downloadimging = false;
+    }, "10000");
+  }
+};
+
+function imageToBlob(imageURL) {
+  const img = new Image();
+  const c = document.createElement("canvas");
+  const ctx = c.getContext("2d");
+  img.crossOrigin = "";
+  img.src = imageURL;
+  return new Promise(resolve => {
+    img.onload = function () {
+      c.width = this.naturalWidth;
+      c.height = this.naturalHeight;
+      ctx.drawImage(this, 0, 0);
+      c.toBlob(
+        blob => {
+          // here the image is a blob
+          resolve(blob);
+        },
+        "image/png",
+        0.75
+      );
+    };
+  });
+}
+
+async function copyImage(imageURL) {
+  const blob = await imageToBlob(imageURL);
+  const item = new ClipboardItem({ "image/png": blob });
+  navigator.clipboard.write([item]);
+}
+
+rm.copyUrl = function (id) {
+  const input = document.createElement("input"); // Create a new <input> element
+  input.id = "copyVal"; // Set the id of the new element to "copyVal"
+  document.body.appendChild(input); // Append the new element to the end of the <body> element
+  
+  const text = id;
+  input.value = text;
+  input.select();
+  input.setSelectionRange(0, input.value.length);
+  document.execCommand("copy");
+  
+  input.remove(); // Remove the <input> element from the DOM
+};
+
+function stopMaskScroll() {
+  if (document.getElementById("rightmenu-mask")) {
+    let xscroll = document.getElementById("rightmenu-mask");
+    xscroll.addEventListener(
+      "mousewheel",
+      function (e) {
+        //阻止浏览器默认方法
+        rm.hideRightMenu();
+        // e.preventDefault();
+      },
+      { passive: true }
+    );
+  }
+  if (document.getElementById("rightMenu")) {
+    let xscroll = document.getElementById("rightMenu");
+    xscroll.addEventListener(
+      "mousewheel",
+      function (e) {
+        //阻止浏览器默认方法
+        rm.hideRightMenu();
+        // e.preventDefault();
+      },
+      { passive: true }
+    );
+  }
+}
+
+rm.rightmenuCopyText = function (txt) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(txt);
+  }
+  rm.hideRightMenu();
+};
+
+rm.copyPageUrl = function (url) {
+  if (!url) {
+    url = window.location.href;
+  }
+  rm.copyUrl(url);
+  anzhiyu.snackbarShow("复制链接地址成功", false, 2000);
+  rm.hideRightMenu();
+};
+
+rm.sharePage = function () {
+  var content = window.location.href;
+  rm.copyUrl(url);
+  anzhiyu.snackbarShow("复制链接地址成功", false, 2000);
+  rm.hideRightMenu();
+};
+
+// 复制当前选中文本
+var selectTextNow = "";
+document.onmouseup = document.ondblclick = selceText;
+
+function selceText() {
+  var txt;
+  if (document.selection) {
+    txt = document.selection.createRange().text;
+  } else {
+    txt = window.getSelection().toString();
+  }
+  selectTextNow = txt !== "" ? txt : "";
+}
+
+// 读取剪切板
+rm.readClipboard = function () {
+  if (navigator.clipboard) {
+    navigator.clipboard.readText().then(clipText => rm.insertAtCaret(globalEvent.target, clipText));
+  }
+};
+
+// 粘贴文本到焦点
+rm.insertAtCaret = function (elemt, value) {
+  const startPos = elemt.selectionStart,
+    endPos = elemt.selectionEnd;
+  if (document.selection) {
+    elemt.focus();
+    var sel = document.selection.createRange();
+    sel.text = value;
+    elemt.focus();
+  } else {
+    if (startPos || startPos == "0") {
+      var scrollTop = elemt.scrollTop;
+      elemt.value = elemt.value.substring(0, startPos) + value + elemt.value.substring(endPos, elemt.value.length);
+      elemt.focus();
+      elemt.selectionStart = startPos + value.length;
+      elemt.selectionEnd = startPos + value.length;
+      elemt.scrollTop = scrollTop;
+    } else {
+      elemt.value += value;
+      elemt.focus();
+    }
+  }
+};
+
+//粘贴文本
+rm.pasteText = function () {
+  const result = rm.readClipboard() || "";
+  rm.hideRightMenu();
+};
+
+//引用到评论
+rm.rightMenuCommentText = function (txt) {
+  rm.hideRightMenu();
+  const postCommentDom = document.getElementById("post-comment");
+  var domTop = postCommentDom.offsetTop;
+  window.scrollTo(0, domTop - 80);
+  if (txt == "undefined" || txt == "null") txt = "好棒！";
+  function setText() {
+    setTimeout(() => {
+      var input = document.getElementsByClassName("el-textarea__inner")[0];
+      if (!input) setText();
+      let evt = document.createEvent("HTMLEvents");
+      evt.initEvent("input", true, true);
+      let inputValue = replaceAll(txt, "\n", "\n> ");
+      input.value = "> " + inputValue + "\n\n";
+      input.dispatchEvent(evt);
+      input.focus();
+      input.setSelectionRange(-1, -1);
+      if (document.getElementById("comment-tips")) {
+        document.getElementById("comment-tips").classList.add("show");
+      }
+    }, 100);
+  }
+  setText();
+};
+
+//替换所有内容
+function replaceAll(string, search, replace) {
+  return string.split(search).join(replace);
+}
+
+// 百度搜索
+rm.searchBaidu = function () {
+  anzhiyu.snackbarShow("即将跳转到百度搜索", false, 2000);
+  setTimeout(function () {
+    window.open("https://www.baidu.com/s?wd=" + selectTextNow);
+  }, "2000");
+  rm.hideRightMenu();
+};
+
+//分享链接
+rm.copyLink = function () {
+  rm.rightmenuCopyText(domhref);
+  anzhiyu.snackbarShow("已复制链接地址");
+};
+
+function addRightMenuClickEvent() {
+  // 添加点击事件
+  document.getElementById("menu-backward").addEventListener("click", function () {
+  window.history.back();
+    rm.hideRightMenu();
+  });
+
+  document.getElementById("menu-forward").addEventListener("click", function () {
+    window.history.forward();
+    rm.hideRightMenu();
+  });
+
+  document.getElementById("menu-refresh").addEventListener("click", function () {
+    window.location.reload();
+  });
+
+  document.getElementById("menu-top").addEventListener("click", function () {
+    anzhiyu.scrollToDest(0, 500);
+    rm.hideRightMenu();
+  });
+
+  const menuLinks = document.querySelectorAll(".menu-link");
+  menuLinks.forEach(function (link) {
+    link.addEventListener("click", rm.hideRightMenu);
+  });
+
+  document.getElementById("menu-darkmode").addEventListener("click", anzhiyu.switchDarkMode);
+
+  document.getElementById("menu-home") && document.getElementById("menu-home").addEventListener("click", function () {
+    window.location.href = window.location.origin;
+  });
+
+  document.getElementById("menu-randomPost").addEventListener("click", function () {
+    toRandomPost();
+  });
+
+  document.getElementById("menu-commentBarrage").addEventListener("click", anzhiyu.switchCommentBarrage);
+
+  document.getElementById("rightmenu-mask").addEventListener("click", rm.hideRightMenu);
+
+  document.getElementById("rightmenu-mask").addEventListener("contextmenu", function (event) {
+    rm.hideRightMenu();
+    event.preventDefault(); // Prevent the default context menu from appearing
+  });
+
+  document.getElementById("menu-copy").addEventListener("click", rm.copyPageUrl);
+
+  document.getElementById("menu-pastetext").addEventListener("click", rm.pasteText);
+
+  document.getElementById("menu-copytext").addEventListener("click", function () {
+    rm.rightmenuCopyText(selectTextNow);
+    anzhiyu.snackbarShow("复制成功，复制和转载请标注本文地址");
+  });
+
+  document.getElementById("menu-commenttext").addEventListener("click", function () {
+    rm.rightMenuCommentText(selectTextNow);
+  });
+
+  document.getElementById("menu-newwindow").addEventListener("click", function () {
+    window.open(domhref, "_blank");
+    rm.hideRightMenu();
+  });
+
+  document.getElementById("menu-copylink").addEventListener("click", rm.copyLink);
+
+  document.getElementById("menu-downloadimg").addEventListener("click", function () {
+    anzhiyu.downloadImage(domImgSrc, "anzhiyu");
+  });
+
+  document.getElementById("menu-newwindowimg").addEventListener("click", function () {
+    window.open(domImgSrc, "_blank");
+    rm.hideRightMenu();
+  });
+
+  document.getElementById("menu-copyimg").addEventListener("click", function () {
+    rm.writeClipImg(domImgSrc);
+  });
+
+  document.getElementById("menu-searchBaidu").addEventListener("click", rm.searchBaidu);
+
+  //音乐
+  document.getElementById("menu-music-toggle").addEventListener("click", anzhiyu.musicToggle);
+
+  document.getElementById("menu-music-back").addEventListener("click", anzhiyu.musicSkipBack);
+
+  document.getElementById("menu-music-forward").addEventListener("click", anzhiyu.musicSkipForward);
+
+  document.getElementById("menu-music-copyMusicName").addEventListener("click", function () {
+    rm.rightmenuCopyText(anzhiyu.musicGetName());
+    anzhiyu.snackbarShow("复制歌曲名称成功", false, 3000);
+  });
+
+}
+
+addRightMenuClickEvent();</script><script data-pjax>var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+var pageHeaderEl = document.getElementById("page-header");
+var navMusicEl = document.getElementById("nav-music");
+var consoleEl = document.getElementById("console");
+// 已随机的歌曲
+var selectRandomSong = [];
+// 音乐默认声音大小
+var musicVolume = 0.8;
+// 是否切换了周杰伦音乐列表
+var changeMusicListFlag = false;
+// 当前默认播放列表
+var defaultPlayMusicList = [];
+
+document.getElementById("page-name").innerText = document.title.split(" | Ada")[0];
+anzhiyu.initIndexEssay();
+anzhiyu.changeTimeInEssay();
+anzhiyu.removeBodyPaceClass();
+anzhiyu.qrcodeCreate();
+anzhiyu.changeTimeInAlbumDetail();
+anzhiyu.reflashEssayWaterFall();
+anzhiyu.sayhi();
+anzhiyu.stopImgRightDrag();
+anzhiyu.addNavBackgroundInit();
+anzhiyu.setValueToBodyType();
+anzhiyu.catalogActive();
+anzhiyu.tagsPageActive();
+anzhiyu.categoriesBarActive();
+anzhiyu.topCategoriesBarScroll();
+anzhiyu.switchRightClickMenuHotReview();
+anzhiyu.getCustomPlayList();
+anzhiyu.addEventListenerConsoleMusicList(false);
+setTimeout(() => {if (typeof addFriendLinksInFooter === "function") {addFriendLinksInFooter();}}, 200)</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/51b8faf5.js","daovoice")
+</script><script>var isChatBtn = true
+daovoice('init', {
+  app_id: '51b8faf5',},{
+  launcher: { 
+     disableLauncherIcon: isChatBtn // 悬浮 ICON 是否显示
+  },
+});
+daovoice('update');
+
+if (isChatBtn) {
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      daovoice('show')
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      daovoice('update', {},{
+        launcher: { 
+        disableLauncherIcon: true // 悬浮 ICON 是否显示
+        },
+      });
+    }
+    function chatBtnShow () {
+      daovoice('update', {},{
+        launcher: { 
+        disableLauncherIcon: false // 悬浮 ICON 是否显示
+        },
+      });
+    }
+  }
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div><script>(function (w, d, s, id) {
+            if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) }; var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1; js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window, document, 'script', 'webpushr-jssdk'));webpushr('setup', { 'key': 'BJjeD4reRc-1D_UEhL5kJQ8sMsvWDWxrZjvv5Wg1G1OHaFJhaKNKofyRr208shfSmbYfP2v8u9hZ7LlTZ0LnXK0' });</script></body></html>
